@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by ranzh on 12/23/2015.
  */
-public interface NewsListView extends View {
+public interface NewsListView extends Views {
     void bindNewsList(List<NewsItem> news);
 
     void showNewsList();
@@ -42,7 +42,7 @@ public interface NewsListView extends View {
 
     void showServerErrorMessage();
 
-    void showUknownErrorMessage();
+    void showUnknownErrorMessage();
 
-    void showDetailScreen(String NewsTitle, int NewsId);
+    void showDetailScreen(String NewsTitle, String NewsId);
 }

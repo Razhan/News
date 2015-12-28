@@ -1,10 +1,11 @@
 package com.guanchazhe.news.mvp.presenters;
 
-import android.view.View;
+import android.util.Log;
 
 import com.guanchazhe.news.domain.GetNewsUsecase;
 import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.mvp.views.NewsListView;
+import com.guanchazhe.news.mvp.views.Views;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class NewsListPresenter implements Presenter {
     }
 
     @Override
-    public void attachView(View v) {
+    public void attachView(Views v) {
         mNewsView = (NewsListView) v;
     }
 
@@ -72,13 +73,15 @@ public class NewsListPresenter implements Presenter {
         mNewsSubscription = mNewsUsecase.execute()
                 .subscribe(
                         characters -> {
-                            mNews.addAll(characters);
-                            mNewsView.bindNewsList(mNews);
-                            mNewsView.showNewsList();
-                            mNewsView.hideEmptyIndicator();
-                            mIsTheNewsRequestRunning = false;
+//                            mNews.addAll(characters);
+//                            mNewsView.bindNewsList(mNews);
+//                            mNewsView.showNewsList();
+//                            mNewsView.hideEmptyIndicator();
+//                            mIsTheNewsRequestRunning = false;
+                            Log.d("newCharacters", String.valueOf(characters.size()));
 
-                },
+
+                        },
                         error -> {
                             mIsTheNewsRequestRunning = false;
                             showErrorView(error);
@@ -93,12 +96,14 @@ public class NewsListPresenter implements Presenter {
         mNewsSubscription = mNewsUsecase.execute()
                 .subscribe(
                         newCharacters -> {
-                            mNews.addAll(newCharacters);
-                            mNewsView.updateNewsList(
-                                    GetNewsUsecase.NEWS_LIMIT);
+//                            mNews.addAll(newCharacters);
+//                            mNewsView.updateNewsList(
+//                                    GetNewsUsecase.NEWS_LIMIT);
+//
+//                            mNewsView.hideLoadingIndicator();
+//                            mIsTheNewsRequestRunning = false;
 
-                            mNewsView.hideLoadingIndicator();
-                            mIsTheNewsRequestRunning = false;
+                            Log.d("newCharacters", String.valueOf(newCharacters.size()));
                         },
 
                         error -> {
@@ -108,6 +113,40 @@ public class NewsListPresenter implements Presenter {
                 );
     }
 
+    private void showErrorView(Throwable error) {
+//        if (error instanceof NetworkUknownHostException) {
+//            mNewsView.showConnectionErrorMessage();
+//
+//        } else if (error instanceof ServerErrorException) {
+//            mNewsView.showServerErrorMessage();
+//
+//        } else {
+//            mNewsView.showUnknownErrorMessage();
+//        }
 
+        mNewsView.showUnknownErrorMessage();
+
+        mNewsView.hideLoadingMoreNewsIndicator();
+        mNewsView.hideEmptyIndicator();
+        mNewsView.hideNewsList();
+    }
+
+    private void showGenericError() {
+        mNewsView.hideLoadingIndicator();
+        mNewsView.showLightError();
+    }
+
+    public void onErrorRetryRequest() {
+        if (mNews.isEmpty())
+            askForNews();
+        else
+            askForMoreNews();
+    }
+
+    public void onElementClick(int position) {
+        String characterId = mNews.get(position).getId();
+        String characterName = mNews.get(position).getTitle();
+        mNewsView.showDetailScreen(characterName, characterId);
+    }
 
 }

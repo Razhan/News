@@ -2,6 +2,8 @@ package com.guanchazhe.news.mvp.presenters;
 
 import android.view.View;
 
+import com.guanchazhe.news.mvp.views.Views;
+
 /**
  * Created by ranzh on 12/23/2015.
  */
@@ -12,7 +14,7 @@ public interface Presenter {
 
     void onPause();
 
-    void attachView (View v);
+    void attachView (Views v);
 
     void onCreate();
 }

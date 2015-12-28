@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.scopes.Activity;
+import com.guanchazhe.news.views.activities.NewsListActivity;
 
 import dagger.Component;
 
@@ -13,7 +14,7 @@ import dagger.Component;
 @Activity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface NewsComponent extends ActivityComponent {
-//    void inject (CharacterListListActivity activity);
+    void inject (NewsListActivity activity);
 
     Context activityContext();
 }

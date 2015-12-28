@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">News</string>
     <string name="action_settings">Settings</string>
+
+    <string name="error.default.characters">Something happened loading characters</string>
+    <string name="error.network.image_not_found">Image not found</string>
+
+    <string name="message.loading.more_characters">Loading more characters</string>
+
+    <string name="error_loading_characters">An error has occurred loading characters</string>
+    <string name="try_again">Try again</string>
+
+    <string name="error.network.uknownhost">Can\'t connect with marvel API</string>
+    <string name="error.network.marvel_server">Marvel API Server has failed</string>
+
 </resources>
