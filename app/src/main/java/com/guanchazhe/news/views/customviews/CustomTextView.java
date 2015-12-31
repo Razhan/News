@@ -1,4 +1,4 @@
-package com.guanchazhe.news.views.views;
+package com.guanchazhe.news.views.customviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;

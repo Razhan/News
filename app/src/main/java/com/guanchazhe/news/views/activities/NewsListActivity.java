@@ -22,7 +22,7 @@ import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.views.adapter.NewsListAdapter;
-import com.guanchazhe.news.views.views.RecyclerInsetsDecoration;
+import com.guanchazhe.news.views.customviews.RecyclerInsetsDecoration;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     }
 
     private void initUi() {
-        setContentView(R.layout.activity_news_list_view);
+        setContentView(R.layout.activity_news_list);
         ButterKnife.bind(this);
     }
 

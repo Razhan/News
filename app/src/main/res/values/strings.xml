@@ -14,4 +14,7 @@
     <string name="error.network.marvel_server">Marvel API Server has failed</string>
     <string name="title_activity_news_detail">NewsDetailActivity</string>
 
+    <string name="character_label_info">Avenger information</string>
+
+
 </resources>

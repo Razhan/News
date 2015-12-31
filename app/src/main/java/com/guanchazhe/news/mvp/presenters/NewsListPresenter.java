@@ -20,6 +20,7 @@ import rx.Subscription;
  * Created by ranzh on 12/23/2015.
  */
 public class NewsListPresenter implements Presenter {
+
     private final GetNewsListUsecase mNewsUsecase;
     private boolean mIsTheNewsRequestRunning;
     private Subscription mNewsSubscription;
