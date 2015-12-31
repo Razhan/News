@@ -1,5 +1,6 @@
 package com.guanchazhe.news.model.rest;
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.guanchazhe.news.model.entities.NewsItem;
 
 import java.util.List;
@@ -14,13 +15,18 @@ import rx.Observable;
 public interface NewsApi {
     String END_POINT = "http://mobileservice.guancha.cn/";
 
-    // http://mobileservice.guancha.cn/app/GetNewsList/?typeid=49646&attributeid=1&pageindex=1&pagesize=40
     @GET("/app/GetNewsList/")
-    Observable<List<NewsItem>> getArticles(
+    Observable<List<NewsItem>> getNews(
             @Query("typeid") int typeid,
             @Query("attributeid") int attributeid,
             @Query("pageindex") int pageindex,
             @Query("pagesize") int pagesize
+    );
+
+    @GET("/Appdetail/get/")
+    Observable<String> getNewsDetail(
+            @Query("devices") String devices,
+            @Query("id") int id
     );
 }
 

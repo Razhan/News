@@ -2,7 +2,8 @@ package com.guanchazhe.news.mvp.presenters;
 
 import android.util.Log;
 
-import com.guanchazhe.news.domain.GetNewsUsecase;
+import com.fernandocejas.frodo.annotation.RxLogSubscriber;
+import com.guanchazhe.news.domain.GetNewsListUsecase;
 import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.mvp.views.Views;
@@ -12,13 +13,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Subscriber;
 import rx.Subscription;
 
 /**
  * Created by ranzh on 12/23/2015.
  */
 public class NewsListPresenter implements Presenter {
-    private final GetNewsUsecase mNewsUsecase;
+    private final GetNewsListUsecase mNewsUsecase;
     private boolean mIsTheNewsRequestRunning;
     private Subscription mNewsSubscription;
 
@@ -26,7 +28,7 @@ public class NewsListPresenter implements Presenter {
     private NewsListView mNewsView;
 
     @Inject
-    public NewsListPresenter(GetNewsUsecase newsUsecase) {
+    public NewsListPresenter(GetNewsListUsecase newsUsecase) {
         mNewsUsecase = newsUsecase;
         mNews = new ArrayList<NewsItem>();
     }
@@ -73,19 +75,16 @@ public class NewsListPresenter implements Presenter {
         mNewsSubscription = mNewsUsecase.execute()
                 .subscribe(
                         characters -> {
-//                            mNews.addAll(characters);
-//                            mNewsView.bindNewsList(mNews);
-//                            mNewsView.showNewsList();
-//                            mNewsView.hideEmptyIndicator();
-//                            mIsTheNewsRequestRunning = false;
-                            Log.d("newCharacters", String.valueOf(characters.size()));
-
-
+                            mNews.addAll(characters);
+                            mNewsView.bindNewsList(mNews);
+                            mNewsView.showNewsList();
+                            mNewsView.hideEmptyIndicator();
+                            mIsTheNewsRequestRunning = false;
                         },
                         error -> {
                             mIsTheNewsRequestRunning = false;
                             showErrorView(error);
-                });
+                        });
 
     }
 
@@ -94,23 +93,7 @@ public class NewsListPresenter implements Presenter {
         mIsTheNewsRequestRunning = true;
 
         mNewsSubscription = mNewsUsecase.execute()
-                .subscribe(
-                        newCharacters -> {
-//                            mNews.addAll(newCharacters);
-//                            mNewsView.updateNewsList(
-//                                    GetNewsUsecase.NEWS_LIMIT);
-//
-//                            mNewsView.hideLoadingIndicator();
-//                            mIsTheNewsRequestRunning = false;
-
-                            Log.d("newCharacters", String.valueOf(newCharacters.size()));
-                        },
-
-                        error -> {
-                            mIsTheNewsRequestRunning = false;
-                            showGenericError();
-                        }
-                );
+                .subscribe(new NewsListSubscriber());
     }
 
     private void showErrorView(Throwable error) {
@@ -147,6 +130,28 @@ public class NewsListPresenter implements Presenter {
         String characterId = mNews.get(position).getId();
         String characterName = mNews.get(position).getTitle();
         mNewsView.showDetailScreen(characterName, characterId);
+    }
+
+//    @RxLogSubscriber
+    public class NewsListSubscriber extends Subscriber<List<NewsItem>> {
+
+        @Override
+        public void onNext(List<NewsItem> newNews) {
+            mNews.addAll(newNews);
+            mNewsView.updateNewsList(GetNewsListUsecase.NEWS_LIMIT);
+            mNewsView.hideLoadingIndicator();
+            mIsTheNewsRequestRunning = false;
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            mIsTheNewsRequestRunning = false;
+            showGenericError();
+        }
+
+        @Override
+        public void onCompleted() {
+        }
     }
 
 }

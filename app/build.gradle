@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.fernandocejas.frodo'
 
 def libs = rootProject.ext.libraries;
 
@@ -15,6 +16,9 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    defaultPublishConfig "debug"
+
     buildTypes {
         release {
             minifyEnabled false

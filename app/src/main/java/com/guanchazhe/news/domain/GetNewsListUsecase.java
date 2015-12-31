@@ -1,5 +1,6 @@
 package com.guanchazhe.news.domain;
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.model.repository.Repository;
 
@@ -14,18 +15,19 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ranzh on 12/22/2015.
  */
-public class GetNewsUsecase implements Usecase<List<NewsItem>> {
+public class GetNewsListUsecase implements Usecase<List<NewsItem>> {
 
     public final static int NEWS_LIMIT = 20;
     private final Repository mRepository;
     private int currentOffset;
 
     @Inject
-    public GetNewsUsecase(Repository repository) {
+    public GetNewsListUsecase(Repository repository) {
         mRepository = repository;
     }
 
     @Override
+//    @RxLogObservable
     public Observable<List<NewsItem>> execute() {
         return mRepository.getNews(49646, 1, 1, 20)
                 .subscribeOn(Schedulers.newThread())

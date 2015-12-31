@@ -12,5 +12,6 @@
 
     <string name="error.network.uknownhost">Can\'t connect with marvel API</string>
     <string name="error.network.marvel_server">Marvel API Server has failed</string>
+    <string name="title_activity_news_detail">NewsDetailActivity</string>
 
 </resources>

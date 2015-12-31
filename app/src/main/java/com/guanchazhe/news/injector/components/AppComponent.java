@@ -14,7 +14,8 @@ import dagger.Component;
 @Singleton
 @Component(modules = AppModule.class)
 public interface AppComponent {
+
     NewsApplication app();
+
     Repository dataRepository();
 }
-

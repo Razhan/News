@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.Utils.Utils;
-import com.guanchazhe.news.injector.components.DaggerNewsComponent;
+import com.guanchazhe.news.injector.components.DaggerNewsListComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
@@ -93,7 +93,7 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     private void initializeDependencyInjector() {
         NewsApplication avengersApplication = (NewsApplication) getApplication();
 
-        DaggerNewsComponent.builder()
+        DaggerNewsListComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .appComponent(avengersApplication.getAppComponent())
                 .build().inject(this);
