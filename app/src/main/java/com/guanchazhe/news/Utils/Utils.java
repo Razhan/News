@@ -1,4 +1,4 @@
-package com.guanchazhe.news.Utils;
+package com.guanchazhe.news.utils;
 
 /**
  * Created by ranzh on 12/24/2015.

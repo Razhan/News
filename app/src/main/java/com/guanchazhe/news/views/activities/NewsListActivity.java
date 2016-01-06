@@ -1,6 +1,7 @@
 package com.guanchazhe.news.views.activities;
 
 import android.app.ActivityOptions;
+import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,14 +9,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.Utils.Utils;
+import com.guanchazhe.news.utils.Utils;
 import com.guanchazhe.news.injector.components.DaggerNewsListComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.model.entities.NewsItem;
@@ -233,9 +233,9 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     }
 
     @Override
-    public void showDetailScreen(String characterName, String characterId) {
-//        CharacterDetailActivity.start(this, characterName, characterId);
-        Log.d("showDetailScreen", "showDetailScreen");
+    public void showDetailScreen(NewsItem newsItem) {
+        NewsDetailActivity.start(this, newsItem);
+//        Log.d("showDetailScreen", "showDetailScreen");
     }
 
 }

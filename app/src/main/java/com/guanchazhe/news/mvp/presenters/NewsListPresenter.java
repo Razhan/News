@@ -130,7 +130,9 @@ public class NewsListPresenter implements Presenter {
     public void onElementClick(int position) {
         String characterId = mNews.get(position).getId();
         String characterName = mNews.get(position).getTitle();
-        mNewsView.showDetailScreen(characterName, characterId);
+
+
+        mNewsView.showDetailScreen(mNews.get(position));
     }
 
 //    @RxLogSubscriber

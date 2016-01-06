@@ -12,10 +12,10 @@ import dagger.Provides;
  */
 @Module
 public class NewsDetailModule {
-    private final int mNewsId;
+    private final String mNewsId;
 
-    public NewsDetailModule(int characterId) {
-        mNewsId = characterId;
+    public NewsDetailModule(String Id) {
+        mNewsId = Id;
     }
 
     @Provides

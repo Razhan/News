@@ -16,5 +16,8 @@
 
     <string name="character_label_info">Avenger information</string>
 
+    <string name="dialog.error">Error</string>
+    <string name="action.accept">Accept</string>
+
 
 </resources>

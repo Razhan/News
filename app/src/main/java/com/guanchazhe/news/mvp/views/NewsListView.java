@@ -44,5 +44,5 @@ public interface NewsListView extends Views {
 
     void showUnknownErrorMessage();
 
-    void showDetailScreen(String NewsTitle, String NewsId);
+    void showDetailScreen(NewsItem newsItem);
 }

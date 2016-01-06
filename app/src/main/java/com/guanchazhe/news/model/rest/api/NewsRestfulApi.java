@@ -1,4 +1,4 @@
-package com.guanchazhe.news.model.rest;
+package com.guanchazhe.news.model.rest.api;
 
 import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.guanchazhe.news.model.entities.NewsItem;
@@ -12,7 +12,7 @@ import rx.Observable;
 /**
  * Created by ranzh on 12/22/2015.
  */
-public interface NewsApi {
+public interface NewsRestfulApi {
     String END_POINT = "http://mobileservice.guancha.cn/";
 
     @GET("/app/GetNewsList/")
@@ -23,10 +23,5 @@ public interface NewsApi {
             @Query("pagesize") int pagesize
     );
 
-    @GET("/Appdetail/get/")
-    Observable<String> getNewsDetail(
-            @Query("devices") String devices,
-            @Query("id") int id
-    );
 }
 

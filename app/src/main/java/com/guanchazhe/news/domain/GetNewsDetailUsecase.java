@@ -1,5 +1,7 @@
 package com.guanchazhe.news.domain;
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
+import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.model.repository.Repository;
 
 import javax.inject.Inject;
@@ -14,11 +16,11 @@ import rx.schedulers.Schedulers;
 public class GetNewsDetailUsecase implements Usecase<String> {
 
     private final Repository mRepository;
-    private int mNewsId;
+    private String mNewsId;
 
 
     @Inject
-    public GetNewsDetailUsecase(int Id, Repository repository) {
+    public GetNewsDetailUsecase(String Id, Repository repository) {
         mNewsId = Id;
         mRepository = repository;
     }
@@ -26,7 +28,7 @@ public class GetNewsDetailUsecase implements Usecase<String> {
     @Override
 //    @RxLogObservable
     public Observable<String> execute() {
-        return mRepository.getNewsDetail("ios", 250357)
+        return mRepository.getNewsDetail("android", "250912")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

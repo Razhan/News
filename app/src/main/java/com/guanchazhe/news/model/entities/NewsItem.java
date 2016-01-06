@@ -1,9 +1,11 @@
 package com.guanchazhe.news.model.entities;
 
+import java.io.Serializable;
+
 /**
  * Created by ranzh on 12/22/2015.
  */
-public class NewsItem {
+public class NewsItem implements Serializable {
     private String rowid;
 
     private String id;
@@ -22,74 +24,85 @@ public class NewsItem {
 
     private String creationtime;
 
-    public void setRowid(String rowid){
+    private String content;
+
+    public String getRowid() {
+        return rowid;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public String getHorizontalpic() {
+        return horizontalpic;
+    }
+
+    public String getCreationtime() {
+        return creationtime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setRowid(String rowid) {
         this.rowid = rowid;
     }
 
-    public String getRowid(){
-        return this.rowid;
-    }
-
-    public void setId(String id){
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getId(){
-        return this.id;
-    }
-
-    public void setTitle(String title){
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getTitle(){
-        return this.title;
-    }
-
-    public void setSummary(String summary){
+    public void setSummary(String summary) {
         this.summary = summary;
     }
 
-    public String getSummary(){
-        return this.summary;
-    }
-
-    public void setAuthor(String author){
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    public String getAuthor(){
-        return this.author;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setType(String type){ this.type = type; }
-
-    public String getType(){
-        return this.type;
-    }
-
-    public void setPic(String pic){
+    public void setPic(String pic) {
         this.pic = pic;
     }
 
-    public String getPic(){
-        return this.pic;
-    }
-
-    public void setHorizontalpic(String horizontalpic){
+    public void setHorizontalpic(String horizontalpic) {
         this.horizontalpic = horizontalpic;
     }
 
-    public String getHorizontalpic(){
-        return this.horizontalpic;
-    }
-
-    public void setCreationtime(String creationtime){
+    public void setCreationtime(String creationtime) {
         this.creationtime = creationtime;
     }
 
-    public String getCreationtime(){
-        return this.creationtime;
+    public void setContent(String content) {
+        this.content = content;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.guanchazhe.news.views.utils;
+package com.guanchazhe.news.views.customviews;
 
 import android.view.View;
 import android.widget.ImageView;

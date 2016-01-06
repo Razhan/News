@@ -26,6 +26,7 @@ public class AppModule {
     @Singleton
     NewsApplication provideNewsApplicationContext () { return mNewsApplication; }
 
-    @Provides @Singleton
-    Repository provideDataRepository (RestDataSource restDataSource) { return restDataSource; }
+    @Provides
+    @Singleton
+    Repository provideDataRepository () { return new RestDataSource(); }
 }
