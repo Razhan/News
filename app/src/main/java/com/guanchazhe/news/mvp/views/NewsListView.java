@@ -2,7 +2,7 @@ package com.guanchazhe.news.mvp.views;
 
 import android.app.ActivityOptions;
 
-import com.guanchazhe.news.model.entities.NewsItem;
+import com.guanchazhe.news.model.entities.News;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Created by ranzh on 12/23/2015.
  */
 public interface NewsListView extends Views {
-    void bindNewsList(List<NewsItem> news);
+    void bindNewsList(List<News> news);
 
     void showNewsList();
 
@@ -44,5 +44,5 @@ public interface NewsListView extends Views {
 
     void showUnknownErrorMessage();
 
-    void showDetailScreen(NewsItem newsItem);
+    void showDetailScreen(News news);
 }

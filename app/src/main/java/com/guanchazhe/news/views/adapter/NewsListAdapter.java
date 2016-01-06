@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.guanchazhe.news.R;
+import com.guanchazhe.news.model.entities.News;
 import com.guanchazhe.news.utils.Utils;
-import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.views.utils.RecyclerClickListener;
 
 import java.util.List;
@@ -27,11 +27,11 @@ import butterknife.ButterKnife;
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder> {
     private final String NOT_AVAILABLE_URL = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
     private final RecyclerClickListener mRecyclerListener;
-    private final List<NewsItem> mNews;
+    private final List<News> mNews;
 
     private Context mContext;
 
-    public NewsListAdapter(List<NewsItem> news, Context context, RecyclerClickListener recyclerClickListener) {
+    public NewsListAdapter(List<News> news, Context context, RecyclerClickListener recyclerClickListener) {
         mNews = news;
         mContext = context;
         mRecyclerListener = recyclerClickListener;
@@ -67,7 +67,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
             bindListener(itemView, recyclerClickListener);
         }
 
-        public void bindNews(NewsItem news) {
+        public void bindNews(News news) {
             avengerTitleTextView.setText(news.getTitle());
             avengerTitleTextView.setTransitionName(Utils.getListTransitionName(getAdapterPosition()));
 

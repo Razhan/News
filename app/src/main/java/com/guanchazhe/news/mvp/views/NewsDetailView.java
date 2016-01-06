@@ -2,7 +2,7 @@ package com.guanchazhe.news.mvp.views;
 
 import android.graphics.Bitmap;
 
-import com.guanchazhe.news.model.entities.NewsItem;
+import com.guanchazhe.news.model.entities.News;
 
 /**
  * Created by ranzh on 1/4/2016.
@@ -13,11 +13,11 @@ public interface NewsDetailView extends Views {
 
     void showError(String s);
 
-    void bindNews(NewsItem news);
+    void bindNews(News news);
 
     void initActivityColors(Bitmap resource);
 
-    void setContent(NewsItem news);
+    void setContent(News news);
 
     void stopWebView();
 

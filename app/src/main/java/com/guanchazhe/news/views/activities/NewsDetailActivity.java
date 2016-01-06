@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
-import android.text.Html;
 import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -26,9 +24,8 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.model.entities.NewsItem;
+import com.guanchazhe.news.model.entities.News;
 import com.guanchazhe.news.views.utils.AnimUtils;
-import com.guanchazhe.news.views.utils.GlideImageGetter;
 import com.guanchazhe.news.views.utils.TransitionUtils;
 import com.guanchazhe.news.databinding.ActivityNewsDetailBinding;
 import com.guanchazhe.news.injector.components.DaggerNewsDetailComponent;
@@ -98,14 +95,14 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
 
     private void initializePresenter() {
 
-        NewsItem newsItem = (NewsItem)getIntent().getSerializableExtra("newsItem");
+        News news = (News)getIntent().getSerializableExtra("news");
 
-        String NewsId = newsItem.getId();
-        String NewsTitle = newsItem.getTitle();
+        String NewsId = news.getId();
+        String NewsTitle = news.getTitle();
 
         mNewsDetailPresenter.attachView(this);
         mNewsDetailPresenter.setCharacterId(NewsId);
-        mNewsDetailPresenter.initializePresenter(NewsId, NewsTitle, newsItem);
+        mNewsDetailPresenter.initializePresenter(NewsId, NewsTitle, news);
         mNewsDetailPresenter.onCreate();
         mBinding.setPresenter(mNewsDetailPresenter);
     }
@@ -178,12 +175,12 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     }
 
     @Override
-    public void bindNews(NewsItem news) {
+    public void bindNews(News news) {
         mBinding.setNews(news);
     }
 
     @Override
-    public void setContent(NewsItem news) {
+    public void setContent(News news) {
         content.loadDataWithBaseURL(null, news.getContent(), "text/html","UTF-8", null);
         // contentTextView.setText(Html.fromHtml(news.getContent(), new GlideImageGetter(contentTextView), null));
     }
@@ -215,9 +212,9 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         mNewsDetailPresenter.onStop();
     }
 
-    public static void start(Context context, NewsItem newsItem) {
+    public static void start(Context context, News news) {
         Intent characterDetailIntent = new Intent(context, NewsDetailActivity.class);
-        characterDetailIntent.putExtra("newsItem", newsItem);
+        characterDetailIntent.putExtra("news", news);
         context.startActivity(characterDetailIntent);
     }
 

@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
+import com.guanchazhe.news.model.entities.News;
 import com.guanchazhe.news.utils.Utils;
 import com.guanchazhe.news.injector.components.DaggerNewsListComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
-import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.views.adapter.NewsListAdapter;
@@ -105,7 +105,7 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     }
 
     @Override
-    public void bindNewsList(List<NewsItem> news) {
+    public void bindNewsList(List<News> news) {
         mNewsListAdapter = new NewsListAdapter(news, this,
                 (position, sharedView, characterImageView) -> {
                     mNewsListPresenter.onElementClick(position);
@@ -232,8 +232,8 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     }
 
     @Override
-    public void showDetailScreen(NewsItem newsItem) {
-        NewsDetailActivity.start(this, newsItem);
+    public void showDetailScreen(News news) {
+        NewsDetailActivity.start(this, news);
 //        Log.d("showDetailScreen", "showDetailScreen");
     }
 

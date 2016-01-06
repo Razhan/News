@@ -1,10 +1,7 @@
 package com.guanchazhe.news.mvp.presenters;
 
-import android.util.Log;
-
-import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 import com.guanchazhe.news.domain.GetNewsListUsecase;
-import com.guanchazhe.news.model.entities.NewsItem;
+import com.guanchazhe.news.model.entities.News;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.mvp.views.Views;
 
@@ -25,13 +22,13 @@ public class NewsListPresenter implements Presenter {
     private boolean mIsTheNewsRequestRunning;
     private Subscription mNewsSubscription;
 
-    private List<NewsItem> mNews;
+    private List<News> mNews;
     private NewsListView mNewsView;
 
     @Inject
     public NewsListPresenter(GetNewsListUsecase newsUsecase) {
         mNewsUsecase = newsUsecase;
-        mNews = new ArrayList<NewsItem>();
+        mNews = new ArrayList<News>();
     }
 
     @Override
@@ -136,10 +133,10 @@ public class NewsListPresenter implements Presenter {
     }
 
 //    @RxLogSubscriber
-    public class NewsListSubscriber extends Subscriber<List<NewsItem>> {
+    public class NewsListSubscriber extends Subscriber<List<News>> {
 
         @Override
-        public void onNext(List<NewsItem> newNews) {
+        public void onNext(List<News> newNews) {
             mNews.addAll(newNews);
             mNewsView.updateNewsList(GetNewsListUsecase.NEWS_LIMIT);
             mNewsView.hideLoadingIndicator();

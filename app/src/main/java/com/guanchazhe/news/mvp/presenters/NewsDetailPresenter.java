@@ -2,12 +2,9 @@ package com.guanchazhe.news.mvp.presenters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.text.Html;
-import android.widget.TextView;
 
 import com.guanchazhe.news.domain.GetNewsDetailUsecase;
-import com.guanchazhe.news.model.entities.NewsItem;
+import com.guanchazhe.news.model.entities.News;
 import com.guanchazhe.news.mvp.views.NewsDetailView;
 import com.guanchazhe.news.mvp.views.Views;
 
@@ -27,7 +24,7 @@ public class NewsDetailPresenter implements Presenter {
     private Subscription mNewsDetailSubscription;
     private String mNewsId;
     private String mNewsTitle;
-    private NewsItem mNewsItem;
+    private News mNews;
 
     @Inject
     public NewsDetailPresenter(GetNewsDetailUsecase newsDetailUsecase, Context activityContext) {
@@ -69,24 +66,24 @@ public class NewsDetailPresenter implements Presenter {
         mNewsDetailView = (NewsDetailView) v;
     }
 
-    public void initializePresenter(String Id, String title, NewsItem newsItem) {
+    public void initializePresenter(String Id, String title, News news) {
         mNewsId = Id;
         mNewsTitle = title;
-        mNewsItem = newsItem;
+        mNews = news;
     }
 
-    private NewsItem convertHtmlToObj(String content) {
+    private News convertHtmlToObj(String content) {
 
-        mNewsItem.setContent(content);
+        mNews.setContent(content);
 
-        return mNewsItem;
+        return mNews;
     }
 
     private void manageCharacterError(Throwable error) {
         // TODO
     }
 
-    private void onNewsReceived(NewsItem news) {
+    private void onNewsReceived(News news) {
         mNewsDetailView.bindNews(news);
         mNewsDetailView.setContent(news);
     }

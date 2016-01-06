@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by ranzh on 12/22/2015.
  */
-public class NewsItem implements Serializable {
+public class News implements Serializable {
     private String rowid;
 
     private String id;

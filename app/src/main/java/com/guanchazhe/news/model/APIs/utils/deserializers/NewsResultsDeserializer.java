@@ -1,4 +1,4 @@
-package com.guanchazhe.news.model.rest.utils.deserializers;
+package com.guanchazhe.news.model.APIs.utils.deserializers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;

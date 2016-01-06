@@ -1,4 +1,4 @@
-package com.guanchazhe.news.model.rest.utils.interceptors;
+package com.guanchazhe.news.model.APIs.utils.interceptors;
 
 import android.util.Log;
 

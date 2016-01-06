@@ -1,7 +1,5 @@
 package com.guanchazhe.news.domain;
 
-import com.fernandocejas.frodo.annotation.RxLogObservable;
-import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.model.repository.Repository;
 
 import javax.inject.Inject;

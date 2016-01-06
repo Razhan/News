@@ -1,4 +1,4 @@
-package com.guanchazhe.news.model.rest.api;
+package com.guanchazhe.news.model.APIs.JsoupAPIs;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
