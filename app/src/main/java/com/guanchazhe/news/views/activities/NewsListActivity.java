@@ -1,7 +1,6 @@
 package com.guanchazhe.news.views.activities;
 
 import android.app.ActivityOptions;
-import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +21,7 @@ import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.views.adapter.NewsListAdapter;
-import com.guanchazhe.news.views.customviews.RecyclerInsetsDecoration;
+import com.guanchazhe.news.views.utils.RecyclerInsetsDecoration;
 
 import java.util.List;
 

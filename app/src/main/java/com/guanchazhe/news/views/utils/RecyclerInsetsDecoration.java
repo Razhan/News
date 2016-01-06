@@ -1,4 +1,4 @@
-package com.guanchazhe.news.views.customviews;
+package com.guanchazhe.news.views.utils;
 
 import android.content.Context;
 import android.graphics.Rect;

@@ -27,8 +27,8 @@ public class GetNewsDetailUsecase implements Usecase<String> {
 
     @Override
 //    @RxLogObservable
-    public Observable<String> execute() {
-        return mRepository.getNewsDetail("android", "250912")
+    public Observable<String> execute(String... parameters) {
+        return mRepository.getNewsDetail(parameters[0])
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

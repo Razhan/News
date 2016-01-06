@@ -10,19 +10,25 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
+import android.text.Html;
 import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.model.entities.NewsItem;
 import com.guanchazhe.news.views.utils.AnimUtils;
+import com.guanchazhe.news.views.utils.GlideImageGetter;
 import com.guanchazhe.news.views.utils.TransitionUtils;
 import com.guanchazhe.news.databinding.ActivityNewsDetailBinding;
 import com.guanchazhe.news.injector.components.DaggerNewsDetailComponent;
@@ -33,6 +39,7 @@ import com.guanchazhe.news.mvp.views.NewsDetailView;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.BindInt;
 import butterknife.ButterKnife;
@@ -46,6 +53,8 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     @BindInt(R.integer.duration_huge)                   int mAnimHugeDuration;
     @BindColor(R.color.colorPrimaryDark)                int mColorPrimaryDark;
 
+    @Bind(R.id.character_biography)                     WebView content;
+
     @Inject NewsDetailPresenter mNewsDetailPresenter;
     private ActivityNewsDetailBinding mBinding;
 
@@ -55,10 +64,16 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
 
         initializeBinding();
         initButterknife();
+        initUI();
         initializeDependencyInjector();
         initializePresenter();
         initToolbar();
         initTransitions();
+    }
+
+    private void initUI() {
+        WebSettings settings = content.getSettings();
+        settings.setTextZoom(110);
     }
 
     private void initializeBinding() {
@@ -167,16 +182,31 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         mBinding.setNews(news);
     }
 
+    @Override
+    public void setContent(NewsItem news) {
+        content.loadDataWithBaseURL(null, news.getContent(), "text/html","UTF-8", null);
+        // contentTextView.setText(Html.fromHtml(news.getContent(), new GlideImageGetter(contentTextView), null));
+    }
+
+    @Override
+    public void stopWebView() {
+        content.loadUrl("about:blank");
+    }
+
     @BindingAdapter({"source", "presenter"})
     public static void setImageSource(ImageView v, String url, NewsDetailPresenter detailPresenter) {
-        Glide.with(v.getContext()).load(url).asBitmap().into(new BitmapImageViewTarget(v) {
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                super.onResourceReady(resource, glideAnimation);
-                v.setImageBitmap(resource);
-                detailPresenter.onImageReceived(resource);
-            }
-        });
+        Glide.with(v.getContext())
+            .load(url)
+            .asBitmap()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(new BitmapImageViewTarget(v) {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    super.onResourceReady(resource, glideAnimation);
+                    v.setImageBitmap(resource);
+                    detailPresenter.onImageReceived(resource);
+                }
+            });
     }
 
     @Override

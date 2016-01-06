@@ -40,7 +40,7 @@ public class NewsDetailPresenter implements Presenter {
         if (mNewsId == null || mNewsTitle == null)
             throw new IllegalStateException("initializePresenter was not well initialised");
 
-        mNewsDetailSubscription = mNewsDetailUsecase.execute()
+        mNewsDetailSubscription = mNewsDetailUsecase.execute(mNewsId)
                 .map(this::convertHtmlToObj)
                 .subscribe(
                         this::onNewsReceived,
@@ -53,8 +53,12 @@ public class NewsDetailPresenter implements Presenter {
 
     @Override
     public void onStop(){
-        if (!mNewsDetailSubscription.isUnsubscribed())
+        if (!mNewsDetailSubscription.isUnsubscribed()) {
             mNewsDetailSubscription.unsubscribe();
+        }
+
+        mNewsDetailView.stopWebView();
+
     }
 
     @Override
@@ -84,6 +88,7 @@ public class NewsDetailPresenter implements Presenter {
 
     private void onNewsReceived(NewsItem news) {
         mNewsDetailView.bindNews(news);
+        mNewsDetailView.setContent(news);
     }
 
     public void setCharacterId(String Id) {
@@ -94,21 +99,5 @@ public class NewsDetailPresenter implements Presenter {
         mNewsDetailView.hideRevealViewByAlpha();
         mNewsDetailView.initActivityColors(resource);
     }
-
-    static class URLImageGetter implements Html.ImageGetter {
-
-        private TextView container;
-
-        public URLImageGetter(TextView container) {
-            this.container = container;
-        }
-
-        @Override
-        public Drawable getDrawable(String source) {
-            URLDrawable ud = new URLDrawable(source, container);
-            return ud;
-        }
-    }
-
 
 }

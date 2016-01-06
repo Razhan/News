@@ -12,5 +12,5 @@ import rx.Observable;
 public interface Repository {
     Observable<List<NewsItem>> getNews(int typeid, int attributeid, int pageindex, int pagesize);
 
-    Observable<String> getNewsDetail(String device, String id);
+    Observable<String> getNewsDetail(String id);
 }

@@ -7,5 +7,5 @@ import rx.Observable;
  */
 public interface Usecase<T> {
 
-    Observable<T> execute();
+    Observable<T> execute(String... parameters);
 }

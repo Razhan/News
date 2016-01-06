@@ -17,4 +17,8 @@ public interface NewsDetailView extends Views {
 
     void initActivityColors(Bitmap resource);
 
+    void setContent(NewsItem news);
+
+    void stopWebView();
+
 }

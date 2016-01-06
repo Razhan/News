@@ -65,9 +65,9 @@ public class RestDataSource implements Repository {
     }
 
     @Override
-    public Observable<String> getNewsDetail(String device, String id) {
+    public Observable<String> getNewsDetail(String id) {
 
-        return newsJsoupApi.getNewsDetail("");
+        return newsJsoupApi.getNewsDetail(id);
     }
 
 }

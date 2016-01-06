@@ -28,7 +28,7 @@ public class GetNewsListUsecase implements Usecase<List<NewsItem>> {
 
     @Override
 //    @RxLogObservable
-    public Observable<List<NewsItem>> execute() {
+    public Observable<List<NewsItem>> execute(String... parameters) {
         return mRepository.getNews(49646, 1, 1, 20)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());

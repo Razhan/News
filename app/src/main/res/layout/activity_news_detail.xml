@@ -90,7 +90,7 @@
             <LinearLayout
                 android:id="@+id/character_info_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 >
 
@@ -104,16 +104,15 @@
                     android:textColor="@color/grey.light"
                     />
 
-                <TextView
+                <WebView
                     android:id="@+id/character_biography"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="8dp"
                     android:paddingLeft="@dimen/spacing_normal"
                     android:paddingRight="@dimen/spacing_normal"
-                    android:text="@{news.content}"
+                    android:scrollbars="none"
                     android:visibility="@{news != null ? View.VISIBLE : View.GONE}"
-                    android:textSize="20sp"
                     />
 
                 <ProgressBar

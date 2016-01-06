@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.utils.Utils;
 import com.guanchazhe.news.model.entities.NewsItem;
-import com.guanchazhe.news.views.customviews.RecyclerClickListener;
+import com.guanchazhe.news.views.utils.RecyclerClickListener;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.guanchazhe.news.views.customviews;
+package com.guanchazhe.news.views.utils;
 
 import android.widget.ScrollView;
 
