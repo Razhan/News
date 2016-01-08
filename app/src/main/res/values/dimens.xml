@@ -19,7 +19,18 @@
     <dimen name="image_width">400dp</dimen>
 
     <dimen name="insets">2dp</dimen>
-    <dimen name="avenger_header_height">150dp</dimen>
-    <dimen name="toolbarHeight">56dp</dimen>
+    <!--<dimen name="avenger_header_height">150dp</dimen>-->
+    <!--<dimen name="toolbarHeight">56dp</dimen>-->
+    <!--&lt;!&ndash; Default screen margins, per the Android Design guidelines. &ndash;&gt;-->
+    <!--<dimen name="activity_horizontal_margin">16dp</dimen>-->
+    <!--<dimen name="activity_vertical_margin">16dp</dimen>-->
+    <!--<dimen name="fab_margin">16dp</dimen>-->
+
+    <dimen name="profile">40dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
 
 </resources>

@@ -18,6 +18,8 @@ import rx.Subscription;
  */
 public class NewsDetailPresenter implements Presenter {
 
+    private final String DEVICE = "android";
+
     private final Context mActivityContext;
     private NewsDetailView mNewsDetailView;
     private final GetNewsDetailUsecase mNewsDetailUsecase;
@@ -37,7 +39,7 @@ public class NewsDetailPresenter implements Presenter {
         if (mNewsId == null || mNewsTitle == null)
             throw new IllegalStateException("initializePresenter was not well initialised");
 
-        mNewsDetailSubscription = mNewsDetailUsecase.execute(mNewsId)
+        mNewsDetailSubscription = mNewsDetailUsecase.execute(DEVICE, mNewsId)
                 .map(this::convertHtmlToObj)
                 .subscribe(
                         this::onNewsReceived,

@@ -1,5 +1,6 @@
 package com.guanchazhe.news.model.repository;
 
+import com.guanchazhe.news.model.entities.Commentary;
 import com.guanchazhe.news.model.entities.News;
 
 import java.util.List;
@@ -12,5 +13,9 @@ import rx.Observable;
 public interface Repository {
     Observable<List<News>> getNews(int typeid, int attributeid, int pageindex, int pagesize);
 
-    Observable<String> getNewsDetail(String id);
+    Observable<String> getNewsDetail(String device, String id);
+
+    Observable<List<Commentary>> getCommentaries(String authorid, int pageindex, int pagesize);
+
+//    Observable<String> getCommentaryDetail(String id);
 }

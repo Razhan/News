@@ -41,7 +41,7 @@
     <style name="Text.Header">
         <item name="android:minHeight">48dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
@@ -51,6 +51,21 @@
         <item name="android:textColor">@android:color/transparent</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Text.ComicHeader">
+        <item name="android:minHeight">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Text.ComicContent">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLength">75</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="Text.StateMessage">
