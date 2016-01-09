@@ -2,9 +2,14 @@ package com.guanchazhe.news.views.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -35,9 +40,10 @@ public class CommentaryListActivity extends AppCompatActivity
     @Inject
     CommentaryListPresenter mCommentaryListPresenter;
 
-    @Bind(R.id.collection_list)         RecyclerView mCollectionRecycler;
-    @Bind(R.id.collection_loading)      ProgressBar mLoadingIndicator;
-
+    @Bind(R.id.collection_list)                 RecyclerView mCollectionRecycler;
+    @Bind(R.id.collection_loading)              ProgressBar mLoadingIndicator;
+    @Bind(R.id.commentary_list_collapsing)      CollapsingToolbarLayout mCollapsingToolbarLayout;
+    @Bind(R.id.commentary_list_toolbar)         Toolbar mToolBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,7 @@ public class CommentaryListActivity extends AppCompatActivity
 
         initDependencyInjector();
         initializePresenter();
+        initToolbar();
     }
 
     private void initDependencyInjector() {
@@ -64,6 +71,18 @@ public class CommentaryListActivity extends AppCompatActivity
         mCommentaryListPresenter.attachView(this);
         mCommentaryListPresenter.initialisePresenters(authorname);
         mCommentaryListPresenter.onCreate();
+    }
+
+    private void initToolbar() {
+        mCollapsingToolbarLayout.setExpandedTitleTextAppearance(
+                R.style.Text_CollapsedExpanded);
+
+        mToolBar.setNavigationOnClickListener(v -> onBackPressed());
+        mToolBar.setTitle("专栏");
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(CommentaryListActivity.this, R.color.red));
+        mCollapsingToolbarLayout.setContentScrimResource(R.color.red);
+
     }
 
     @Override

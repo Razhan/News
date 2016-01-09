@@ -30,9 +30,6 @@ public class RestDataSource implements Repository {
     private final ListRestfulAPIs listRestfulAPIs;
     private final DetailRestfulAPIs detailRestfulAPIs;
 
-//    private final NewsJsoupApi newsJsoupApi;
-
-
     @Inject
     public RestDataSource() {
         OkHttpClient client = new OkHttpClient();

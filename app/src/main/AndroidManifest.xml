@@ -25,7 +25,7 @@
         </activity>
         <activity
             android:name=".views.activities.CommentaryListActivity"
-            android:label="@string/title_activity_commentary_collection"
+            android:label="@string/title_activity_commentary_list"
             android:theme="@style/AppTheme">
 
              <intent-filter>

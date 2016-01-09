@@ -18,7 +18,7 @@
 
     <string name="dialog.error">Error</string>
     <string name="action.accept">Accept</string>
-    <string name="title_activity_commentary_collection">CommentaryCollectionActivity</string>
+    <string name="title_activity_commentary_list">CommentaryListActivity</string>
     <string name="title_activity_main">MainActivity</string>
 
 </resources>

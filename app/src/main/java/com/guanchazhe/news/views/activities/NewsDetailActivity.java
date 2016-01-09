@@ -28,7 +28,7 @@ import com.guanchazhe.news.model.entities.News;
 import com.guanchazhe.news.views.utils.AnimUtils;
 import com.guanchazhe.news.views.utils.TransitionUtils;
 import com.guanchazhe.news.databinding.ActivityNewsDetailBinding;
-import com.guanchazhe.news.injector.components.DaggerNewsDetailComponent;
+import com.guanchazhe.news.injector.components .DaggerNewsDetailComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsDetailModule;
 import com.guanchazhe.news.mvp.presenters.NewsDetailPresenter;
