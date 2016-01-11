@@ -3,7 +3,7 @@ package com.guanchazhe.news.mvp.presenters;
 import android.content.Context;
 
 import com.guanchazhe.news.domain.GetCommentaryListUsecase;
-import com.guanchazhe.news.model.entities.Commentary;
+import com.guanchazhe.news.mvp.model.entities.Commentary;
 import com.guanchazhe.news.mvp.views.CommentaryListView;
 import com.guanchazhe.news.mvp.views.Views;
 

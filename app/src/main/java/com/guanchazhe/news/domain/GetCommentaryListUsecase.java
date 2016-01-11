@@ -1,7 +1,7 @@
 package com.guanchazhe.news.domain;
 
-import com.guanchazhe.news.model.entities.Commentary;
-import com.guanchazhe.news.model.repository.Repository;
+import com.guanchazhe.news.mvp.model.entities.Commentary;
+import com.guanchazhe.news.mvp.model.repository.Repository;
 
 import java.util.List;
 
@@ -26,7 +26,6 @@ public class GetCommentaryListUsecase implements Usecase<List<Commentary>> {
     }
 
 
-//    http://mobileservice.guancha.cn/app/GetAuthorNews/?authorid=FuLangXiSiÂ·FuShan&pageindex=1&pagesize=20
     @Override
     public Observable<List<Commentary>> execute(String... parameters) {
         return mRepository.getCommentaries("Libin", 1, 20)

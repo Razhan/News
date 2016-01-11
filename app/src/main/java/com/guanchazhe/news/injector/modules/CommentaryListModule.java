@@ -2,7 +2,7 @@ package com.guanchazhe.news.injector.modules;
 
 import com.guanchazhe.news.domain.GetCommentaryListUsecase;
 import com.guanchazhe.news.injector.scopes.Activity;
-import com.guanchazhe.news.model.repository.Repository;
+import com.guanchazhe.news.mvp.model.repository.Repository;
 
 import dagger.Module;
 import dagger.Provides;

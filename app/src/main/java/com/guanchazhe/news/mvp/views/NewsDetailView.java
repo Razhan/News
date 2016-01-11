@@ -2,7 +2,7 @@ package com.guanchazhe.news.mvp.views;
 
 import android.graphics.Bitmap;
 
-import com.guanchazhe.news.model.entities.News;
+import com.guanchazhe.news.mvp.model.entities.News;
 
 /**
  * Created by ranzh on 1/4/2016.

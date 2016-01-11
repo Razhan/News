@@ -3,6 +3,15 @@
     <dimen name="toolbar_x2">112dp</dimen>
     <dimen name="toolbar_x3">168dp</dimen>
 
+    <!-- Texts -->
+    <dimen name="text_size_xsmall">11sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">20sp</dimen>
+    <dimen name="text_size_xxlarge">24sp</dimen>
+    <dimen name="text_size_diff_large_small">6sp</dimen>
+
     <!-- spacing -->
     <dimen name="spacing_huge">32dp</dimen>
     <dimen name="spacing_normal">16dp</dimen>
@@ -31,6 +40,17 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Common -->
+    <dimen name="item_spacing_half">2dp</dimen>
+    <dimen name="item_spacing_full">4dp</dimen>
+    <dimen name="element_spacing_normal">8dp</dimen>
+    <dimen name="content_padding_normal">16dp</dimen>
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="item_load_more_size">48dp</dimen>
+    <dimen name="flexible_space_image_height">300dp</dimen>
+    <item name="match_parent" type="dimen">-1</item>
+    <item name="wrap_content" type="dimen">-2</item>
 
 
 </resources>

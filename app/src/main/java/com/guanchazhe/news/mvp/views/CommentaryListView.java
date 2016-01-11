@@ -1,6 +1,6 @@
 package com.guanchazhe.news.mvp.views;
 
-import com.guanchazhe.news.model.entities.Commentary;
+import com.guanchazhe.news.mvp.model.entities.Commentary;
 
 import java.util.List;
 

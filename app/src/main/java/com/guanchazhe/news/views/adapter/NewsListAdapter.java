@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.model.entities.News;
+import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.utils.Utils;
-import com.guanchazhe.news.views.utils.RecyclerClickListener;
+import com.guanchazhe.news.views.widget.RecyclerClickListener;
 
 import java.util.List;
 

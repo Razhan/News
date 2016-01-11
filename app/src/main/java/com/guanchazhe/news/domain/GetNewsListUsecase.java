@@ -1,7 +1,7 @@
 package com.guanchazhe.news.domain;
 
-import com.guanchazhe.news.model.entities.News;
-import com.guanchazhe.news.model.repository.Repository;
+import com.guanchazhe.news.mvp.model.entities.News;
+import com.guanchazhe.news.mvp.model.repository.Repository;
 
 import java.util.List;
 

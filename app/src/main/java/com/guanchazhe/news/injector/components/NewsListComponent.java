@@ -1,12 +1,10 @@
 package com.guanchazhe.news.injector.components;
 
-import android.content.Context;
-
 import com.guanchazhe.news.domain.GetNewsListUsecase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsListModule;
 import com.guanchazhe.news.injector.scopes.Activity;
-import com.guanchazhe.news.views.activities.NewsListActivity;
+import com.guanchazhe.news.views.activity.NewsListActivity;
 
 import dagger.Component;
 

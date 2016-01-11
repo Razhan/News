@@ -4,7 +4,7 @@ import com.guanchazhe.news.domain.GetCommentaryListUsecase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.CommentaryListModule;
 import com.guanchazhe.news.injector.scopes.Activity;
-import com.guanchazhe.news.views.activities.CommentaryListActivity;
+import com.guanchazhe.news.views.activity.CommentaryListActivity;
 
 import dagger.Component;
 

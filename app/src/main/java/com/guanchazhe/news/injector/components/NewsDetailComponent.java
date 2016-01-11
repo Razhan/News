@@ -4,7 +4,7 @@ import com.guanchazhe.news.domain.GetNewsDetailUsecase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsDetailModule;
 import com.guanchazhe.news.injector.scopes.Activity;
-import com.guanchazhe.news.views.activities.NewsDetailActivity;
+import com.guanchazhe.news.views.activity.NewsDetailActivity;
 
 import dagger.Component;
 

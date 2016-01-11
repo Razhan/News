@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.model.entities.Commentary;
+import com.guanchazhe.news.mvp.model.entities.Commentary;
 
 import java.util.Collection;
 

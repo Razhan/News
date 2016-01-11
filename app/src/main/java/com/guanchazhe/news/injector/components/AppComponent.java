@@ -2,7 +2,7 @@ package com.guanchazhe.news.injector.components;
 
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.injector.modules.AppModule;
-import com.guanchazhe.news.model.repository.Repository;
+import com.guanchazhe.news.mvp.model.repository.Repository;
 
 import javax.inject.Singleton;
 

@@ -1,7 +1,7 @@
 package com.guanchazhe.news.mvp.presenters;
 
 import com.guanchazhe.news.domain.GetNewsListUsecase;
-import com.guanchazhe.news.model.entities.News;
+import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.mvp.views.Views;
 
@@ -125,10 +125,6 @@ public class NewsListPresenter implements Presenter {
     }
 
     public void onElementClick(int position) {
-        String characterId = mNews.get(position).getId();
-        String characterName = mNews.get(position).getTitle();
-
-
         mNewsView.showDetailScreen(mNews.get(position));
     }
 

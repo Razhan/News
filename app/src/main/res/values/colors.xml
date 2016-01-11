@@ -13,8 +13,13 @@
 
     <color name="divider">#8fB6B6B6</color>
 
-    <color name="red">#cc0000</color>
+    <color name="red">#ffff0000</color>
     <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+
+    <array name="swipe_progress_colors">
+        <item>@color/red</item>
+    </array>
 
 
 

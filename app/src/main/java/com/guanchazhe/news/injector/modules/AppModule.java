@@ -1,8 +1,8 @@
 package com.guanchazhe.news.injector.modules;
 
 import com.guanchazhe.news.NewsApplication;
-import com.guanchazhe.news.model.repository.Repository;
-import com.guanchazhe.news.model.APIs.RestDataSource;
+import com.guanchazhe.news.mvp.model.repository.Repository;
+import com.guanchazhe.news.mvp.model.repository.RestDataSource;
 
 import javax.inject.Singleton;
 

@@ -8,9 +8,9 @@
     <data>
         <import type="android.view.View"/>
         <import type="android.text.TextUtils"/>
-        <import type="com.guanchazhe.news.model.entities.NewsType"/>
+        <import type="com.guanchazhe.news.mvp.model.entities.NewsType"/>
 
-        <variable name="news" type="com.guanchazhe.news.model.entities.News"/>
+        <variable name="news" type="com.guanchazhe.news.mvp.model.entities.News"/>
         <variable name="presenter" type="com.guanchazhe.news.mvp.presenters.NewsDetailPresenter"/>
         <variable name="swatch" type="android.support.v7.graphics.Palette.Swatch"/>
     </data>

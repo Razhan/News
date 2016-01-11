@@ -2,7 +2,7 @@ package com.guanchazhe.news.mvp.views;
 
 import android.app.ActivityOptions;
 
-import com.guanchazhe.news.model.entities.News;
+import com.guanchazhe.news.mvp.model.entities.News;
 
 import java.util.List;
 
