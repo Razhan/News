@@ -1,11 +1,8 @@
 package com.guanchazhe.news.views.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,10 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanchazhe.news.R;
+import com.guanchazhe.news.views.adapter.FragAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,56 +55,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTabLayout() {
-        SampleFragmentPagerAdapter pagerAdapter =
-                new SampleFragmentPagerAdapter(getSupportFragmentManager(), this);
+        FragAdapter pagerAdapter =
+                new FragAdapter(getSupportFragmentManager(), this);
 
         viewPager.setAdapter(pagerAdapter);
 
         tabs.setupWithViewPager(viewPager);
 
-        for (int i = 0; i < tabs.getTabCount(); i++) {
-            TabLayout.Tab tab = tabs.getTabAt(i);
-            if (tab != null) {
-                tab.setCustomView(pagerAdapter.getTabView(i));
-            }
-        }
-
         viewPager.setCurrentItem(0);
-    }
-
-
-    public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
-        final int PAGE_COUNT = 3;
-        private String tabTitles[] = new String[]{"TAB1", "TAB2", "TAB3"};
-        private Context context;
-
-
-        public View getTabView(int position) {
-            View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
-            TextView tv = (TextView) v.findViewById(R.id.textView);
-            tv.setText(tabTitles[position]);
-            return v;
-        }
-
-        public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
-            super(fm);
-            this.context = context;
-        }
-
-        @Override
-        public int getCount() {
-            return PAGE_COUNT;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return PageFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return tabTitles[position];
-        }
     }
 
     public static class PageFragment extends Fragment {

@@ -28,4 +28,10 @@
     <string name="view_empty_message">No matching items</string>
     <string name="view_error_message">This content is not available offline.</string>
 
+    <string-array name="news_type">
+        <item>要闻</item>
+        <item>转载</item>
+        <item>评论</item>
+    </string-array>
+
 </resources>

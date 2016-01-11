@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.mvp.model.entities.News;
-import com.guanchazhe.news.utils.Utils;
 import com.guanchazhe.news.injector.components.DaggerNewsListComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
@@ -205,7 +204,7 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
 
     @Override
     public ActivityOptions getActivityOptions(int position, View clickedView) {
-        String sharedViewName = Utils.getListTransitionName(position);
+        String sharedViewName = com.guanchazhe.news.utils.Utils.getListTransitionName(position);
         return ActivityOptions.makeSceneTransitionAnimation(
                 this, clickedView, sharedViewName);
     }
