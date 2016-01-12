@@ -30,8 +30,8 @@
 
     <string-array name="news_type">
         <item>要闻</item>
-        <item>转载</item>
-        <item>评论</item>
+        <item>花边</item>
+        <item>时评</item>
     </string-array>
 
 </resources>

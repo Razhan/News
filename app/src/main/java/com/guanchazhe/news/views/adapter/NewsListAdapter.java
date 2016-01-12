@@ -2,6 +2,7 @@ package com.guanchazhe.news.views.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder> {
     private final String NOT_AVAILABLE_URL = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
     private final RecyclerClickListener mRecyclerListener;
-    private final List<News> mNews;
+    private List<News> mNews;
 
     private Context mContext;
 
@@ -54,6 +55,29 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     public int getItemCount() {
         return mNews.size();
     }
+
+    public void set(@NonNull List<News> items) {
+        mNews = items;
+        notifyDataSetChanged();
+    }
+
+    public void add(@NonNull List<News> morenews) {
+        if (!morenews.isEmpty()) {
+            int currentSize = mNews.size();
+            int amountInserted = morenews.size();
+
+            mNews.addAll(morenews);
+            notifyItemRangeInserted(currentSize, amountInserted);
+        }
+    }
+
+    public void clear() {
+        if (!mNews.isEmpty()) {
+            mNews.clear();
+            notifyDataSetChanged();
+        }
+    }
+
 
     public class NewsViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.newsTitle)               TextView avengerTitleTextView;
