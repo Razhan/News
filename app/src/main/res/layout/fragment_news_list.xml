@@ -20,7 +20,7 @@
             style="@style/CollectionView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_character"/>
+            tools:listitem="@layout/item_news"/>
 
         <include layout="@layout/partial_view_loading" />
 

@@ -37,16 +37,16 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         mItemLayoutId = itemLayoutId;
         mContext = v.getContext();
 
-        v.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                isScrolling = !(newState == RecyclerView.SCROLL_STATE_IDLE);
-//                if (!isScrolling) {
-//                    notifyDataSetChanged();
-//                }
-            }
-        });
+//        v.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                isScrolling = !(newState == RecyclerView.SCROLL_STATE_IDLE);
+////                if (!isScrolling) {
+////                    notifyDataSetChanged();
+////                }
+//            }
+//        });
     }
 
     public abstract void convert(RecyclerHolder holder, T item, int position, boolean isScrolling);

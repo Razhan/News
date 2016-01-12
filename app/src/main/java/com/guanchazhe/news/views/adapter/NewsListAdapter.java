@@ -40,7 +40,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(mContext).inflate(
-                R.layout.item_character, parent, false);
+                R.layout.item_news, parent, false);
 
         return new NewsViewHolder(rootView, mRecyclerListener);
     }
@@ -56,10 +56,10 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_avenger_title)              TextView avengerTitleTextView;
-        @Bind(R.id.item_avenger_thumb)              ImageView avengerThumbImageView;
-        @Bind(R.id.item_avenger_placeholder_name)   TextView avengerPlaceholderTitleTextView;
-        @BindColor(R.color.colorPrimary)            int mColorPrimary;
+        @Bind(R.id.newsTitle)               TextView avengerTitleTextView;
+        @Bind(R.id.news_image)              ImageView avengerThumbImageView;
+        @Bind(R.id.description)             TextView avengerPlaceholderTitleTextView;
+        @BindColor(R.color.colorPrimary)    int mColorPrimary;
 
         public NewsViewHolder(View itemView, final RecyclerClickListener recyclerClickListener) {
             super(itemView);
@@ -70,6 +70,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         public void bindNews(News news) {
             avengerTitleTextView.setText(news.getTitle());
             avengerTitleTextView.setTransitionName(Utils.getListTransitionName(getAdapterPosition()));
+            avengerPlaceholderTitleTextView.setText(news.getSummary());
 
             if (news.getPic().equals(NOT_AVAILABLE_URL)) {
                 ColorDrawable colorDrawable = new ColorDrawable(mColorPrimary);

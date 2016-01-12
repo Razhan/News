@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.guanchazhe.news.R;
+import com.guanchazhe.news.mvp.model.entities.News;
+import com.guanchazhe.news.views.Fragment.NewsListFragment;
 import com.guanchazhe.news.views.activity.MainActivity;
 
 /**
@@ -32,7 +34,7 @@ public class FragAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MainActivity.PageFragment.newInstance(position + 1);
+        return new NewsListFragment();
     }
 
     @Override

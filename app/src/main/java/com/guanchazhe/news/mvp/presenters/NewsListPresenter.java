@@ -36,20 +36,14 @@ public class NewsListPresenter implements Presenter {
         askForNews();
     }
 
+    @Override
+    public void onStart() {}
 
     @Override
-    public void onStart() {
-        // Unused
-    }
-
-    @Override
-    public void onStop() {
-        // Unused
-    }
+    public void onStop() {}
 
     @Override
     public void onPause() {
-        mNewsView.hideLoadingMoreNewsIndicator();
         mNewsSubscription.unsubscribe();
         mIsTheNewsRequestRunning = false;
     }
@@ -67,19 +61,19 @@ public class NewsListPresenter implements Presenter {
 
     private void askForNews() {
         mIsTheNewsRequestRunning = true;
-        mNewsView.hideErrorView();
         mNewsView.showLoadingView();
 
         mNewsSubscription = mNewsUsecase.execute()
                 .subscribe(
                         characters -> {
                             mNews.addAll(characters);
+                            mNewsView.hideRefreshIndicator();
                             mNewsView.bindNewsList(mNews);
                             mNewsView.showNewsList();
-                            mNewsView.hideEmptyIndicator();
                             mIsTheNewsRequestRunning = false;
                         },
                         error -> {
+                            mNewsView.hideRefreshIndicator();
                             mIsTheNewsRequestRunning = false;
                             showErrorView(error);
                         });
@@ -87,34 +81,25 @@ public class NewsListPresenter implements Presenter {
     }
 
     private void askForMoreNews() {
-        mNewsView.showLoadingMoreNewsIndicator();
         mIsTheNewsRequestRunning = true;
 
         mNewsSubscription = mNewsUsecase.execute()
-                .subscribe(new NewsListSubscriber());
+                .subscribe(
+                        newNews -> {
+                            mNews.addAll(newNews);
+                            mNewsView.hideRefreshIndicator();
+                            mNewsView.updateNewsList(GetNewsListUsecase.NEWS_LIMIT);
+                            mIsTheNewsRequestRunning = false;
+                        },
+                        error -> {
+                            mNewsView.hideRefreshIndicator();
+                            mIsTheNewsRequestRunning = false;
+                            showErrorView(error);
+                        });
     }
 
     private void showErrorView(Throwable error) {
-//        if (error instanceof NetworkUknownHostException) {
-//            mNewsView.showConnectionErrorMessage();
-//
-//        } else if (error instanceof ServerErrorException) {
-//            mNewsView.showServerErrorMessage();
-//
-//        } else {
-//            mNewsView.showUnknownErrorMessage();
-//        }
-
-        mNewsView.showUnknownErrorMessage();
-
-        mNewsView.hideLoadingMoreNewsIndicator();
-        mNewsView.hideEmptyIndicator();
-        mNewsView.hideNewsList();
-    }
-
-    private void showGenericError() {
-        mNewsView.hideLoadingIndicator();
-        mNewsView.showLightError();
+        mNewsView.showErrorView();
     }
 
     public void onErrorRetryRequest() {
@@ -128,26 +113,5 @@ public class NewsListPresenter implements Presenter {
         mNewsView.showDetailScreen(mNews.get(position));
     }
 
-//    @RxLogSubscriber
-    public class NewsListSubscriber extends Subscriber<List<News>> {
-
-        @Override
-        public void onNext(List<News> newNews) {
-            mNews.addAll(newNews);
-            mNewsView.updateNewsList(GetNewsListUsecase.NEWS_LIMIT);
-            mNewsView.hideLoadingIndicator();
-            mIsTheNewsRequestRunning = false;
-        }
-
-        @Override
-        public void onError(Throwable throwable) {
-            mIsTheNewsRequestRunning = false;
-            showGenericError();
-        }
-
-        @Override
-        public void onCompleted() {
-        }
-    }
 
 }

@@ -19,10 +19,12 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
 
     private Toast mToast;
+    protected Context mContext;
 
     @CallSuper
     @Override public void onAttach(Context context) {
         super.onAttach(context);
+        mContext = context;
     }
 
     @CallSuper
