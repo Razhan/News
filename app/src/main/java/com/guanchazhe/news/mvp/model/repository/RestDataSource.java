@@ -13,6 +13,7 @@ import com.guanchazhe.news.mvp.model.repository.utils.interceptors.HttpLoggingIn
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -26,6 +27,7 @@ import rx.Observable;
  */
 public class RestDataSource implements Repository {
 
+    private int CONNECTION_TIMEOUT = 10 * 1000;
     private final ListRestfulAPIs listRestfulAPIs;
     private final DetailRestfulAPIs detailRestfulAPIs;
 
@@ -37,6 +39,8 @@ public class RestDataSource implements Repository {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         client.interceptors().add(loggingInterceptor);
+        client.setConnectTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS);
+        client.setReadTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS);
 
         Gson customGsonInstance = new GsonBuilder()
                 .registerTypeAdapter(new TypeToken<List<News>>() {}.getType(),
@@ -63,8 +67,9 @@ public class RestDataSource implements Repository {
     }
 
     @Override
-    public Observable<List<News>> getNews(int typeid, int attributeid, int pageindex,int pagesize) {
+    public Observable<List<News>> getNews(int typeid, String attributeid, String pageindex,int pagesize) {
         return listRestfulAPIs.getNews(typeid, attributeid, pageindex, pagesize)
+                .retry(2)
                 .onErrorResumeNext(throwable -> {
                     return Observable.error(throwable);
                 });
@@ -74,6 +79,7 @@ public class RestDataSource implements Repository {
     public Observable<String> getNewsDetail(String device, String id) {
 
         return detailRestfulAPIs.getNewsDetail(device, id)
+                .retry(2)
                 .onErrorResumeNext(throwable -> {
                     return Observable.error(throwable);
                 });
@@ -82,6 +88,7 @@ public class RestDataSource implements Repository {
     @Override
     public Observable<List<Commentary>> getCommentaries(String authorid, int pageindex, int pagesize) {
         return listRestfulAPIs.getCommentaries(authorid, pageindex, pagesize)
+                .retry(2)
                 .onErrorResumeNext(throwable -> {
                     return Observable.error(throwable);
                 });

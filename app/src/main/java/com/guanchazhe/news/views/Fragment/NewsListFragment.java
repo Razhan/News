@@ -19,8 +19,8 @@ import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.views.activity.NewsDetailActivity;
-import com.guanchazhe.news.views.adapter.BaseRecyclerAdapter;
 import com.guanchazhe.news.views.adapter.NewsListAdapter;
+import com.guanchazhe.news.views.listener.EndlessScrollListener;
 import com.guanchazhe.news.views.widget.BetterViewAnimator;
 import com.guanchazhe.news.views.widget.MultiSwipeRefreshLayout;
 import com.guanchazhe.news.views.widget.RecyclerInsetsDecoration;
@@ -35,10 +35,8 @@ import butterknife.Bind;
 /**
  * Created by ranzh on 1/10/2016.
  */
-public class NewsListFragment extends BaseFragment implements
-        SwipeRefreshLayout.OnRefreshListener,
-        MultiSwipeRefreshLayout.CanChildScrollUpCallback,
-        NewsListView {
+public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
+        MultiSwipeRefreshLayout.CanChildScrollUpCallback, NewsListView {
 
     protected static final int ANIMATOR_VIEW_LOADING = R.id.view_loading;
     protected static final int ANIMATOR_VIEW_CONTENT = R.id.movies_recycler_view;
@@ -52,7 +50,16 @@ public class NewsListFragment extends BaseFragment implements
     NewsListPresenter mNewsListPresenter;
 
     private NewsListAdapter mNewsListAdapter;
-    private int mCurrentPage = 0;
+
+    public static NewsListFragment newInstance(int someInt) {
+        NewsListFragment myFragment = new NewsListFragment();
+
+        Bundle args = new Bundle();
+        args.putInt("someInt", someInt);
+        myFragment.setArguments(args);
+
+        return myFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +90,7 @@ public class NewsListFragment extends BaseFragment implements
 
     private void initializePresenter() {
         mNewsListPresenter.attachView(this);
+        mNewsListPresenter.setFragmentIndex(getArguments().getInt("someInt", 0));
     }
 
     private void initSwipeRefreshLayout() {
@@ -92,29 +100,21 @@ public class NewsListFragment extends BaseFragment implements
     }
 
     private void initializeRecyclerView() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(new RecyclerInsetsDecoration(mContext));
-        mRecyclerView.addOnScrollListener(mOnScrollListener);
+        mRecyclerView.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                mNewsListPresenter.onListEndReached(currentPage);
+            }
+        });
 
         mNewsListAdapter = new NewsListAdapter(mRecyclerView, new ArrayList<>(),
                 (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
 
         mRecyclerView.setAdapter(mNewsListAdapter);
     }
-
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            int visibleItemsCount   = layoutManager.getChildCount();
-            int totalItemsCount     = layoutManager.getItemCount();
-            int firstVisibleItemPos = layoutManager.findFirstVisibleItemPosition();
-
-            if (visibleItemsCount + firstVisibleItemPos >= totalItemsCount) {
-                mNewsListPresenter.onListEndReached();
-            }
-        }
-    };
 
     @Override
     public boolean canSwipeRefreshChildScrollUp() {

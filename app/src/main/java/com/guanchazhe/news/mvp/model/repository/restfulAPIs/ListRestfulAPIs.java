@@ -18,8 +18,8 @@ public interface ListRestfulAPIs {
     @GET("/app/GetNewsList/")
     Observable<List<News>> getNews(
             @Query("typeid") int typeid,
-            @Query("attributeid") int attributeid,
-            @Query("pageindex") int pageindex,
+            @Query("attributeid") String attributeid,
+            @Query("pageindex") String pageindex,
             @Query("pagesize") int pagesize
     );
 

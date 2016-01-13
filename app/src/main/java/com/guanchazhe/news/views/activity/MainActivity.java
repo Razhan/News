@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.guanchazhe.news.R;
+import com.guanchazhe.news.views.Fragment.NewsListFragment;
 import com.guanchazhe.news.views.adapter.FragmentAdapter;
 
 import butterknife.Bind;
@@ -51,13 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void initTabLayout() {
         FragmentAdapter pagerAdapter =
-                new FragmentAdapter(getSupportFragmentManager(), this);
+                new FragmentAdapter(getSupportFragmentManager());
+
+        pagerAdapter.addFragment(NewsListFragment.newInstance(1), "要闻");
+        pagerAdapter.addFragment(NewsListFragment.newInstance(2), "时评");
+        pagerAdapter.addFragment(NewsListFragment.newInstance(3), "花边");
 
         viewPager.setAdapter(pagerAdapter);
-
         tabs.setupWithViewPager(viewPager);
-
-        viewPager.setCurrentItem(0);
     }
 
 }

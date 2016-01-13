@@ -4,11 +4,10 @@
     xmlns:card_view="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="106dp"
     android:layout_marginLeft="@dimen/spacing_small"
     android:layout_marginRight="@dimen/spacing_small"
     android:layout_marginTop="@dimen/spacing_tiny"
-    android:layout_marginBottom="@dimen/spacing_tiny"
     android:foreground="?attr/selectableItemBackground"
     card_view:cardCornerRadius="@dimen/margin_4dp"
     card_view:cardElevation="4dp">
@@ -19,18 +18,28 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:background="@drawable/item_background"
-        android:paddingTop="@dimen/spacing_tiny"
-        android:paddingBottom="@dimen/spacing_tiny">
+        android:paddingTop="@dimen/spacing_tiny">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/news_image_author"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/spacing_tiny"
+                android:layout_centerVertical="true"
+                android:src="@drawable/error_placeholder"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/gray"/>
+
             <ImageView
                 android:id="@+id/news_image"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="@dimen/spacing_tiny"
                 android:layout_centerVertical="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/error_placeholder"/>

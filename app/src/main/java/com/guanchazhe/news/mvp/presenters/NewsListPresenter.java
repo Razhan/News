@@ -10,8 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscriber;
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -23,14 +21,15 @@ public class NewsListPresenter implements Presenter {
     private boolean mIsTheNewsRequestRunning;
     private CompositeSubscription mNewsSubscription;
 
-    private List<News> mNews;
+    private int mFragmentIndex;
     private NewsListView mNewsView;
+    private int mCurrentPage;
 
     @Inject
     public NewsListPresenter(GetNewsListUsecase newsUsecase) {
         mNewsUsecase = newsUsecase;
-        mNews = new ArrayList<>();
         mNewsSubscription = new CompositeSubscription();
+        mCurrentPage = 1;
     }
 
     @Override
@@ -51,25 +50,31 @@ public class NewsListPresenter implements Presenter {
         mIsTheNewsRequestRunning = false;
     }
 
-    public void onRefresh() {
-        askForNews();
-    }
-
     @Override
     public void attachView(Views v) {
         mNewsView = (NewsListView) v;
     }
 
-    public void onListEndReached() {
+    public void setFragmentIndex(int index) {
+        mFragmentIndex = index;
+    }
+
+    public void onRefresh() {
+        mCurrentPage = 1;
+        askForNews();
+    }
+
+    public void onListEndReached(int currentPage) {
         if (!mIsTheNewsRequestRunning) {
-            askForMoreNews();
+            mCurrentPage = currentPage;
+            askForMoreNews(mCurrentPage);
         }
     }
 
     private void askForNews() {
         mIsTheNewsRequestRunning = true;
 
-        mNewsSubscription.add(mNewsUsecase.execute()
+        mNewsSubscription.add(mNewsUsecase.execute(String.valueOf(mFragmentIndex), String.valueOf(mCurrentPage))
                 .subscribe(
                         news -> {
                             newsArrived();
@@ -81,10 +86,10 @@ public class NewsListPresenter implements Presenter {
 
     }
 
-    private void askForMoreNews() {
+    private void askForMoreNews(int currentPage) {
         mIsTheNewsRequestRunning = true;
 
-        mNewsSubscription.add(mNewsUsecase.execute()
+        mNewsSubscription.add(mNewsUsecase.execute(String.valueOf(mFragmentIndex), String.valueOf(currentPage))
                 .subscribe(
                         newNews -> {
                             newsArrived();
@@ -119,10 +124,7 @@ public class NewsListPresenter implements Presenter {
     }
 
     public void onErrorRetryRequest() {
-        if (mNews.isEmpty())
-            askForNews();
-        else
-            askForMoreNews();
+        onRefresh();
     }
 
 }

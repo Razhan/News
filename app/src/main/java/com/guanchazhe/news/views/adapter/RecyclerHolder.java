@@ -54,6 +54,11 @@ public class RecyclerHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    public void setVisility(int viewId, int visibility) {
+        View view = getView(viewId);
+        view.setVisibility(visibility);
+    }
+
     public Context getmContext() {
         return mContext;
     }

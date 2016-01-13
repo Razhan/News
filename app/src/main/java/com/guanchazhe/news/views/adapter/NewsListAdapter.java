@@ -27,15 +27,24 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
         holder.setText(R.id.newsTitle, item.getTitle());
         holder.setText(R.id.description, item.getSummary());
 
+        ImageView placeHold;
+
+        if (item.getType().equals("shiping") || item.getType().equals("shendu")) {
+            holder.setVisility(R.id.news_image, View.GONE);
+            placeHold = holder.getView(R.id.news_image_author);
+        } else {
+            holder.setVisility(R.id.news_image_author, View.GONE);
+            placeHold = holder.getView(R.id.news_image);
+        }
+
         if (item.getPic() != null) {
             Glide.with(holder.getmContext())
                     .load(item.getPic())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .error(R.drawable.error_placeholder)
-                    .into((ImageView)holder.getView(R.id.news_image));
-
+                    .error(R.drawable.default_avatar)
+                    .into(placeHold);
         } else {
-            holder.getView(R.id.profile_image).setVisibility(View.GONE);
+            holder.setImageResource(R.id.profile_image, R.drawable.default_avatar);
         }
     }
 
