@@ -6,6 +6,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,13 @@ import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.views.activity.NewsDetailActivity;
+import com.guanchazhe.news.views.adapter.BaseRecyclerAdapter;
 import com.guanchazhe.news.views.adapter.NewsListAdapter;
 import com.guanchazhe.news.views.widget.BetterViewAnimator;
 import com.guanchazhe.news.views.widget.MultiSwipeRefreshLayout;
 import com.guanchazhe.news.views.widget.RecyclerInsetsDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -64,11 +67,7 @@ public class NewsListFragment extends BaseFragment implements
         initializePresenter();
         initSwipeRefreshLayout();
         initializeRecyclerView();
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         mNewsListPresenter.onCreate();
     }
 
@@ -96,6 +95,11 @@ public class NewsListFragment extends BaseFragment implements
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.addItemDecoration(new RecyclerInsetsDecoration(mContext));
         mRecyclerView.addOnScrollListener(mOnScrollListener);
+
+        mNewsListAdapter = new NewsListAdapter(mRecyclerView, new ArrayList<>(),
+                (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
+
+        mRecyclerView.setAdapter(mNewsListAdapter);
     }
 
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
@@ -120,11 +124,7 @@ public class NewsListFragment extends BaseFragment implements
 
     @Override
     public void onRefresh(){
-        reloadContent();
-    }
-
-    private void reloadContent() {
-        mNewsListPresenter.onCreate();
+        mNewsListPresenter.onRefresh();
     }
 
     @Override
@@ -146,12 +146,18 @@ public class NewsListFragment extends BaseFragment implements
     }
 
     @Override
-    public void bindNewsList(List<News> news) {
-        mNewsListAdapter = new NewsListAdapter(news, mContext,
-                (position, sharedView, characterImageView) ->
-                    mNewsListPresenter.onElementClick(position));
+    public void setNewsList(List<News> news) {
+        mNewsListAdapter.set(news);
+    }
 
-        mRecyclerView.setAdapter(mNewsListAdapter);
+    @Override
+    public void addNewsList(List<News> moreNews) {
+        mNewsListAdapter.add(moreNews);
+    }
+
+    @Override
+    public void clearNewsList() {
+        mNewsListAdapter.clear();
     }
 
     @Override
@@ -170,6 +176,11 @@ public class NewsListFragment extends BaseFragment implements
     }
 
     @Override
+    public boolean isContentDisplayed() {
+        return mViewAnimator.getDisplayedChildId() == ANIMATOR_VIEW_CONTENT;
+    }
+
+    @Override
     public void showRefreshIndicator() {
         mSwipeRefreshLayout.setRefreshing(true);
     }
@@ -184,11 +195,6 @@ public class NewsListFragment extends BaseFragment implements
         NewsDetailActivity.start(getActivity(), news);
     }
 
-    @Override
-    public void updateNewsList(int charactersAdded) {
-        mNewsListAdapter.notifyItemRangeInserted(
-                mNewsListAdapter.getItemCount() + charactersAdded, charactersAdded);
-    }
 }
 
 

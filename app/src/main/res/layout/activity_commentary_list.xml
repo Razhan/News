@@ -85,7 +85,6 @@
                 android:scrollbars="vertical"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:orientation="vertical"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:fitsSystemWindows="true"
                 />
     </LinearLayout>>

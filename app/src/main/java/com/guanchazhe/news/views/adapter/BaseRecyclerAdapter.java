@@ -1,6 +1,7 @@
 package com.guanchazhe.news.views.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,16 +38,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         mItemLayoutId = itemLayoutId;
         mContext = v.getContext();
 
-//        v.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                isScrolling = !(newState == RecyclerView.SCROLL_STATE_IDLE);
-////                if (!isScrolling) {
-////                    notifyDataSetChanged();
-////                }
-//            }
-//        });
     }
 
     public abstract void convert(RecyclerHolder holder, T item, int position, boolean isScrolling);
@@ -93,5 +84,28 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             realDatas = new ArrayList<>(datas);
         }
         return this;
+    }
+
+    public void set(@NonNull List<T> items) {
+        realDatas.clear();
+        realDatas.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public void add(@NonNull List<T> moreNews) {
+        if (!moreNews.isEmpty()) {
+            int currentSize = realDatas.size();
+            int amountInserted = moreNews.size();
+
+            realDatas.addAll(moreNews);
+            notifyItemRangeInserted(currentSize, amountInserted);
+        }
+    }
+
+    public void clear() {
+        if (!realDatas.isEmpty()) {
+            realDatas.clear();
+            notifyDataSetChanged();
+        }
     }
 }

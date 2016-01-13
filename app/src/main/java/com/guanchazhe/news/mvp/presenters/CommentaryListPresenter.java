@@ -68,7 +68,6 @@ public class CommentaryListPresenter implements Presenter {
         for (Commentary item : items) {
             item.setPic("http://i.guancha.cn/" + item.getPic());
         }
-
         return items;
     }
 }

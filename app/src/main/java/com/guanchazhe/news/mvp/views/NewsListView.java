@@ -10,15 +10,19 @@ import java.util.List;
  * Created by ranzh on 12/23/2015.
  */
 public interface NewsListView extends Views {
-    void bindNewsList(List<News> news);
+    void setNewsList(List<News> news);
+
+    void addNewsList(List<News> moreNews);
+
+    boolean isContentDisplayed();
+
+    void clearNewsList();
 
     void showNewsList();
 
     void showLoadingView();
 
     void showErrorView();
-
-    void updateNewsList(int charactersLimit);
 
     void showRefreshIndicator();
 

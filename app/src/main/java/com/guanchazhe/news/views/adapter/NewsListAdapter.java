@@ -1,117 +1,43 @@
 package com.guanchazhe.news.views.adapter;
 
-import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.mvp.model.entities.News;
-import com.guanchazhe.news.utils.Utils;
-import com.guanchazhe.news.views.widget.RecyclerClickListener;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.BindColor;
-import butterknife.ButterKnife;
+import java.util.Collection;
 
 /**
- * Created by ranzh on 12/24/2015.
+ * Created by ranzh on 1/13/2016.
  */
-public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder> {
-    private final String NOT_AVAILABLE_URL = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
-    private final RecyclerClickListener mRecyclerListener;
-    private List<News> mNews;
+public class NewsListAdapter extends BaseRecyclerAdapter<News> {
 
-    private Context mContext;
-
-    public NewsListAdapter(List<News> news, Context context, RecyclerClickListener recyclerClickListener) {
-        mNews = news;
-        mContext = context;
-        mRecyclerListener = recyclerClickListener;
+    public NewsListAdapter(RecyclerView v, Collection<News> datas, OnItemClickListener listener) {
+        super(v, datas, R.layout.item_news);
+        setOnItemClickListener(listener);
     }
 
     @Override
-    public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = LayoutInflater.from(mContext).inflate(
-                R.layout.item_news, parent, false);
+    public void convert(RecyclerHolder holder, News item, int position, boolean isScrolling) {
 
-        return new NewsViewHolder(rootView, mRecyclerListener);
-    }
+        holder.setText(R.id.newsTitle, item.getTitle());
+        holder.setText(R.id.description, item.getSummary());
 
-    @Override
-    public void onBindViewHolder(NewsViewHolder holder, int position) {
-        holder.bindNews(mNews.get(position));
-    }
+        if (item.getPic() != null) {
+            Glide.with(holder.getmContext())
+                    .load(item.getPic())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(R.drawable.error_placeholder)
+                    .into((ImageView)holder.getView(R.id.news_image));
 
-    @Override
-    public int getItemCount() {
-        return mNews.size();
-    }
-
-    public void set(@NonNull List<News> items) {
-        mNews = items;
-        notifyDataSetChanged();
-    }
-
-    public void add(@NonNull List<News> morenews) {
-        if (!morenews.isEmpty()) {
-            int currentSize = mNews.size();
-            int amountInserted = morenews.size();
-
-            mNews.addAll(morenews);
-            notifyItemRangeInserted(currentSize, amountInserted);
-        }
-    }
-
-    public void clear() {
-        if (!mNews.isEmpty()) {
-            mNews.clear();
-            notifyDataSetChanged();
+        } else {
+            holder.getView(R.id.profile_image).setVisibility(View.GONE);
         }
     }
 
 
-    public class NewsViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.newsTitle)               TextView avengerTitleTextView;
-        @Bind(R.id.news_image)              ImageView avengerThumbImageView;
-        @Bind(R.id.description)             TextView avengerPlaceholderTitleTextView;
-        @BindColor(R.color.colorPrimary)    int mColorPrimary;
-
-        public NewsViewHolder(View itemView, final RecyclerClickListener recyclerClickListener) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-            bindListener(itemView, recyclerClickListener);
-        }
-
-        public void bindNews(News news) {
-            avengerTitleTextView.setText(news.getTitle());
-            avengerTitleTextView.setTransitionName(Utils.getListTransitionName(getAdapterPosition()));
-            avengerPlaceholderTitleTextView.setText(news.getSummary());
-
-            if (news.getPic().equals(NOT_AVAILABLE_URL)) {
-                ColorDrawable colorDrawable = new ColorDrawable(mColorPrimary);
-                avengerThumbImageView.setDrawingCacheEnabled(true);
-                avengerThumbImageView.setImageDrawable(colorDrawable);
-
-            } else {
-                Glide.with(mContext)
-                        .load(news.getPic())
-                        .crossFade()
-                        .into(avengerThumbImageView);
-            }
-        }
-
-        private void bindListener(View itemView, final RecyclerClickListener recyclerClickListener) {
-            itemView.setOnClickListener(v ->
-                    recyclerClickListener.onElementClick(getAdapterPosition(), avengerTitleTextView, avengerThumbImageView));
-        }
-    }
 }

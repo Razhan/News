@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.guanchazhe.news.mvp.presenters.CommentaryListPresenter;
 import com.guanchazhe.news.mvp.views.CommentaryListView;
 import com.guanchazhe.news.views.adapter.BaseRecyclerAdapter;
 import com.guanchazhe.news.views.adapter.CommentaryListAdapter;
+import com.guanchazhe.news.views.listener.EndlessScrollListener;
 
 import java.util.List;
 
@@ -51,6 +53,7 @@ public class CommentaryListActivity extends AppCompatActivity
         initDependencyInjector();
         initializePresenter();
         initToolbar();
+        initRecyclerView();
     }
 
     private void initDependencyInjector() {
@@ -81,6 +84,17 @@ public class CommentaryListActivity extends AppCompatActivity
         getWindow().setStatusBarColor(ContextCompat.getColor(CommentaryListActivity.this, R.color.red));
         mCollapsingToolbarLayout.setContentScrimResource(R.color.red);
 
+    }
+
+    private void initRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mCollectionRecycler.setLayoutManager(linearLayoutManager);
+        mCollectionRecycler.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                Log.d("onLoadMore", "onLoadMore");
+            }
+        });
     }
 
     @Override

@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.views.adapter.FragAdapter;
+import com.guanchazhe.news.views.adapter.FragmentAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTabLayout() {
-        FragAdapter pagerAdapter =
-                new FragAdapter(getSupportFragmentManager(), this);
+        FragmentAdapter pagerAdapter =
+                new FragmentAdapter(getSupportFragmentManager(), this);
 
         viewPager.setAdapter(pagerAdapter);
 

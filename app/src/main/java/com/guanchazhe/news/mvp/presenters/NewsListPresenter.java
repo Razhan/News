@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import rx.Subscriber;
 import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by ranzh on 12/23/2015.
@@ -20,7 +21,7 @@ public class NewsListPresenter implements Presenter {
 
     private final GetNewsListUsecase mNewsUsecase;
     private boolean mIsTheNewsRequestRunning;
-    private Subscription mNewsSubscription;
+    private CompositeSubscription mNewsSubscription;
 
     private List<News> mNews;
     private NewsListView mNewsView;
@@ -28,11 +29,13 @@ public class NewsListPresenter implements Presenter {
     @Inject
     public NewsListPresenter(GetNewsListUsecase newsUsecase) {
         mNewsUsecase = newsUsecase;
-        mNews = new ArrayList<News>();
+        mNews = new ArrayList<>();
+        mNewsSubscription = new CompositeSubscription();
     }
 
     @Override
     public void onCreate() {
+        mNewsView.showLoadingView();
         askForNews();
     }
 
@@ -48,6 +51,10 @@ public class NewsListPresenter implements Presenter {
         mIsTheNewsRequestRunning = false;
     }
 
+    public void onRefresh() {
+        askForNews();
+    }
+
     @Override
     public void attachView(Views v) {
         mNewsView = (NewsListView) v;
@@ -61,41 +68,50 @@ public class NewsListPresenter implements Presenter {
 
     private void askForNews() {
         mIsTheNewsRequestRunning = true;
-        mNewsView.showLoadingView();
 
-        mNewsSubscription = mNewsUsecase.execute()
+        mNewsSubscription.add(mNewsUsecase.execute()
                 .subscribe(
-                        characters -> {
-                            mNews.addAll(characters);
-                            mNewsView.hideRefreshIndicator();
-                            mNewsView.bindNewsList(mNews);
-                            mNewsView.showNewsList();
-                            mIsTheNewsRequestRunning = false;
+                        news -> {
+                            newsArrived();
+                            mNewsView.setNewsList(news);
                         },
-                        error -> {
-                            mNewsView.hideRefreshIndicator();
-                            mIsTheNewsRequestRunning = false;
-                            showErrorView(error);
-                        });
+                        error ->
+                            newsArrivedError(error))
+        );
 
     }
 
     private void askForMoreNews() {
         mIsTheNewsRequestRunning = true;
 
-        mNewsSubscription = mNewsUsecase.execute()
+        mNewsSubscription.add(mNewsUsecase.execute()
                 .subscribe(
                         newNews -> {
-                            mNews.addAll(newNews);
-                            mNewsView.hideRefreshIndicator();
-                            mNewsView.updateNewsList(GetNewsListUsecase.NEWS_LIMIT);
-                            mIsTheNewsRequestRunning = false;
+                            newsArrived();
+                            mNewsView.addNewsList(newNews);
                         },
-                        error -> {
-                            mNewsView.hideRefreshIndicator();
-                            mIsTheNewsRequestRunning = false;
-                            showErrorView(error);
-                        });
+                        error ->
+                            newsArrivedError(error))
+        );
+    }
+
+    private void newsArrived() {
+        mNewsView.hideRefreshIndicator();
+        mIsTheNewsRequestRunning = false;
+
+        if (!mNewsView.isContentDisplayed()) {
+            mNewsView.showNewsList();
+        }
+    }
+
+    private void newsArrivedError(Throwable error) {
+        mNewsView.hideRefreshIndicator();
+        mIsTheNewsRequestRunning = false;
+        showErrorView(error);
+    }
+
+    public void onElementClick(News news) {
+        mNewsView.showDetailScreen(news);
     }
 
     private void showErrorView(Throwable error) {
@@ -108,10 +124,5 @@ public class NewsListPresenter implements Presenter {
         else
             askForMoreNews();
     }
-
-    public void onElementClick(int position) {
-        mNewsView.showDetailScreen(mNews.get(position));
-    }
-
 
 }
