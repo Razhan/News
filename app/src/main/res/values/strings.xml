@@ -33,5 +33,6 @@
         <item>花边</item>
         <item>时评</item>
     </string-array>
+    <string name="title_activity_author_list">AuthorListActivity</string>
 
 </resources>

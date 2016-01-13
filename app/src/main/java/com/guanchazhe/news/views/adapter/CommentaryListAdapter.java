@@ -37,7 +37,7 @@ public class CommentaryListAdapter extends BaseRecyclerAdapter<Commentary> {
                     .into((ImageView)holder.getView(R.id.profile_image));
 
         } else {
-            holder.getView(R.id.profile_image).setVisibility(View.GONE);
+            holder.setImageResource(R.id.profile_image, R.drawable.default_avatar);
         }
     }
 

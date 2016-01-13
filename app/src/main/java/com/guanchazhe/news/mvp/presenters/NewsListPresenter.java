@@ -5,11 +5,11 @@ import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.mvp.views.Views;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -19,7 +19,7 @@ public class NewsListPresenter implements Presenter {
 
     private final GetNewsListUsecase mNewsUsecase;
     private boolean mIsTheNewsRequestRunning;
-    private CompositeSubscription mNewsSubscription;
+    private Subscription mNewsSubscription;
 
     private int mFragmentIndex;
     private NewsListView mNewsView;
@@ -35,7 +35,7 @@ public class NewsListPresenter implements Presenter {
     @Override
     public void onCreate() {
         mNewsView.showLoadingView();
-        askForNews();
+        askForNews(RequestType.ASK);
     }
 
     @Override
@@ -61,55 +61,42 @@ public class NewsListPresenter implements Presenter {
 
     public void onRefresh() {
         mCurrentPage = 1;
-        askForNews();
+        askForNews(RequestType.ASK);
     }
 
     public void onListEndReached(int currentPage) {
         if (!mIsTheNewsRequestRunning) {
             mCurrentPage = currentPage;
-            askForMoreNews(mCurrentPage);
+            askForNews(RequestType.ASKMORE);
         }
     }
 
-    private void askForNews() {
+    private void askForNews(RequestType requestType) {
         mIsTheNewsRequestRunning = true;
 
-        mNewsSubscription.add(mNewsUsecase.execute(String.valueOf(mFragmentIndex), String.valueOf(mCurrentPage))
+        mNewsSubscription = mNewsUsecase.execute(String.valueOf(mFragmentIndex), String.valueOf(mCurrentPage))
                 .subscribe(
-                        news -> {
-                            newsArrived();
-                            mNewsView.setNewsList(news);
-                        },
-                        error ->
-                            newsArrivedError(error))
-        );
-
+                        news -> newsArrived(requestType, news)                        ,
+                        error -> newsError(error)
+                );
     }
 
-    private void askForMoreNews(int currentPage) {
-        mIsTheNewsRequestRunning = true;
-
-        mNewsSubscription.add(mNewsUsecase.execute(String.valueOf(mFragmentIndex), String.valueOf(currentPage))
-                .subscribe(
-                        newNews -> {
-                            newsArrived();
-                            mNewsView.addNewsList(newNews);
-                        },
-                        error ->
-                            newsArrivedError(error))
-        );
-    }
-
-    private void newsArrived() {
+    private void newsArrived(RequestType requestType, List<News> news) {
         mNewsView.hideRefreshIndicator();
         mIsTheNewsRequestRunning = false;
 
         if (!mNewsView.isContentDisplayed()) {
             mNewsView.showNewsList();
         }
+
+        if (requestType == RequestType.ASK) {
+            mNewsView.setNewsList(news);
+        } else {
+            mNewsView.addNewsList(news);
+        }
     }
 
-    private void newsArrivedError(Throwable error) {
+    private void newsError(Throwable error) {
         mNewsView.hideRefreshIndicator();
         mIsTheNewsRequestRunning = false;
         showErrorView(error);
@@ -125,6 +112,11 @@ public class NewsListPresenter implements Presenter {
 
     public void onErrorRetryRequest() {
         onRefresh();
+    }
+
+    private enum RequestType {
+        ASK,
+        ASKMORE
     }
 
 }
