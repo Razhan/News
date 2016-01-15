@@ -1,5 +1,7 @@
 package com.guanchazhe.news.mvp.views;
 
+import android.view.View;
+
 import com.guanchazhe.news.mvp.model.entities.Author;
 
 import java.util.List;
@@ -17,6 +19,6 @@ public interface AuthorListView extends Views {
 
     void showErrorView();
 
-    void showDetailScreen(Author author);
+    void showDetailScreen(View view,Author author);
 
 }

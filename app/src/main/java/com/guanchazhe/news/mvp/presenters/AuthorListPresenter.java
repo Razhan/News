@@ -1,5 +1,9 @@
 package com.guanchazhe.news.mvp.presenters;
 
+import android.view.View;
+import android.widget.ImageView;
+
+import com.guanchazhe.news.R;
 import com.guanchazhe.news.domain.GetAuthorListUsecase;
 import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.views.AuthorListView;
@@ -64,8 +68,12 @@ public class AuthorListPresenter implements Presenter {
         mAuthorListView.showErrorView();
     }
 
-    public void onElementClick(Author author) {
-        mAuthorListView.showDetailScreen(author);
+    public void onElementClick(View view, Author author) {
+
+        ImageView imageView = (ImageView)view.findViewById(R.id.author_image);
+        imageView.setTransitionName("image_shared");
+
+        mAuthorListView.showDetailScreen(imageView, author);
     }
 
 }

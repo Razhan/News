@@ -1,14 +1,17 @@
 package com.guanchazhe.news.views.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -182,13 +185,15 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
         Log.d("showDetailScreen", "showDetailScreen");
     }
 
-    public static void start(Context context, Author anthor) {
-        Intent collectionIntent = new Intent(context, CommentaryListActivity.class);
+    public static void start(Activity activity, View view, Author anthor) {
+        Intent intent = new Intent(activity, CommentaryListActivity.class);
 
         Bundle mBundle = new Bundle();
         mBundle.putSerializable(EXTRA_AUTHOR_NAME, anthor);
-        collectionIntent.putExtras(mBundle);
+        intent.putExtras(mBundle);
 
-        context.startActivity(collectionIntent);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(activity, view, "image_shared");
+        activity.startActivity(intent, options.toBundle());
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
@@ -78,7 +79,7 @@ public class AuthorListActivity extends AppCompatActivity implements AuthorListV
         authorListRecycler.addItemDecoration(new RecyclerInsetsDecoration(this));
 
         mAuthorListAdapter = new AuthorListAdapter(authorListRecycler, null,
-                (view, data, position) -> mAuthorListPresenter.onElementClick((Author) data));
+                (view, data, position) -> mAuthorListPresenter.onElementClick(view, (Author) data));
 
         authorListRecycler.setAdapter(mAuthorListAdapter);
     }
@@ -122,8 +123,8 @@ public class AuthorListActivity extends AppCompatActivity implements AuthorListV
     }
 
     @Override
-    public void showDetailScreen(Author author) {
-        CommentaryListActivity.start(this, author);
+    public void showDetailScreen(View view, Author author) {
+        CommentaryListActivity.start(this, view, author);
     }
 
 }

@@ -83,10 +83,11 @@ public class CommentaryListPresenter implements Presenter {
     }
 
     private void resultError(Throwable error) {
+        error.printStackTrace();
         mIsRequestRunning = false;
 
         if (error instanceof com.google.gson.JsonSyntaxException) {
-            return;
+            mCommentaryListView.showNewsListView();
         } else {
             mCommentaryListView.showErrorView();
         }
