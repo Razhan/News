@@ -97,12 +97,8 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
 
         News news = (News)getIntent().getSerializableExtra("news");
 
-        String NewsId = news.getId();
-        String NewsTitle = news.getTitle();
-
         mNewsDetailPresenter.attachView(this);
-        mNewsDetailPresenter.setCharacterId(NewsId);
-        mNewsDetailPresenter.initializePresenter(NewsId, NewsTitle, news);
+        mNewsDetailPresenter.initializePresenter(news);
         mNewsDetailPresenter.onCreate();
         mBinding.setPresenter(mNewsDetailPresenter);
     }

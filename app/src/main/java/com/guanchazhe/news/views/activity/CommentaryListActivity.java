@@ -194,6 +194,7 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
 
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(activity, view, "image_shared");
+
         activity.startActivity(intent, options.toBundle());
     }
 }

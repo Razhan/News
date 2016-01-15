@@ -20,6 +20,7 @@ import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.views.activity.NewsDetailActivity;
+import com.guanchazhe.news.views.activity.NewsDetailNewActivity;
 import com.guanchazhe.news.views.adapter.NewsListAdapter;
 import com.guanchazhe.news.views.listener.EndlessScrollListener;
 import com.guanchazhe.news.views.widget.BetterViewAnimator;
@@ -187,7 +188,7 @@ public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void showDetailScreen(News news) {
-        NewsDetailActivity.start(getActivity(), news);
+        NewsDetailNewActivity.start(getActivity(), news);
     }
 
 }

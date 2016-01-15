@@ -1,11 +1,10 @@
 package com.guanchazhe.news.mvp.presenters;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.guanchazhe.news.domain.GetNewsDetailUsecase;
 import com.guanchazhe.news.mvp.model.entities.News;
-import com.guanchazhe.news.mvp.views.NewsDetailView;
+import com.guanchazhe.news.mvp.views.NewsDetailNewView;
 import com.guanchazhe.news.mvp.views.Views;
 
 
@@ -20,30 +19,28 @@ public class NewsDetailPresenter implements Presenter {
 
     private final String DEVICE = "android";
 
-    private final Context mActivityContext;
-    private NewsDetailView mNewsDetailView;
+    private NewsDetailNewView mNewsDetailView;
     private final GetNewsDetailUsecase mNewsDetailUsecase;
     private Subscription mNewsDetailSubscription;
-    private String mNewsId;
-    private String mNewsTitle;
     private News mNews;
 
     @Inject
-    public NewsDetailPresenter(GetNewsDetailUsecase newsDetailUsecase, Context activityContext) {
+    public NewsDetailPresenter(GetNewsDetailUsecase newsDetailUsecase) {
         mNewsDetailUsecase = newsDetailUsecase;
-        mActivityContext = activityContext;
     }
 
     @Override
     public void onCreate() {
-        if (mNewsId == null || mNewsTitle == null)
+        if (mNews == null)
             throw new IllegalStateException("initializePresenter was not well initialised");
 
-        mNewsDetailSubscription = mNewsDetailUsecase.execute(DEVICE, mNewsId)
-                .map(this::convertHtmlToObj)
+        mNewsDetailView.setImageSource();
+
+        mNewsDetailSubscription = mNewsDetailUsecase.execute(DEVICE)
+                .map(str -> addToObject(str))
                 .subscribe(
-                        this::onNewsReceived,
-                        this::manageCharacterError
+                        news -> resultArrived(news),
+                        error -> resultError(error)
                 );
     }
 
@@ -65,37 +62,30 @@ public class NewsDetailPresenter implements Presenter {
 
     @Override
     public void attachView (Views v) {
-        mNewsDetailView = (NewsDetailView) v;
+        mNewsDetailView = (NewsDetailNewView) v;
     }
 
-    public void initializePresenter(String Id, String title, News news) {
-        mNewsId = Id;
-        mNewsTitle = title;
+    public void initializePresenter(News news) {
         mNews = news;
     }
 
-    private News convertHtmlToObj(String content) {
+    private News addToObject(String content) {
 
         mNews.setContent(content);
 
         return mNews;
     }
 
-    private void manageCharacterError(Throwable error) {
+    private void resultError(Throwable error) {
         // TODO
     }
 
-    private void onNewsReceived(News news) {
+    private void resultArrived(News news) {
         mNewsDetailView.bindNews(news);
         mNewsDetailView.setContent(news);
     }
 
-    public void setCharacterId(String Id) {
-        mNewsId = Id;
-    }
-
     public void onImageReceived(Bitmap resource) {
-        mNewsDetailView.hideRevealViewByAlpha();
         mNewsDetailView.initActivityColors(resource);
     }
 

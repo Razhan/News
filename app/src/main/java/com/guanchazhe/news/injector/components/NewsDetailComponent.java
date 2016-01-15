@@ -5,6 +5,7 @@ import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsDetailModule;
 import com.guanchazhe.news.injector.scopes.Activity;
 import com.guanchazhe.news.views.activity.NewsDetailActivity;
+import com.guanchazhe.news.views.activity.NewsDetailNewActivity;
 
 import dagger.Component;
 
@@ -16,6 +17,7 @@ import dagger.Component;
 public interface NewsDetailComponent extends ActivityComponent {
 
     void inject (NewsDetailActivity detailActivity);
+    void inject (NewsDetailNewActivity detailActivity);
 
     GetNewsDetailUsecase getNewsDetailUsecase();
 }
