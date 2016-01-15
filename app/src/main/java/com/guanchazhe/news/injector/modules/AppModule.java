@@ -28,5 +28,5 @@ public class AppModule {
 
     @Provides
     @Singleton
-    Repository provideDataRepository () { return new RestDataSource(); }
+    Repository provideDataRepository (RestDataSource repository) { return repository; }
 }

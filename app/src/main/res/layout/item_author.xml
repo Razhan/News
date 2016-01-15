@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="65dp"
     android:layout_marginLeft="@dimen/spacing_small"
     android:layout_marginRight="@dimen/spacing_small"
     android:layout_marginTop="@dimen/spacing_tiny"
@@ -40,7 +40,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="4dp">
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:id="@+id/author_name"
@@ -49,7 +49,7 @@
                 android:paddingLeft="@dimen/spacing_small"
                 android:paddingRight="@dimen/spacing_small"
                 android:textColor="@color/primary_text"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textStyle="bold"/>
@@ -58,7 +58,7 @@
                 android:id="@+id/divier_line"
                 android:layout_marginTop="@dimen/spacing_tiny"
                 android:layout_marginRight="@dimen/spacing_tiny"
-                android:layout_below="@+id/newsTitle"
+                android:layout_below="@+id/author_name"
                 android:layout_width="match_parent"
                 android:layout_height="2px"
                 android:background="@color/divider"/>

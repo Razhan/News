@@ -28,8 +28,8 @@ public class GetCommentaryListUsecase implements Usecase<List<Commentary>> {
 
     @Override
     public Observable<List<Commentary>> execute(String... parameters) {
-        return mRepository.getCommentaries("Libin", 1, 20)
+        return mRepository.getCommentaries(mAuthorName, parameters[0], 20)
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());    }
-
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

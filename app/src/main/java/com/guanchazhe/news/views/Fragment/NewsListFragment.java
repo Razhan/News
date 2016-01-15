@@ -15,6 +15,7 @@ import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.injector.components.DaggerNewsListComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
+import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
@@ -37,10 +38,6 @@ import butterknife.Bind;
  */
 public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
         MultiSwipeRefreshLayout.CanChildScrollUpCallback, NewsListView {
-
-    protected static final int ANIMATOR_VIEW_LOADING = R.id.view_loading;
-    protected static final int ANIMATOR_VIEW_CONTENT = R.id.movies_recycler_view;
-    protected static final int ANIMATOR_VIEW_ERROR = R.id.view_error;
 
     @Bind(R.id.multi_swipe_refresh_layout)      MultiSwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.movies_animator)                 BetterViewAnimator mViewAnimator;
@@ -74,8 +71,6 @@ public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout
         initializePresenter();
         initSwipeRefreshLayout();
         initializeRecyclerView();
-
-        mNewsListPresenter.onCreate();
     }
 
     private void initializeDependencyInjector() {
@@ -84,13 +79,13 @@ public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout
         DaggerNewsListComponent.builder()
                 .activityModule(new ActivityModule(mContext))
                 .appComponent(avengersApplication.getAppComponent())
-                .build()
-                .inject(this);
+                .build().inject(this);
     }
 
     private void initializePresenter() {
         mNewsListPresenter.attachView(this);
         mNewsListPresenter.setFragmentIndex(getArguments().getInt("someInt", 0));
+        mNewsListPresenter.onCreate();
     }
 
     private void initSwipeRefreshLayout() {
@@ -110,7 +105,7 @@ public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout
             }
         });
 
-        mNewsListAdapter = new NewsListAdapter(mRecyclerView, new ArrayList<>(),
+        mNewsListAdapter = new NewsListAdapter(mRecyclerView, null,
                 (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
 
         mRecyclerView.setAdapter(mNewsListAdapter);
@@ -119,7 +114,7 @@ public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public boolean canSwipeRefreshChildScrollUp() {
         return (mRecyclerView != null && ViewCompat.canScrollVertically(mRecyclerView, -1)) ||
-                (mViewAnimator != null && mViewAnimator.getDisplayedChildId() == ANIMATOR_VIEW_LOADING);
+                (mViewAnimator != null && mViewAnimator.getDisplayedChildId() == Constant.ANIMATOR_VIEW_LOADING);
     }
 
     @Override
@@ -162,22 +157,22 @@ public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void showLoadingView() {
-        mViewAnimator.setDisplayedChildId(ANIMATOR_VIEW_LOADING);
+        mViewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_LOADING);
     }
 
     @Override
-    public void showNewsList() {
-        mViewAnimator.setDisplayedChildId(ANIMATOR_VIEW_CONTENT);
+    public void showNewsListView() {
+        mViewAnimator.setDisplayedChildId(R.id.movies_recycler_view);
     }
 
     @Override
     public void showErrorView() {
-        mViewAnimator.setDisplayedChildId(ANIMATOR_VIEW_ERROR);
+        mViewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_ERROR);
     }
 
     @Override
     public boolean isContentDisplayed() {
-        return mViewAnimator.getDisplayedChildId() == ANIMATOR_VIEW_CONTENT;
+        return mViewAnimator.getDisplayedChildId() == R.id.movies_recycler_view;
     }
 
     @Override

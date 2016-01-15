@@ -3,6 +3,7 @@ package com.guanchazhe.news.mvp.model.repository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.DetailRestfulAPIs;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.ListRestfulAPIs;
 import com.guanchazhe.news.mvp.model.repository.utils.deserializers.ToStringConverterFactory;
@@ -86,8 +87,17 @@ public class RestDataSource implements Repository {
     }
 
     @Override
-    public Observable<List<Commentary>> getCommentaries(String authorid, int pageindex, int pagesize) {
+    public Observable<List<Commentary>> getCommentaries(String authorid, String pageindex, int pagesize) {
         return listRestfulAPIs.getCommentaries(authorid, pageindex, pagesize)
+                .retry(2)
+                .onErrorResumeNext(throwable -> {
+                    return Observable.error(throwable);
+                });
+    }
+
+    @Override
+    public Observable<List<Author>> getAuthors() {
+        return listRestfulAPIs.getAuthors()
                 .retry(2)
                 .onErrorResumeNext(throwable -> {
                     return Observable.error(throwable);

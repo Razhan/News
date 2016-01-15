@@ -41,7 +41,7 @@ public final class AnimatorStateView extends LinearLayout {
     }
 
     private void initialize(Context context, AttributeSet attrs, int defStyle) {
-        mRoot = LayoutInflater.from(context).inflate(R.layout.widget_animator_state, this, true);
+        mRoot = LayoutInflater.from(context).inflate(R.layout.partial_view_animator_state, this, true);
         ButterKnife.bind(this, mRoot);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnimatorStateView, defStyle, 0);

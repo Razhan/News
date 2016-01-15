@@ -3,6 +3,7 @@ package com.guanchazhe.news.mvp.presenters;
 import android.content.Context;
 
 import com.guanchazhe.news.domain.GetCommentaryListUsecase;
+import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.Commentary;
 import com.guanchazhe.news.mvp.views.CommentaryListView;
 import com.guanchazhe.news.mvp.views.Views;
@@ -11,21 +12,34 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
+
 /**
  * Created by ranzh on 1/6/2016.
  */
 public class CommentaryListPresenter implements Presenter {
 
     private final GetCommentaryListUsecase mCommentaryCollectionUsecase;
-    private final Context mActivityContext;
-    private String mAuthorName;
+    private boolean mIsRequestRunning;
+    private Subscription mCommentariesSubscription;
+    private int mCurrentPage;
     private CommentaryListView mCommentaryListView;
 
     @Inject
-    public CommentaryListPresenter(GetCommentaryListUsecase getCommentaryListUsecase,
-                                   Context activityContext) {
+    public CommentaryListPresenter(GetCommentaryListUsecase getCommentaryListUsecase) {
         mCommentaryCollectionUsecase = getCommentaryListUsecase;
-        mActivityContext = activityContext;
+        mCurrentPage = 1;
+    }
+
+    @Override
+    public void onCreate() {
+        mCommentaryListView.showLoadingView();
+        sendRequest(Constant.RequestType.ASK);
+    }
+
+    @Override
+    public void attachView(Views v) {
+        mCommentaryListView = (CommentaryListView) v;
     }
 
     @Override public void onStart() {}
@@ -33,34 +47,49 @@ public class CommentaryListPresenter implements Presenter {
     @Override public void onStop() {}
 
     @Override
-    public void onPause() {}
-
-    @Override
-    public void attachView(Views v) {
-        mCommentaryListView = (CommentaryListView) v;
+    public void onPause() {
+        mCommentariesSubscription.unsubscribe();
+        mIsRequestRunning = false;
     }
 
-    @Override
-    public void onCreate() {
-        mCommentaryCollectionUsecase.execute(mAuthorName)
-                .map(this::fixImageURL)
+    public void onListEndReached(int currentPage) {
+        if (!mIsRequestRunning) {
+            mCurrentPage = currentPage;
+            sendRequest(Constant.RequestType.ASKMORE);
+        }
+    }
+
+    private void sendRequest(Constant.RequestType requestType) {
+        mCommentariesSubscription = mCommentaryCollectionUsecase.execute(String.valueOf(mCurrentPage))
+                .map(commentaries -> fixImageURL(commentaries))
                 .subscribe(
-                        this::onCollectionItemsReceived,
-                        this::manageCollectionItemsError
+                        commentaries -> resultArrived(requestType, commentaries),
+                        error -> resultError(error)
                 );
     }
 
-    public void initialisePresenters(String authorName) {
-        mAuthorName = authorName;
+    private void resultArrived(Constant.RequestType requestType, List<Commentary> commentaries) {
+        mIsRequestRunning = false;
+
+        if (!mCommentaryListView.isContentDisplayed()) {
+            mCommentaryListView.showNewsListView();
+        }
+
+        if (requestType == Constant.RequestType.ASK) {
+            mCommentaryListView.setCommentaryList(commentaries);
+        } else {
+            mCommentaryListView.addCommentaryList(commentaries);
+        }
     }
 
-    private void onCollectionItemsReceived(List<Commentary> items) {
-        mCommentaryListView.hideLoadingIndicator();
-        mCommentaryListView.showItems(items);
-    }
+    private void resultError(Throwable error) {
+        mIsRequestRunning = false;
 
-    private void manageCollectionItemsError(Throwable error) {
-        // TODO
+        if (error instanceof com.google.gson.JsonSyntaxException) {
+            return;
+        } else {
+            mCommentaryListView.showErrorView();
+        }
     }
 
     private List<Commentary> fixImageURL(List<Commentary> items) {
@@ -70,4 +99,9 @@ public class CommentaryListPresenter implements Presenter {
         }
         return items;
     }
+
+    public void onElementClick(Commentary commentary) {
+        mCommentaryListView.showDetailScreen(commentary);
+    }
+
 }

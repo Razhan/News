@@ -1,6 +1,6 @@
 package com.guanchazhe.news.domain;
 
-import com.guanchazhe.news.mvp.model.entities.News;
+import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.repository.Repository;
 
 import java.util.List;
@@ -12,22 +12,20 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by ranzh on 12/22/2015.
+ * Created by ranzh on 1/14/2016.
  */
-public class GetNewsListUsecase implements Usecase<List<News>> {
+public class GetAuthorListUsecase implements Usecase<List<Author>>  {
 
-    public final static int NEWS_LIMIT = 20;
     private final Repository mRepository;
 
     @Inject
-    public GetNewsListUsecase(Repository repository) {
+    public GetAuthorListUsecase(Repository repository) {
         mRepository = repository;
     }
 
     @Override
-//    @RxLogObservable
-    public Observable<List<News>> execute(String... parameters) {
-        return mRepository.getNews(49646, parameters[0], parameters[1], 20)
+    public Observable<List<Author>> execute(String... parameters) {
+        return mRepository.getAuthors()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

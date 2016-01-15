@@ -15,12 +15,6 @@ public interface DetailRestfulAPIs {
             @Query("id") String id
     );
 
-//    http://mobileservice.guancha.cn/app/GetAuthorList/
-//"id": "MeiXinYu",
-//"name": "梅新育",
-//"summary": "商务部国际贸易经济合作研究院研究员",
-//"pic": "http://i.guancha.cn/ColumnPic/508281bc-f1e5-4221-b729-fa5b5cdc0c78.png",
-//"spelling": "MeiXinYu"
 
 //    @GET("endpoint")
 //    @QueryParam(name="constantVariable", value="constantValue")

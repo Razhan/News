@@ -18,7 +18,7 @@ public interface NewsListView extends Views {
 
     void clearNewsList();
 
-    void showNewsList();
+    void showNewsListView();
 
     void showLoadingView();
 

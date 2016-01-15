@@ -1,15 +1,22 @@
 package com.guanchazhe.news.mvp.model.entities;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
 /**
  * Created by ran.zhang on 1/13/16.
  */
-public class Author {
+public class Author implements Serializable {
 
     String pic;
 
     String name;
 
+    @SerializedName("summary")
     String title;
+
+    String spelling;
 
     public String getPic() {
         return pic;
@@ -23,6 +30,10 @@ public class Author {
         return title;
     }
 
+    public String getSpelling() {
+        return spelling;
+    }
+
     public void setPic(String pic) {
         this.pic = pic;
     }
@@ -33,5 +44,9 @@ public class Author {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setSpelling(String spelling) {
+        this.spelling = spelling;
     }
 }

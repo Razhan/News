@@ -19,8 +19,7 @@
             android:id="@+id/movies_recycler_view"
             style="@style/CollectionView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_news"/>
+            android:layout_height="match_parent"/>
 
         <include layout="@layout/partial_view_loading" />
 

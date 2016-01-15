@@ -64,7 +64,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         initUI();
         initializeDependencyInjector();
         initializePresenter();
-        initToolbar();
+//        initToolbar();
         initTransitions();
     }
 
@@ -107,12 +107,12 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         mBinding.setPresenter(mNewsDetailPresenter);
     }
 
-    private void initToolbar() {
-        mBinding.characterCollapsing.setExpandedTitleTextAppearance(
-                R.style.Text_CollapsedExpanded);
-
-        mBinding.characterToolbar.setNavigationOnClickListener(v -> onBackPressed());
-    }
+//    private void initToolbar() {
+//        mBinding.characterCollapsing.setExpandedTitleTextAppearance(
+//                R.style.Text_CollapsedExpanded);
+//
+//        mBinding.characterToolbar.setNavigationOnClickListener(v -> onBackPressed());
+//    }
 
     private void initTransitions() {
 
@@ -122,25 +122,25 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         getWindow().setEnterTransition(enterTransition);
         getWindow().setReturnTransition(TransitionUtils.buildSlideTransition(Gravity.BOTTOM));
 
-        View collapsingToolbar = mBinding.characterCollapsing;
-        View imageReveal = mBinding.characterImageReveal;
-        collapsingToolbar.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        collapsingToolbar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        int width = imageReveal.getWidth();
-                        int height = imageReveal.getHeight();
-
-                        AnimUtils.showRevealEffect(imageReveal, width / 2, height / 2, null);
-                    }
-                });
+//        View collapsingToolbar = mBinding.characterCollapsing;
+//        View imageReveal = mBinding.characterImageReveal;
+//        collapsingToolbar.getViewTreeObserver().addOnGlobalLayoutListener(
+//                new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @Override
+//                    public void onGlobalLayout() {
+//                        collapsingToolbar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                        int width = imageReveal.getWidth();
+//                        int height = imageReveal.getHeight();
+//
+//                        AnimUtils.showRevealEffect(imageReveal, width / 2, height / 2, null);
+//                    }
+//                });
     }
 
     public void initActivityColors(Bitmap sourceBitmap) {
         Palette.from(sourceBitmap)
                 .generate(palette -> {
-                    View imageCover = mBinding.characterImageReveal;
+//                    View imageCover = mBinding.characterImageReveal;
                     int darkVibrant = palette.getDarkVibrantColor(mColorPrimaryDark);
 
                     mBinding.setSwatch(palette.getDarkVibrantSwatch());
@@ -148,7 +148,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
                     ValueAnimator colorAnimation = ValueAnimator.ofArgb(mColorPrimaryDark, darkVibrant);
                     colorAnimation.setDuration(mAnimHugeDuration);
                     colorAnimation.addUpdateListener(animator -> {
-                        imageCover.setBackgroundColor((Integer) animator.getAnimatedValue());
+//                        imageCover.setBackgroundColor((Integer) animator.getAnimatedValue());
                     });
 
                     colorAnimation.start();
@@ -158,11 +158,11 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
 
     @Override
     public void hideRevealViewByAlpha() {
-        mBinding.characterImageReveal
-                .animate()
-                .alpha(0f)
-                .setDuration(mAnimHugeDuration)
-                .start();
+//        mBinding.characterImageReveal
+//                .animate()
+//                .alpha(0f)
+//                .setDuration(mAnimHugeDuration)
+//                .start();
     }
 
     @Override

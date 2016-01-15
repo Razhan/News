@@ -32,7 +32,7 @@ public class AuthorListAdapter extends BaseRecyclerAdapter<Author>{
                     .load(item.getPic())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.error_placeholder)
-                    .into((ImageView) holder.getView(R.id.profile_image));
+                    .into((ImageView) holder.getView(R.id.author_image));
 
         } else {
             holder.setImageResource(R.id.profile_image, R.drawable.default_avatar);
