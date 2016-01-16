@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import com.guanchazhe.news.domain.GetNewsDetailUsecase;
 import com.guanchazhe.news.mvp.model.entities.News;
-import com.guanchazhe.news.mvp.views.NewsDetailNewView;
+import com.guanchazhe.news.mvp.views.NewsDetailView;
 import com.guanchazhe.news.mvp.views.Views;
 
 
@@ -19,7 +19,7 @@ public class NewsDetailPresenter implements Presenter {
 
     private final String DEVICE = "android";
 
-    private NewsDetailNewView mNewsDetailView;
+    private NewsDetailView mNewsDetailView;
     private final GetNewsDetailUsecase mNewsDetailUsecase;
     private Subscription mNewsDetailSubscription;
     private News mNews;
@@ -62,7 +62,7 @@ public class NewsDetailPresenter implements Presenter {
 
     @Override
     public void attachView (Views v) {
-        mNewsDetailView = (NewsDetailNewView) v;
+        mNewsDetailView = (NewsDetailView) v;
     }
 
     public void initializePresenter(News news) {

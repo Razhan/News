@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -221,5 +222,23 @@ public class GUIUtils {
 
         viewPropertyAnimator.start();
 
+    }
+
+    public static void showRevealEffect(Context context, final View v, int centerX, int centerY,
+                                        @Nullable Animator.AnimatorListener lis) {
+
+        v.setVisibility(View.VISIBLE);
+
+        int finalRadius = Math.max(v.getWidth(), v.getHeight());
+
+        Animator anim = ViewAnimationUtils.createCircularReveal(
+                v, centerX, centerY, 0, finalRadius);
+
+        anim.setDuration(context.getResources().getInteger(R.integer.duration_long));
+
+        if (lis != null)
+            anim.addListener(lis);
+
+        anim.start();
     }
 }

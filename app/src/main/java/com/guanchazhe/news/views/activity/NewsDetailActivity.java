@@ -1,22 +1,24 @@
 package com.guanchazhe.news.views.activity;
 
-import android.animation.ValueAnimator;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.BindingAdapter;
-import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
-import android.transition.Transition;
-import android.view.Gravity;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -24,182 +26,102 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.mvp.model.entities.News;
-import com.guanchazhe.news.views.utils.AnimUtils;
-import com.guanchazhe.news.views.utils.TransitionUtils;
-import com.guanchazhe.news.databinding.ActivityNewsDetailBinding;
-import com.guanchazhe.news.injector.components .DaggerNewsDetailComponent;
+import com.guanchazhe.news.injector.components.DaggerNewsDetailComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsDetailModule;
+import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsDetailPresenter;
 import com.guanchazhe.news.mvp.views.NewsDetailView;
+import com.guanchazhe.news.views.listener.OnScrollChangeListener;
+import com.guanchazhe.news.views.utils.GUIUtils;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.BindColor;
-import butterknife.BindInt;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+/**
+ * Created by ranzh on 1/15/2016.
+ */
 public class NewsDetailActivity extends AppCompatActivity implements NewsDetailView {
 
-    private static final String EXTRA_NEWS_TITLE    = "news.title";
-    public static final String EXTRA_NEWS_ID       = "news.id";
+    public static final String EXTRA_NEWS_ID = "newsId";
 
-    @BindInt(R.integer.duration_medium)                 int mAnimMediumDuration;
-    @BindInt(R.integer.duration_huge)                   int mAnimHugeDuration;
-    @BindColor(R.color.colorPrimaryDark)                int mColorPrimaryDark;
+    @Bind(R.id.item_movie_cover)                ImageView itemMovieCover;
+    @Bind(R.id.activity_detail_title)           TextView mTitle;
+    @Bind(R.id.activity_detail_fab)             FloatingActionButton mFabButton;
+    @Bind(R.id.character_biography)             WebView contentWebView;
+    @Bind(R.id.activity_detail_book_info)       CardView activityDetailBookInfo;
+    @Bind(R.id.activity_detail_scroll)          NestedScrollView mScrollView;
+    @Bind(R.id.item_movie_cover_wrapper)        FrameLayout imageWrapper;
 
-    @Bind(R.id.character_biography)                     WebView content;
+    @BindColor(R.color.colorPrimary)            int mColorPrimary;
+    @BindColor(R.color.colorPrimaryDark)        int mColorPrimaryDark;
 
-    @Inject NewsDetailPresenter mNewsDetailPresenter;
-    private ActivityNewsDetailBinding mBinding;
+    @Inject
+    NewsDetailPresenter mNewsDetailPresenter;
+
+
+    private News mNews;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initializeBinding();
-        initButterknife();
         initUI();
-        initializeDependencyInjector();
-        initializePresenter();
-//        initToolbar();
-        initTransitions();
+        initDependencyInjector();
+        initPresenter();
+        initScrollView();
     }
 
     private void initUI() {
-        WebSettings settings = content.getSettings();
-        settings.setTextZoom(110);
-    }
-
-    private void initializeBinding() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_news_detail);
-    }
-
-    private void initButterknife() {
+        setContentView(R.layout.activity_news_detail);
         ButterKnife.bind(this);
+
+        itemMovieCover.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        itemMovieCover.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                        AnimatorListenerAdapter listenerAdapter = new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                animateElementsByScale();
+                            }
+                        };
+
+                        GUIUtils.showRevealEffect(NewsDetailActivity.this, itemMovieCover,
+                                itemMovieCover.getWidth(), 0, listenerAdapter);
+                    }
+                }
+        );
     }
 
-    private void initializeDependencyInjector() {
+    private void initDependencyInjector() {
+        mNews = (News)getIntent().getSerializableExtra("news");
+
         NewsApplication avengersApplication = (NewsApplication) getApplication();
-
-        String NewsId = getIntent().getStringExtra(EXTRA_NEWS_ID);
-
         DaggerNewsDetailComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .appComponent(avengersApplication.getAppComponent())
-                .newsDetailModule(new NewsDetailModule(NewsId))
+                .newsDetailModule(new NewsDetailModule(mNews.getId()))
                 .build().inject(this);
     }
 
-    private void initializePresenter() {
-
-        News news = (News)getIntent().getSerializableExtra("news");
+    private void initPresenter() {
 
         mNewsDetailPresenter.attachView(this);
-        mNewsDetailPresenter.initializePresenter(news);
+        mNewsDetailPresenter.initializePresenter(mNews);
         mNewsDetailPresenter.onCreate();
-        mBinding.setPresenter(mNewsDetailPresenter);
     }
 
-//    private void initToolbar() {
-//        mBinding.characterCollapsing.setExpandedTitleTextAppearance(
-//                R.style.Text_CollapsedExpanded);
-//
-//        mBinding.characterToolbar.setNavigationOnClickListener(v -> onBackPressed());
-//    }
-
-    private void initTransitions() {
-
-        Transition enterTransition = TransitionUtils.buildSlideTransition(Gravity.BOTTOM);
-        enterTransition.setDuration(mAnimMediumDuration);
-
-        getWindow().setEnterTransition(enterTransition);
-        getWindow().setReturnTransition(TransitionUtils.buildSlideTransition(Gravity.BOTTOM));
-
-//        View collapsingToolbar = mBinding.characterCollapsing;
-//        View imageReveal = mBinding.characterImageReveal;
-//        collapsingToolbar.getViewTreeObserver().addOnGlobalLayoutListener(
-//                new ViewTreeObserver.OnGlobalLayoutListener() {
-//                    @Override
-//                    public void onGlobalLayout() {
-//                        collapsingToolbar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                        int width = imageReveal.getWidth();
-//                        int height = imageReveal.getHeight();
-//
-//                        AnimUtils.showRevealEffect(imageReveal, width / 2, height / 2, null);
-//                    }
-//                });
-    }
-
-    public void initActivityColors(Bitmap sourceBitmap) {
-        Palette.from(sourceBitmap)
-                .generate(palette -> {
-//                    View imageCover = mBinding.characterImageReveal;
-                    int darkVibrant = palette.getDarkVibrantColor(mColorPrimaryDark);
-
-                    mBinding.setSwatch(palette.getDarkVibrantSwatch());
-
-                    ValueAnimator colorAnimation = ValueAnimator.ofArgb(mColorPrimaryDark, darkVibrant);
-                    colorAnimation.setDuration(mAnimHugeDuration);
-                    colorAnimation.addUpdateListener(animator -> {
-//                        imageCover.setBackgroundColor((Integer) animator.getAnimatedValue());
-                    });
-
-                    colorAnimation.start();
-                    getWindow().setStatusBarColor(darkVibrant);
-                });
-    }
-
-    @Override
-    public void hideRevealViewByAlpha() {
-//        mBinding.characterImageReveal
-//                .animate()
-//                .alpha(0f)
-//                .setDuration(mAnimHugeDuration)
-//                .start();
-    }
-
-    @Override
-    public void showError(String errorMessage) {
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.dialog_error))
-                .setPositiveButton(getString(R.string.action_accept), (dialog, which) -> finish())
-                .setMessage(errorMessage)
-                .setCancelable(false).show();
-    }
-
-    @Override
-    public void bindNews(News news) {
-        mBinding.setNews(news);
-    }
-
-    @Override
-    public void setContent(News news) {
-        content.loadDataWithBaseURL(null, news.getContent(), "text/html","UTF-8", null);
-        // contentTextView.setText(Html.fromHtml(news.getContent(), new GlideImageGetter(contentTextView), null));
-    }
-
-    @Override
-    public void stopWebView() {
-        content.loadUrl("about:blank");
-    }
-
-    @BindingAdapter({"source", "presenter"})
-    public static void setImageSource(ImageView v, String url, NewsDetailPresenter detailPresenter) {
-        Glide.with(v.getContext())
-            .load(url)
-            .asBitmap()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(new BitmapImageViewTarget(v) {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    super.onResourceReady(resource, glideAnimation);
-                    v.setImageBitmap(resource);
-                    detailPresenter.onImageReceived(resource);
-                }
-            });
+    private void initScrollView() {
+        mScrollView.setOnScrollChangeListener(new OnScrollChangeListener(itemMovieCover, mTitle));
     }
 
     @Override
@@ -208,10 +130,76 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         mNewsDetailPresenter.onStop();
     }
 
+    @Override
+    public void setImageSource() {
+        Glide.with(itemMovieCover.getContext())
+                .load(mNews.getPic())
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(new BitmapImageViewTarget(itemMovieCover) {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        super.onResourceReady(resource, glideAnimation);
+//                        itemMovieCover.setImageBitmap(resource);
+                        mNewsDetailPresenter.onImageReceived(resource);
+                    }
+                });
+    }
+
+    @Override
+    public void initActivityColors(Bitmap sourceBitmap) {
+        Palette.from(sourceBitmap)
+                .generate(palette -> {
+
+                    int darkVibrant = palette.getDarkVibrantColor(mColorPrimaryDark);
+
+                    getWindow().setStatusBarColor(darkVibrant);
+                    imageWrapper.setBackgroundColor(darkVibrant);
+                    mTitle.setBackgroundColor(darkVibrant);
+                });
+    }
+
+    private void animateElementsByScale() {
+
+        GUIUtils.showViewByScale(mFabButton);
+        GUIUtils.showViewByScaleY(mTitle, new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+                super.onAnimationEnd(animation);
+                GUIUtils.showViewByScale(activityDetailBookInfo);
+            }
+        });
+    }
+
+    @Override
+    public void bindNews(News news) {
+        mNews = news;
+    }
+
+    @Override
+    public void setContent(News news) {
+        mTitle.setText(news.getTitle());
+        contentWebView.setVisibility(View.VISIBLE);
+        contentWebView.loadDataWithBaseURL(null, news.getContent(), "text/html", "UTF-8", null);
+    }
+
+
+    @Override
+    public void stopWebView() {
+        contentWebView.loadUrl("about:blank");
+    }
+
     public static void start(Context context, News news) {
         Intent characterDetailIntent = new Intent(context, NewsDetailActivity.class);
         characterDetailIntent.putExtra("news", news);
         context.startActivity(characterDetailIntent);
+    }
+
+    @OnClick(R.id.activity_detail_fab)
+    public void onClick() {
+        Log.d("activity_detail_fab", "activity_detail_fab");
     }
 
 }

@@ -17,6 +17,9 @@ import java.util.List;
  */
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerHolder> {
 
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
+
     protected List<T> realDatas;
     protected final int mItemLayoutId;
     protected boolean isScrolling;

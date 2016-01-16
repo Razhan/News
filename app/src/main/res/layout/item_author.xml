@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="65dp"
@@ -9,8 +9,8 @@
     android:layout_marginRight="@dimen/spacing_small"
     android:layout_marginTop="@dimen/spacing_tiny"
     android:foreground="?attr/selectableItemBackground"
-    card_view:cardCornerRadius="@dimen/margin_4dp"
-    card_view:cardElevation="4dp">
+    tools:cardCornerRadius="@dimen/margin_4dp"
+    tools:cardElevation="4dp">
 
     <LinearLayout
         android:id="@+id/item_head"

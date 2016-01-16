@@ -6,7 +6,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +19,12 @@ import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.views.activity.NewsDetailActivity;
-import com.guanchazhe.news.views.activity.NewsDetailNewActivity;
 import com.guanchazhe.news.views.adapter.NewsListAdapter;
 import com.guanchazhe.news.views.listener.EndlessScrollListener;
 import com.guanchazhe.news.views.widget.BetterViewAnimator;
 import com.guanchazhe.news.views.widget.MultiSwipeRefreshLayout;
 import com.guanchazhe.news.views.widget.RecyclerInsetsDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -188,7 +185,7 @@ public class NewsListFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void showDetailScreen(News news) {
-        NewsDetailNewActivity.start(getActivity(), news);
+        NewsDetailActivity.start(getActivity(), news);
     }
 
 }
