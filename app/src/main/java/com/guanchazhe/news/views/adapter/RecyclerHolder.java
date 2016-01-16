@@ -14,12 +14,13 @@ import android.widget.TextView;
 public class RecyclerHolder extends RecyclerView.ViewHolder {
     private final SparseArray<View> mViews;
     private Context mContext;
+    private final int mHoldType;
 
-    public RecyclerHolder(View itemView, Context context) {
+    public RecyclerHolder(View itemView, Context context, int type) {
         super(itemView);
         mContext = context;
-        this.mViews = new SparseArray<View>(8);
-//        ButterKnife.bind(this, itemView);
+        mHoldType = type;
+        this.mViews = new SparseArray<>(8);
     }
 
     public SparseArray<View> getAllView() {
@@ -61,5 +62,9 @@ public class RecyclerHolder extends RecyclerView.ViewHolder {
 
     public Context getmContext() {
         return mContext;
+    }
+
+    public int getHoldType() {
+        return mHoldType;
     }
 }

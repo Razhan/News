@@ -1,7 +1,6 @@
 package com.guanchazhe.news.views.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -23,7 +22,7 @@ import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.CommentaryListModule;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.Author;
-import com.guanchazhe.news.mvp.model.entities.Commentary;
+import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.CommentaryListPresenter;
 import com.guanchazhe.news.mvp.views.CommentaryListView;
 import com.guanchazhe.news.views.adapter.CommentaryListAdapter;
@@ -52,8 +51,6 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
 
     @Inject
     CommentaryListPresenter mCommentaryListPresenter;
-
-
 
     private CommentaryListAdapter mCommentaryListAdapter;
     Author author;
@@ -121,8 +118,8 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
             }
         });
 
-        mCommentaryListAdapter = new CommentaryListAdapter(mCollectionRecycler, null,
-                (view, data, position) -> mCommentaryListPresenter.onElementClick((Commentary) data));
+        mCommentaryListAdapter = new CommentaryListAdapter(mCollectionRecycler, null, false,
+                (view, data, position) -> mCommentaryListPresenter.onElementClick((News) data));
 
         mCollectionRecycler.setAdapter(mCommentaryListAdapter);
     }
@@ -146,12 +143,12 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
     }
 
     @Override
-    public void setCommentaryList(List<Commentary> commentaries) {
+    public void setCommentaryList(List<News> commentaries) {
         mCommentaryListAdapter.set(commentaries);
     }
 
     @Override
-    public void addCommentaryList(List<Commentary> moreCommentaries) {
+    public void addCommentaryList(List<News> moreCommentaries) {
         mCommentaryListAdapter.add(moreCommentaries);
     }
 
@@ -181,7 +178,7 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
     }
 
     @Override
-    public void showDetailScreen(Commentary commentary) {
+    public void showDetailScreen(News commentary) {
         Log.d("showDetailScreen", "showDetailScreen");
     }
 

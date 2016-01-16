@@ -1,7 +1,6 @@
 package com.guanchazhe.news.mvp.model.repository.restfulAPIs;
 
 import com.guanchazhe.news.mvp.model.entities.Author;
-import com.guanchazhe.news.mvp.model.entities.Commentary;
 import com.guanchazhe.news.mvp.model.entities.News;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public interface ListRestfulAPIs {
     );
 
     @GET("/app/GetAuthorNews/")
-    Observable<List<Commentary>> getCommentaries(
+    Observable<List<News>> getCommentaries(
             @Query("authorid") String authorid,
             @Query("pageindex") String pageindex,
             @Query("pagesize") int pagesize

@@ -1,6 +1,5 @@
 package com.guanchazhe.news.views.Fragment;
 
-
 import android.os.Bundle;
 import android.view.View;
 
@@ -8,23 +7,22 @@ import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.injector.components.DaggerNewsListComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.mvp.model.entities.News;
-import com.guanchazhe.news.views.adapter.NewsListAdapter;
+import com.guanchazhe.news.views.adapter.CommentaryListAdapter;
 
 import java.util.List;
 
 /**
- * Created by ranzh on 1/10/2016.
+ * Created by ran.zhang on 1/16/16.
  */
-public class NewsListFragment extends ListFragment {
+public class CommentaryListFragment extends ListFragment {
 
-    private NewsListAdapter mNewsListAdapter;
+    private CommentaryListAdapter mNewsListAdapter;
 
-    public static NewsListFragment newInstance(int someInt, boolean someBoolean) {
-        NewsListFragment myFragment = new NewsListFragment();
+    public static CommentaryListFragment newInstance(int someInt) {
+        CommentaryListFragment myFragment = new CommentaryListFragment();
 
         Bundle args = new Bundle();
         args.putInt("someInt", someInt);
-        args.putBoolean("someBoolean", someBoolean);
         myFragment.setArguments(args);
 
         return myFragment;
@@ -47,7 +45,7 @@ public class NewsListFragment extends ListFragment {
 
     @Override
     protected void setRecycleViewAdapter(boolean header) {
-         mNewsListAdapter = new NewsListAdapter(mRecyclerView, null, header,
+        mNewsListAdapter = new CommentaryListAdapter(mRecyclerView, null, header,
                 (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
 
         mRecyclerView.setAdapter(mNewsListAdapter);
@@ -69,4 +67,3 @@ public class NewsListFragment extends ListFragment {
     }
 
 }
-

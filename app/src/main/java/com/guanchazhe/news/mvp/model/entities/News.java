@@ -6,24 +6,16 @@ import java.io.Serializable;
  * Created by ranzh on 12/22/2015.
  */
 public class News implements Serializable {
+
     private String rowid;
-
     private String id;
-
     private String title;
-
     private String summary;
-
     private String author;
-
     private String type;
-
     private String pic;
-
     private String horizontalpic;
-
     private String creationtime;
-
     private String content;
 
     public String getRowid() {

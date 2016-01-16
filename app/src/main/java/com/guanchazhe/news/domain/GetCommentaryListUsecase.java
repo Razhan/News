@@ -1,6 +1,6 @@
 package com.guanchazhe.news.domain;
 
-import com.guanchazhe.news.mvp.model.entities.Commentary;
+import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.model.repository.Repository;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ranzh on 1/6/2016.
  */
-public class GetCommentaryListUsecase implements Usecase<List<Commentary>> {
+public class GetCommentaryListUsecase implements Usecase<List<News>> {
 
     private final Repository mRepository;
     private final String mAuthorName;
@@ -25,9 +25,8 @@ public class GetCommentaryListUsecase implements Usecase<List<Commentary>> {
         mAuthorName = authorname;
     }
 
-
     @Override
-    public Observable<List<Commentary>> execute(String... parameters) {
+    public Observable<List<News>> execute(String... parameters) {
         return mRepository.getCommentaries(mAuthorName, parameters[0], 20)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());

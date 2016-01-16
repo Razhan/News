@@ -20,8 +20,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
-    protected List<T> realDatas;
+    protected List<T> mData;
     protected final int mItemLayoutId;
+    protected final int mHeaderLayoutId;
+    protected final boolean mWithHeader;
+
     protected boolean isScrolling;
     protected Context mContext;
     private OnItemClickListener listener;
@@ -30,38 +33,76 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         void onItemClick(View view, Object data, int position);
     }
 
-    public BaseRecyclerAdapter(RecyclerView v, Collection<T> datas, int itemLayoutId) {
-            if (datas == null) {
-                realDatas = new ArrayList<>();
-            } else if (datas instanceof List) {
-                realDatas = (List<T>) datas;
+    public BaseRecyclerAdapter(RecyclerView v, Collection<T> data, int itemLayoutId, int headerLayoutId, boolean withHeader) {
+
+            if (data == null) {
+                mData = new ArrayList<>();
+            } else if (data instanceof List) {
+                mData = (List<T>) data;
             } else {
-                realDatas = new ArrayList<>(datas);
+                mData = new ArrayList<>(data);
             }
         mItemLayoutId = itemLayoutId;
-        mContext = v.getContext();
+        mHeaderLayoutId = headerLayoutId;
+        mWithHeader = withHeader;
 
+        mContext = v.getContext();
     }
 
-    public abstract void convert(RecyclerHolder holder, T item, int position, boolean isScrolling);
+    public abstract void headerConvert(RecyclerHolder holder, T item, int position, boolean isScrolling);
+
+    public abstract void itemConvert(RecyclerHolder holder, T item, int position, boolean isScrolling);
 
     @Override
     public RecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View root = inflater.inflate(mItemLayoutId, parent, false);
-        return new RecyclerHolder(root, mContext);
+        View root;
+
+        if(viewType == TYPE_HEADER) {
+            root = inflater.inflate(mHeaderLayoutId, parent, false);
+        } else if(viewType == TYPE_ITEM) {
+            root = inflater.inflate(mItemLayoutId, parent, false);
+        } else {
+            throw new RuntimeException("there is no type that matches the type " + viewType);
+        }
+
+        return new RecyclerHolder(root, mContext, viewType);
     }
 
     @Override
     public void onBindViewHolder(RecyclerHolder holder, int position) {
-        convert(holder, realDatas.get(position), position, isScrolling);
+
+        if (holder.getHoldType() == TYPE_HEADER) {
+            headerConvert(holder, mData.get(position), position, isScrolling);
+        } else {
+            itemConvert(holder, mData.get(position), position, isScrolling);
+        }
+
         holder.itemView.setOnClickListener(getOnClickListener(position));
     }
 
     @Override
     public int getItemCount() {
-        return realDatas.size();
+        return mData.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(isPositionHeader(position)) {
+            return TYPE_HEADER;
+        }
+
+        return TYPE_ITEM;
+    }
+
+    private boolean isPositionHeader(int position) {
+        if (mWithHeader && position == 0) {
+            return true;
+        }
+        return false;
+    }
+
 
     public void setOnItemClickListener(OnItemClickListener l) {
         listener = l;
@@ -72,7 +113,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             @Override
             public void onClick(@Nullable View v) {
                 if (listener != null && v != null) {
-                    listener.onItemClick(v, realDatas.get(position), position);
+                    listener.onItemClick(v, mData.get(position), position);
                 }
             }
         };
@@ -80,34 +121,34 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     public BaseRecyclerAdapter<T> refresh(Collection<T> datas) {
         if (datas == null) {
-            realDatas = new ArrayList<>();
+            mData = new ArrayList<>();
         } else if (datas instanceof List) {
-            realDatas = (List<T>) datas;
+            mData = (List<T>) datas;
         } else {
-            realDatas = new ArrayList<>(datas);
+            mData = new ArrayList<>(datas);
         }
         return this;
     }
 
     public void set(@NonNull List<T> items) {
-        realDatas.clear();
-        realDatas.addAll(items);
+        mData.clear();
+        mData.addAll(items);
         notifyDataSetChanged();
     }
 
     public void add(@NonNull List<T> moreNews) {
         if (!moreNews.isEmpty()) {
-            int currentSize = realDatas.size();
+            int currentSize = mData.size();
             int amountInserted = moreNews.size();
 
-            realDatas.addAll(moreNews);
+            mData.addAll(moreNews);
             notifyItemRangeInserted(currentSize, amountInserted);
         }
     }
 
     public void clear() {
-        if (!realDatas.isEmpty()) {
-            realDatas.clear();
+        if (!mData.isEmpty()) {
+            mData.clear();
             notifyDataSetChanged();
         }
     }

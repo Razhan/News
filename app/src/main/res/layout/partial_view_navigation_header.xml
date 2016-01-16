@@ -10,13 +10,13 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
+        android:id="@+id/commemtary_author_image"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/avengers_header"
         app:civ_border_color="@color/white"
-        app:civ_border_width="2dp" />
+        app:civ_border_width="2dp"/>
 
 
     <TextView
@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:text="APP开发者"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 </LinearLayout>

@@ -78,7 +78,7 @@ public class AuthorListActivity extends AppCompatActivity implements AuthorListV
         authorListRecycler.setLayoutManager(linearLayoutManager);
         authorListRecycler.addItemDecoration(new RecyclerInsetsDecoration(this));
 
-        mAuthorListAdapter = new AuthorListAdapter(authorListRecycler, null,
+        mAuthorListAdapter = new AuthorListAdapter(authorListRecycler, null, false,
                 (view, data, position) -> mAuthorListPresenter.onElementClick(view, (Author) data));
 
         authorListRecycler.setAdapter(mAuthorListAdapter);

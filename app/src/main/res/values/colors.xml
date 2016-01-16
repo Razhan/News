@@ -18,6 +18,7 @@
     <color name="red">#ffff0000</color>
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
+    <color name="transparent">#00000000</color>
     <color name="gray">#ff888888</color>
     <color name="gray.dark">#ff444444</color>
     <color name="gray.light">#ffcccccc</color>

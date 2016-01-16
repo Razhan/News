@@ -1,10 +1,8 @@
 package com.guanchazhe.news.mvp.presenters;
 
-import android.content.Context;
-
 import com.guanchazhe.news.domain.GetCommentaryListUsecase;
 import com.guanchazhe.news.mvp.Constant;
-import com.guanchazhe.news.mvp.model.entities.Commentary;
+import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.views.CommentaryListView;
 import com.guanchazhe.news.mvp.views.Views;
 
@@ -68,7 +66,7 @@ public class CommentaryListPresenter implements Presenter {
                 );
     }
 
-    private void resultArrived(Constant.RequestType requestType, List<Commentary> commentaries) {
+    private void resultArrived(Constant.RequestType requestType, List<News> commentaries) {
         mIsRequestRunning = false;
 
         if (!mCommentaryListView.isContentDisplayed()) {
@@ -93,15 +91,15 @@ public class CommentaryListPresenter implements Presenter {
         }
     }
 
-    private List<Commentary> fixImageURL(List<Commentary> items) {
+    private List<News> fixImageURL(List<News> items) {
 
-        for (Commentary item : items) {
+        for (News item : items) {
             item.setPic("http://i.guancha.cn/" + item.getPic());
         }
         return items;
     }
 
-    public void onElementClick(Commentary commentary) {
+    public void onElementClick(News commentary) {
         mCommentaryListView.showDetailScreen(commentary);
     }
 

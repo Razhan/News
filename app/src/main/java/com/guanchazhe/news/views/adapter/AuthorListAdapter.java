@@ -1,7 +1,6 @@
 package com.guanchazhe.news.views.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -16,13 +15,18 @@ import java.util.Collection;
  */
 public class AuthorListAdapter extends BaseRecyclerAdapter<Author>{
 
-    public AuthorListAdapter(RecyclerView v, Collection<Author> datas, OnItemClickListener listener) {
-        super(v, datas, R.layout.item_author);
+    public AuthorListAdapter(RecyclerView v, Collection<Author> data, boolean header, OnItemClickListener listener) {
+        super(v, data, R.layout.item_author, 0, header);
         setOnItemClickListener(listener);
     }
 
     @Override
-    public void convert(RecyclerHolder holder, Author item, int position, boolean isScrolling) {
+    public void headerConvert(RecyclerHolder holder, Author item, int position, boolean isScrolling) {
+        return;
+    }
+
+    @Override
+    public void itemConvert(RecyclerHolder holder, Author item, int position, boolean isScrolling) {
 
         holder.setText(R.id.author_name, item.getName());
         holder.setText(R.id.author_title, item.getTitle());
@@ -35,14 +39,9 @@ public class AuthorListAdapter extends BaseRecyclerAdapter<Author>{
                     .into((ImageView) holder.getView(R.id.author_image));
 
         } else {
-            holder.setImageResource(R.id.profile_image, R.drawable.default_avatar);
+            holder.setImageResource(R.id.commemtary_author_image, R.drawable.default_avatar);
         }
     }
-
-
-
-
-
 
 
 }

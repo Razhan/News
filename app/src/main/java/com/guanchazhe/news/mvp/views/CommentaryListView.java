@@ -1,6 +1,6 @@
 package com.guanchazhe.news.mvp.views;
 
-import com.guanchazhe.news.mvp.model.entities.Commentary;
+import com.guanchazhe.news.mvp.model.entities.News;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface CommentaryListView extends Views{
 
-    void setCommentaryList(List<Commentary> commentaries);
+    void setCommentaryList(List<News> commentaries);
 
-    void addCommentaryList(List<Commentary> moreCommentaries);
+    void addCommentaryList(List<News> moreCommentaries);
 
     void clearCommentaryList();
 
@@ -23,5 +23,5 @@ public interface CommentaryListView extends Views{
 
     boolean isContentDisplayed();
 
-    void showDetailScreen(Commentary commentary);
+    void showDetailScreen(News commentary);
 }

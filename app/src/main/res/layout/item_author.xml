@@ -66,7 +66,7 @@
             <TextView
                 android:id="@+id/author_title"
                 android:layout_below="@+id/divier_line"
-                android:layout_toRightOf="@+id/profile_image"
+                android:layout_toRightOf="@+id/commemtary_author_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_small"

@@ -7,7 +7,6 @@ import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.DetailRestfulAPIs;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.ListRestfulAPIs;
 import com.guanchazhe.news.mvp.model.repository.utils.deserializers.ToStringConverterFactory;
-import com.guanchazhe.news.mvp.model.entities.Commentary;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.model.repository.utils.deserializers.NewsResultsDeserializer;
 import com.guanchazhe.news.mvp.model.repository.utils.interceptors.HttpLoggingInterceptor;
@@ -87,7 +86,7 @@ public class RestDataSource implements Repository {
     }
 
     @Override
-    public Observable<List<Commentary>> getCommentaries(String authorid, String pageindex, int pagesize) {
+    public Observable<List<News>> getCommentaries(String authorid, String pageindex, int pagesize) {
         return listRestfulAPIs.getCommentaries(authorid, pageindex, pagesize)
                 .retry(2)
                 .onErrorResumeNext(throwable -> {
