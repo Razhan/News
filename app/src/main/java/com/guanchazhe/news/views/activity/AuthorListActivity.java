@@ -56,6 +56,9 @@ public class AuthorListActivity extends AppCompatActivity implements AuthorListV
 
     private void initToolbar() {
         mToolBar.setTitle("专栏作家");
+
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 

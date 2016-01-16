@@ -19,6 +19,7 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.guanchazhe.news.R;
@@ -51,8 +52,11 @@ public class GUIUtils {
 
     public static ViewPropertyAnimator showViewByScale (View v) {
 
-        ViewPropertyAnimator propertyAnimator = v.animate().setStartDelay(DEFAULT_DELAY)
-                .scaleX(1).scaleY(1);
+        ViewPropertyAnimator propertyAnimator = v.animate()
+                .setStartDelay(DEFAULT_DELAY)
+                .scaleX(1)
+                .scaleY(1)
+                .setInterpolator(new LinearInterpolator( ));
 
         return propertyAnimator;
     }
@@ -235,6 +239,7 @@ public class GUIUtils {
                 v, centerX, centerY, 0, finalRadius);
 
         anim.setDuration(context.getResources().getInteger(R.integer.duration_long));
+        anim.setInterpolator(new LinearInterpolator());
 
         if (lis != null)
             anim.addListener(lis);

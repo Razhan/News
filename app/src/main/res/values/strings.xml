@@ -36,4 +36,28 @@
     <string name="title_activity_author_list">AuthorListActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
 
+    <string-array name="column_name">
+        <item>政治</item>
+        <item>军事</item>
+        <item>财经</item>
+        <item>文化</item>
+        <item>周边</item>
+        <item>历史</item>
+        <item>区域</item>
+        <item>社会</item>
+        <item>北美</item>
+        <item>欧洲</item>
+        <item>科技</item>
+        <item>产业</item>
+        <item>传媒</item>
+        <item>工程</item>
+        <item>亚非拉</item>
+        <item>体育</item>
+        <item>生活</item>
+        <item>教育</item>
+        <item>战略</item>
+    </string-array>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
 </resources>

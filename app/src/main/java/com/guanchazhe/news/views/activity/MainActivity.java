@@ -1,27 +1,37 @@
 package com.guanchazhe.news.views.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.views.Fragment.CommentaryListFragment;
 import com.guanchazhe.news.views.Fragment.NewsListFragment;
+import com.guanchazhe.news.views.adapter.ColumnListAdapter;
 import com.guanchazhe.news.views.adapter.FragmentAdapter;
+import com.guanchazhe.news.views.widget.RecyclerInsetsDecoration;
+
+import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar)             Toolbar mToolbar;
     @Bind(R.id.tabs)                TabLayout tabs;
-    @Bind(R.id.viewPager)           ViewPager viewPager;
-    @Bind(R.id.drawer_layout)       DrawerLayout mDrawerLayout;
+    @Bind(R.id.viewPager)                ViewPager viewPager;
+    @Bind(R.id.drawer_layout)           DrawerLayout mDrawerLayout;
+    @Bind(R.id.drawer_recycler)    RecyclerView drawerRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         initUi();
         initToolbar();
         initDrawerLayout();
+        initDrawerRecycleView();
         initTabLayout();
     }
 
@@ -51,16 +62,55 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    private void initDrawerRecycleView() {
+        String[] rowListItem = getResources().getStringArray(R.array.column_name);
+
+        drawerRecycleView.setHasFixedSize(true);
+        drawerRecycleView.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
+        drawerRecycleView.addItemDecoration(new RecyclerInsetsDecoration(this));
+
+        ColumnListAdapter mColumnListAdapter = new ColumnListAdapter(drawerRecycleView, Arrays.asList(rowListItem), false,
+                (view, data, position) -> Log.d("ColumnList", (String) data));
+
+        drawerRecycleView.setAdapter(mColumnListAdapter);
+    }
+
     private void initTabLayout() {
         FragmentAdapter pagerAdapter =
                 new FragmentAdapter(getSupportFragmentManager());
 
         pagerAdapter.addFragment(NewsListFragment.newInstance(1, true), "要闻");
-        pagerAdapter.addFragment(CommentaryListFragment.newInstance(2), "时评");
         pagerAdapter.addFragment(NewsListFragment.newInstance(3, false), "花边");
+        pagerAdapter.addFragment(CommentaryListFragment.newInstance(2), "时评");
 
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager);
     }
+
+    @OnClick(R.id.authors)
+    public void OnAuthorsClick() {
+        Intent intent = new Intent(this, AuthorListActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.setting)
+    public void OnSettingClick() {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.contact)
+    public void OnContactClick() {
+//        Intent intent = new Intent(this, SettingActivity.class);
+//        startActivity(intent);
+    }
+
+    @OnClick(R.id.about)
+    public void OnAboutClick() {
+//        Intent intent = new Intent(this, SettingActivity.class);
+//        startActivity(intent);
+    }
+
+
 
 }

@@ -89,11 +89,10 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Text_CollapsedExpanded);
 
         mToolBar.setTitle("专栏");
-        mToolBar.setNavigationOnClickListener(v -> onBackPressed());
 
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        mToolBar.setNavigationOnClickListener(v -> onBackPressed());
 
         mCollapsingToolbarLayout.setContentScrimResource(R.color.colorPrimary);
 

@@ -47,7 +47,7 @@ public class NewsListFragment extends ListFragment {
 
     @Override
     protected void setRecycleViewAdapter(boolean header) {
-         mNewsListAdapter = new NewsListAdapter(mRecyclerView, null, header,
+        mNewsListAdapter = new NewsListAdapter(mRecyclerView, null, header,
                 (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
 
         mRecyclerView.setAdapter(mNewsListAdapter);

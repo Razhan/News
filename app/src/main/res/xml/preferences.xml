@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="系统设置">
+
+
+    <CheckBoxPreference
+        android:title="夜间模式"
+        android:defaultValue="false"
+        android:key="nightMode"/>
+
+    <CheckBoxPreference
+        android:title="确认退出"
+        android:defaultValue="true"
+        android:key="confirmExit"
+        android:summary="双击返回键退出应用"/>
+
+    <ListPreference
+        android:title="字体大小"
+        android:key="textSize"
+        android:defaultValue="14"
+        android:entries="@array/news_type"
+        android:entryValues="@array/news_type" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="数据">
+
+        <CheckBoxPreference
+            android:title="无图模式"
+            android:defaultValue="false"
+            android:key="noPicMode"
+            android:summary="仅在WIFI下加载图片"/>
+
+        <Preference
+            android:title="清除缓存"
+            android:key="clearCache"
+            android:summary="清除缓存数据"/>
+
+
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -31,16 +31,12 @@ public class AuthorListAdapter extends BaseRecyclerAdapter<Author>{
         holder.setText(R.id.author_name, item.getName());
         holder.setText(R.id.author_title, item.getTitle());
 
-        if (item.getPic() != null) {
-            Glide.with(holder.getmContext())
-                    .load(item.getPic())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .error(R.drawable.error_placeholder)
-                    .into((ImageView) holder.getView(R.id.author_image));
+        Glide.with(holder.getmContext())
+                .load(item.getPic())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.error_placeholder)
+                .into((ImageView) holder.getView(R.id.author_image));
 
-        } else {
-            holder.setImageResource(R.id.commemtary_author_image, R.drawable.default_avatar);
-        }
     }
 
 

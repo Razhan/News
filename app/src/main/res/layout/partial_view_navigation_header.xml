@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="192dp"
+              android:layout_height="160dp"
               android:background="?attr/colorPrimaryDark"
               android:gravity="center"
               android:orientation="vertical"
@@ -11,20 +11,19 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/commemtary_author_image"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/avengers_header"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp"/>
-
 
     <TextView
         android:layout_marginTop="10dp"
         android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="APP开发者"
+        android:text="APP开发者11"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 

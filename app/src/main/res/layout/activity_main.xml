@@ -12,9 +12,145 @@
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/partial_view_navigation_header"
-        app:menu="@menu/drawer" />
+        android:layout_gravity="start">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/partial_view_navigation_header" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/drawer_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:layout_marginBottom="5dp"
+                style="@style/CollectionView"/>
+
+            <View
+                android:layout_marginTop="@dimen/spacing_tiny"
+                android:layout_marginRight="@dimen/spacing_normal"
+                android:layout_marginLeft="@dimen/spacing_normal"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/divider"/>
+
+            <RelativeLayout
+                android:id="@+id/authors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/authors_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:src="@drawable/default_avatar"/>
+
+                <TextView
+                    android:id="@+id/authors_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_toRightOf="@+id/authors_image"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:text="专栏作家"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/setting_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:src="@drawable/default_avatar"/>
+
+                <TextView
+                    android:id="@+id/setting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_toRightOf="@+id/setting_image"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:text="设置"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/contact_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:src="@drawable/default_avatar"/>
+
+                <TextView
+                    android:id="@+id/contact_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_toRightOf="@+id/contact_image"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:text="联系作者"/>
+
+                </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/about_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:src="@drawable/default_avatar"/>
+
+                <TextView
+                    android:id="@+id/about_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_toRightOf="@+id/about_image"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:text="关于"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
