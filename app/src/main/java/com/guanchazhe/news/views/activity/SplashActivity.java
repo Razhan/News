@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -42,24 +43,43 @@ public class SplashActivity extends AppCompatActivity {
                         AnimatorListenerAdapter listenerAdapter = new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-
-                                ValueAnimator inAnim = ObjectAnimator.ofFloat(splashText, "alpha", 0f, 1f);
-                                inAnim.setDuration(500).setInterpolator(new LinearInterpolator());
-                                inAnim.start();
+                                startTextAnim();
                             }
                         };
 
-                        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(SplashActivity.this, R.animator.splash_animation);
-                        set.setInterpolator(new LinearInterpolator());
-                        set.addListener(listenerAdapter);
-                        set.setTarget(splashImage);
-                        set.start();
+                        startImageAnim(listenerAdapter);
                     }
                 }
         );
-
-
     }
+
+    private void startImageAnim(AnimatorListenerAdapter listenerAdapter) {
+        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(SplashActivity.this, R.animator.splash_animation);
+        set.setInterpolator(new LinearInterpolator());
+        set.addListener(listenerAdapter);
+        set.setTarget(splashImage);
+        set.start();
+    }
+
+    private void startTextAnim() {
+        ValueAnimator inAnim = ObjectAnimator.ofFloat(splashText, "alpha", 0f, 1f);
+        inAnim.setDuration(500).setInterpolator(new LinearInterpolator());
+        inAnim.addListener(toMainActivity());
+        inAnim.start();
+    }
+
+    private AnimatorListenerAdapter toMainActivity() {
+
+        AnimatorListenerAdapter listenerAdapter = new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        };
+        return listenerAdapter;
+    }
+
 
 }
