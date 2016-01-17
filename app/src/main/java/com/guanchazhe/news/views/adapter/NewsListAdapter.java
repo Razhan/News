@@ -17,7 +17,7 @@ import java.util.Collection;
 public class NewsListAdapter extends BaseRecyclerAdapter<News> {
 
     public NewsListAdapter(RecyclerView v, Collection<News> data, boolean header, OnItemClickListener listener) {
-        super(v, data, R.layout.item_news, R.layout.item_news_header, header);
+        super(v, data, R.layout.item_news, R.layout.item_news_header, header, null);
         setOnItemClickListener(listener);
     }
 

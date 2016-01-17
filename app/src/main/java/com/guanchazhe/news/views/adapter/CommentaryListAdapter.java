@@ -16,7 +16,7 @@ import java.util.Collection;
 public class CommentaryListAdapter extends BaseRecyclerAdapter<News> {
 
     public CommentaryListAdapter(RecyclerView v, Collection<News> data, boolean header, OnItemClickListener listener) {
-        super(v, data, R.layout.item_commentary, 0, header);
+        super(v, data, R.layout.item_commentary, 0, header, null);
         setOnItemClickListener(listener);
     }
 

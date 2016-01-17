@@ -10,12 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
+import com.guanchazhe.news.injector.components.DaggerNewsListComponent;
+import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.views.activity.NewsDetailActivity;
+import com.guanchazhe.news.views.adapter.BaseRecyclerAdapter;
+import com.guanchazhe.news.views.adapter.CommentaryListAdapter;
+import com.guanchazhe.news.views.adapter.NewsListAdapter;
 import com.guanchazhe.news.views.listener.EndlessScrollListener;
 import com.guanchazhe.news.views.widget.BetterViewAnimator;
 import com.guanchazhe.news.views.widget.MultiSwipeRefreshLayout;
@@ -30,7 +36,7 @@ import butterknife.Bind;
 /**
  * Created by ran.zhang on 1/16/16.
  */
-public abstract class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
+public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
         MultiSwipeRefreshLayout.CanChildScrollUpCallback, NewsListView {
 
     @Bind(R.id.multi_swipe_refresh_layout)      MultiSwipeRefreshLayout mSwipeRefreshLayout;
@@ -40,7 +46,20 @@ public abstract class ListFragment extends BaseFragment implements SwipeRefreshL
     @Inject
     NewsListPresenter mNewsListPresenter;
 
-    protected abstract void setRecycleViewAdapter(boolean header);
+    private BaseRecyclerAdapter listAdapter;
+
+    public static ListFragment newInstance(Constant.ArticleType type, int someInt, boolean someBoolean) {
+        ListFragment myFragment = new ListFragment();
+
+        Bundle args = new Bundle();
+        args.putInt("someInt", someInt);
+        args.putBoolean("someBoolean", someBoolean);
+        args.putSerializable("type", type);
+
+        myFragment.setArguments(args);
+
+        return myFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,11 +71,20 @@ public abstract class ListFragment extends BaseFragment implements SwipeRefreshL
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initDependencyInjector();
         initializePresenter();
         initSwipeRefreshLayout();
-        initializeRecyclerView();
+        initRecyclerView();
     }
 
+    private void initDependencyInjector() {
+        NewsApplication avengersApplication = (NewsApplication) getActivity().getApplication();
+
+        DaggerNewsListComponent.builder()
+                .activityModule(new ActivityModule(mContext))
+                .appComponent(avengersApplication.getAppComponent())
+                .build().inject(this);
+    }
 
     private void initializePresenter() {
         mNewsListPresenter.attachView(this);
@@ -70,7 +98,7 @@ public abstract class ListFragment extends BaseFragment implements SwipeRefreshL
         mSwipeRefreshLayout.setCanChildScrollUpCallback(this);
     }
 
-    private void initializeRecyclerView() {
+    private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(new RecyclerInsetsDecoration(mContext));
@@ -81,7 +109,32 @@ public abstract class ListFragment extends BaseFragment implements SwipeRefreshL
             }
         });
 
-        setRecycleViewAdapter(getArguments().getBoolean("someBoolean"));
+        setRecycleViewAdapter(getArguments().getBoolean("someBoolean"),
+                (Constant.ArticleType) getArguments().get("type"));
+    }
+
+    protected void setRecycleViewAdapter(boolean header, Constant.ArticleType type) {
+
+        switch (type) {
+            case NEWS:
+                listAdapter = new NewsListAdapter(mRecyclerView, null, header,
+                        (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
+                break;
+            case COMMENTARY:
+                listAdapter = new CommentaryListAdapter(mRecyclerView, null, header,
+                        (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
+                break;
+            case HBRID:
+                listAdapter = new NewsListAdapter(mRecyclerView, null, header,
+                        (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
+                break;
+            default:
+                listAdapter = new NewsListAdapter(mRecyclerView, null, header,
+                        (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
+                break;
+        }
+
+        mRecyclerView.setAdapter(listAdapter);
     }
 
     @Override
@@ -113,11 +166,20 @@ public abstract class ListFragment extends BaseFragment implements SwipeRefreshL
         mNewsListPresenter.onStop();
     }
 
-    public abstract void setNewsList(List<News> news);
+    @Override
+    public void setNewsList(List<News> news) {
+        listAdapter.set(news);
+    }
 
-    public abstract void addNewsList(List<News> moreNews);
+    @Override
+    public void addNewsList(List<News> moreNews) {
+        listAdapter.add(moreNews);
+    }
 
-    public abstract void clearNewsList();
+    @Override
+    public void clearNewsList() {
+        listAdapter.clear();
+    }
 
     @Override
     public void showLoadingView() {

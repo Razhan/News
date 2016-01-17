@@ -5,7 +5,6 @@
     <PreferenceCategory
         android:title="系统设置">
 
-
     <CheckBoxPreference
         android:title="夜间模式"
         android:defaultValue="false"
@@ -24,6 +23,11 @@
         android:entries="@array/news_type"
         android:entryValues="@array/news_type" />
 
+    <Preference
+        android:title="栏目设置"
+        android:key="channelSetting"
+        android:summary="设置喜欢的栏目"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -39,7 +43,6 @@
             android:title="清除缓存"
             android:key="clearCache"
             android:summary="清除缓存数据"/>
-
 
     </PreferenceCategory>
 </PreferenceScreen>

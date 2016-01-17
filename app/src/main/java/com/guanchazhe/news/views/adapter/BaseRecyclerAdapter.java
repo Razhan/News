@@ -3,19 +3,24 @@ package com.guanchazhe.news.views.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.guanchazhe.news.views.listener.OnStartDragListener;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by ranzh on 1/8/2016.
  */
-public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerHolder> {
+public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerHolder> implements ItemTouchHelperAdapter {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -28,12 +33,18 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     protected boolean isScrolling;
     protected Context mContext;
     private OnItemClickListener listener;
+    private final OnStartDragListener mDragStartListener;
+
 
     public interface OnItemClickListener {
         void onItemClick(View view, Object data, int position);
     }
 
-    public BaseRecyclerAdapter(RecyclerView v, Collection<T> data, int itemLayoutId, int headerLayoutId, boolean withHeader) {
+
+    //创建者模式
+    public BaseRecyclerAdapter(RecyclerView v, Collection<T> data, int itemLayoutId,
+                               int headerLayoutId, boolean withHeader,
+                               OnStartDragListener startDragListener) {
 
             if (data == null) {
                 mData = new ArrayList<>();
@@ -47,6 +58,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         mWithHeader = withHeader;
 
         mContext = v.getContext();
+
+        mDragStartListener = startDragListener;
     }
 
     public abstract void headerConvert(RecyclerHolder holder, T item, int position, boolean isScrolling);
@@ -80,6 +93,16 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         }
 
         holder.itemView.setOnClickListener(getOnClickListener(position));
+
+        // Start a drag whenever the handle view it touched
+        holder.itemView.setOnTouchListener((v, event) -> {
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN
+                        && mDragStartListener != null) {
+
+                        mDragStartListener.onStartDrag(holder);
+                    }
+                return false;
+            });
     }
 
     @Override
@@ -92,8 +115,20 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         if(isPositionHeader(position)) {
             return TYPE_HEADER;
         }
-
         return TYPE_ITEM;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        mData.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(mData, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
     }
 
     private boolean isPositionHeader(int position) {
@@ -109,13 +144,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     }
 
     public View.OnClickListener getOnClickListener(final int position) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(@Nullable View v) {
-                if (listener != null && v != null) {
+        return v -> {
+            if (listener != null && v != null) {
                     listener.onItemClick(v, mData.get(position), position);
                 }
-            }
         };
     }
 

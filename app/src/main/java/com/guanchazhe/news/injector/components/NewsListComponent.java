@@ -4,8 +4,7 @@ import com.guanchazhe.news.domain.GetNewsListUsecase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsListModule;
 import com.guanchazhe.news.injector.scopes.Activity;
-import com.guanchazhe.news.views.Fragment.CommentaryListFragment;
-import com.guanchazhe.news.views.Fragment.NewsListFragment;
+import com.guanchazhe.news.views.Fragment.ListFragment;
 
 import dagger.Component;
 
@@ -16,8 +15,7 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class, modules = {NewsListModule.class, ActivityModule.class})
 public interface NewsListComponent extends ActivityComponent {
 
-    void inject (NewsListFragment fragment);
-    void inject (CommentaryListFragment fragment);
+    void inject (ListFragment fragment);
 
     GetNewsListUsecase getNewsListUsecase();
 }

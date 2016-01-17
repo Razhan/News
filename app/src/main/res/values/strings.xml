@@ -57,7 +57,19 @@
         <item>教育</item>
         <item>战略</item>
     </string-array>
+
+    <string-array name="column_name1">
+        <item>政治</item>
+        <item>军事</item>
+        <item>财经</item>
+        <item>文化</item>
+        <item>周边</item>
+        <item>历史</item>
+
+    </string-array>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_channel_manage">ChannelManageActivity</string>
+    <string name="title_activity_favorite_channel">FavoriteChannelActivity</string>
 
 </resources>

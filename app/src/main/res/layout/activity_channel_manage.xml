@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    <LinearLayout
+        android:id="@+id/description"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/channels"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/description">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="我的频道"/>
+
+            <View
+                android:layout_margin="@dimen/spacing_small"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/divider"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/spacing_small"
+                android:layout_marginRight="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                android:layout_marginBottom="@dimen/spacing_tiny"
+                android:foreground="?attr/selectableItemBackground"
+                tools:cardCornerRadius="@dimen/margin_4dp"
+                tools:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/favorite_recycleview"
+                        style="@style/CollectionView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray.light"
+                        tools:listitem="@layout/item_channel"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="更多频道"/>
+
+        <View
+            android:layout_margin="@dimen/spacing_small"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/divider"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:layout_marginBottom="@dimen/spacing_tiny"
+            android:foreground="?attr/selectableItemBackground"
+            tools:cardCornerRadius="@dimen/margin_4dp"
+            tools:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/other_recycleview"
+                    style="@style/CollectionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray.light"
+                    tools:listitem="@layout/item_channel"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

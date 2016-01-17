@@ -13,9 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.views.Fragment.CommentaryListFragment;
-import com.guanchazhe.news.views.Fragment.NewsListFragment;
-import com.guanchazhe.news.views.adapter.ColumnListAdapter;
+import com.guanchazhe.news.mvp.Constant;
+import com.guanchazhe.news.views.Fragment.ListFragment;
+import com.guanchazhe.news.views.adapter.ChannelListAdapter;
 import com.guanchazhe.news.views.adapter.FragmentAdapter;
 import com.guanchazhe.news.views.widget.RecyclerInsetsDecoration;
 
@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar)             Toolbar mToolbar;
     @Bind(R.id.tabs)                TabLayout tabs;
-    @Bind(R.id.viewPager)                ViewPager viewPager;
-    @Bind(R.id.drawer_layout)           DrawerLayout mDrawerLayout;
-    @Bind(R.id.drawer_recycler)    RecyclerView drawerRecycleView;
+    @Bind(R.id.viewPager)           ViewPager viewPager;
+    @Bind(R.id.drawer_layout)       DrawerLayout mDrawerLayout;
+    @Bind(R.id.drawer_recycler)     RecyclerView drawerRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +69,19 @@ public class MainActivity extends AppCompatActivity {
         drawerRecycleView.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
         drawerRecycleView.addItemDecoration(new RecyclerInsetsDecoration(this));
 
-        ColumnListAdapter mColumnListAdapter = new ColumnListAdapter(drawerRecycleView, Arrays.asList(rowListItem), false,
+        ChannelListAdapter mChannelListAdapter = new ChannelListAdapter(drawerRecycleView, Arrays.asList(rowListItem), false,
                 (view, data, position) -> Log.d("ColumnList", (String) data));
 
-        drawerRecycleView.setAdapter(mColumnListAdapter);
+        drawerRecycleView.setAdapter(mChannelListAdapter);
     }
 
     private void initTabLayout() {
         FragmentAdapter pagerAdapter =
-                new FragmentAdapter(getSupportFragmentManager());
+                new FragmentAdapter(getSupportFragmentManager(), 3);
 
-        pagerAdapter.addFragment(NewsListFragment.newInstance(1, true), "要闻");
-        pagerAdapter.addFragment(NewsListFragment.newInstance(3, false), "花边");
-        pagerAdapter.addFragment(CommentaryListFragment.newInstance(2), "时评");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.ArticleType.NEWS, 1, true), "要闻");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.ArticleType.NEWS, 3, false), "花边");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.ArticleType.NEWS, 2, false), "时评");
 
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager);
@@ -92,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AuthorListActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.channels)
+    public void OnChannelsClick() {
+        Intent intent = new Intent(this, FavoriteChannelActivity.class);
+        startActivity(intent);
+    }
+
 
     @OnClick(R.id.setting)
     public void OnSettingClick() {

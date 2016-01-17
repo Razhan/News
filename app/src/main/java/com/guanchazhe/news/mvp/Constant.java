@@ -12,6 +12,14 @@ public class Constant {
         ASKMORE
     }
 
+    public enum ArticleType {
+        NEWS,
+        COMMENTARY,
+        HBRID
+    }
+
+
+
     public static final int ANIMATOR_VIEW_LOADING = R.id.view_loading;
     public static final int ANIMATOR_VIEW_ERROR = R.id.view_error;
 }

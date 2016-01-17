@@ -2,6 +2,7 @@ package com.guanchazhe.news.views.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
@@ -11,7 +12,8 @@ import android.widget.TextView;
 /**
  * Created by ranzh on 1/7/2016.
  */
-public class RecyclerHolder extends RecyclerView.ViewHolder {
+public class RecyclerHolder extends RecyclerView.ViewHolder implements
+        ItemTouchHelperViewHolder {
     private final SparseArray<View> mViews;
     private Context mContext;
     private final int mHoldType;
@@ -21,6 +23,16 @@ public class RecyclerHolder extends RecyclerView.ViewHolder {
         mContext = context;
         mHoldType = type;
         this.mViews = new SparseArray<>(8);
+    }
+
+    @Override
+    public void onItemSelected() {
+        itemView.setBackgroundColor(Color.RED);
+    }
+
+    @Override
+    public void onItemClear() {
+        itemView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     public SparseArray<View> getAllView() {

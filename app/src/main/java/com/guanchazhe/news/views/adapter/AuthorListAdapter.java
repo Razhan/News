@@ -16,7 +16,7 @@ import java.util.Collection;
 public class AuthorListAdapter extends BaseRecyclerAdapter<Author>{
 
     public AuthorListAdapter(RecyclerView v, Collection<Author> data, boolean header, OnItemClickListener listener) {
-        super(v, data, R.layout.item_author, 0, header);
+        super(v, data, R.layout.item_author, 0, header, null);
         setOnItemClickListener(listener);
     }
 
