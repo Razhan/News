@@ -92,7 +92,6 @@
 
             </RelativeLayout>
 
-
             <RelativeLayout
                 android:id="@+id/setting"
                 android:layout_width="match_parent"
@@ -122,14 +121,14 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/contact"
+                android:id="@+id/nightMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:paddingLeft="20dp">
 
                 <ImageView
-                    android:id="@+id/contact_image"
+                    android:id="@+id/nightMode_image"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
@@ -137,15 +136,15 @@
                     android:src="@drawable/default_avatar"/>
 
                 <TextView
-                    android:id="@+id/contact_text"
+                    android:id="@+id/nightMode_text"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_toRightOf="@+id/contact_image"
+                    android:layout_toRightOf="@+id/nightMode_image"
                     android:layout_marginLeft="30dp"
                     android:gravity="center"
                     android:textSize="14sp"
                     android:textColor="@color/black"
-                    android:text="联系作者"/>
+                    android:text="夜间模式"/>
 
                 </RelativeLayout>
 

@@ -12,7 +12,7 @@ public class Constant {
         ASKMORE
     }
 
-    public enum ArticleType {
+    public enum NewsType {
         NEWS,
         COMMENTARY,
         HBRID

@@ -71,5 +71,6 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_channel_manage">ChannelManageActivity</string>
     <string name="title_activity_favorite_channel">FavoriteChannelActivity</string>
+    <string name="title_activity_commentary_detail">CommentaryDetailActivity</string>
 
 </resources>

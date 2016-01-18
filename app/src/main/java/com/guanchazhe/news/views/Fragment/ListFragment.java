@@ -1,7 +1,6 @@
 package com.guanchazhe.news.views.Fragment;
 
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,8 +46,9 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     NewsListPresenter mNewsListPresenter;
 
     private BaseRecyclerAdapter listAdapter;
+    private Constant.NewsType mNewsType;
 
-    public static ListFragment newInstance(Constant.ArticleType type, int someInt, boolean someBoolean) {
+    public static ListFragment newInstance(Constant.NewsType type, int someInt, boolean someBoolean) {
         ListFragment myFragment = new ListFragment();
 
         Bundle args = new Bundle();
@@ -66,7 +66,6 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         return inflater.inflate(R.layout.fragment_news_list, container, false);
     }
 
-    @CallSuper
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -75,6 +74,8 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         initializePresenter();
         initSwipeRefreshLayout();
         initRecyclerView();
+
+        mNewsType = (Constant.NewsType) getArguments().get("type");
     }
 
     private void initDependencyInjector() {
@@ -109,11 +110,10 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
         });
 
-        setRecycleViewAdapter(getArguments().getBoolean("someBoolean"),
-                (Constant.ArticleType) getArguments().get("type"));
+        setRecycleViewAdapter(getArguments().getBoolean("someBoolean"), mNewsType);
     }
 
-    protected void setRecycleViewAdapter(boolean header, Constant.ArticleType type) {
+    protected void setRecycleViewAdapter(boolean header, Constant.NewsType type) {
 
         switch (type) {
             case NEWS:
@@ -213,7 +213,13 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void showDetailScreen(News news) {
-        NewsDetailActivity.start(getActivity(), news);
-    }
 
+        if (mNewsType == Constant.NewsType.NEWS) {
+            NewsDetailActivity.start(getActivity(), news);
+        } else if (mNewsType == Constant.NewsType.COMMENTARY) {
+            NewsDetailActivity.start(getActivity(), news);
+        } else {
+            NewsDetailActivity.start(getActivity(), news);
+        }
+    }
 }

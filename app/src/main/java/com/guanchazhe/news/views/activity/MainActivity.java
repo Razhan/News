@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentAdapter pagerAdapter =
                 new FragmentAdapter(getSupportFragmentManager(), 3);
 
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.ArticleType.NEWS, 1, true), "要闻");
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.ArticleType.NEWS, 3, false), "花边");
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.ArticleType.NEWS, 2, false), "时评");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS, 1, true), "要闻");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS, 3, false), "缤纷");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.COMMENTARY, 2, false), "时评");
 
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager);
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.contact)
+    @OnClick(R.id.nightMode)
     public void OnContactClick() {
 //        Intent intent = new Intent(this, SettingActivity.class);
 //        startActivity(intent);
