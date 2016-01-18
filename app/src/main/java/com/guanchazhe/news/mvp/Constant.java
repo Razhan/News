@@ -3,13 +3,23 @@ package com.guanchazhe.news.mvp;
 import com.guanchazhe.news.R;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by ranzh on 1/14/2016.
  */
 public class Constant {
     private static final int DEFAULTCHANNELID = 49646;
+
+    public static final int ANIMATOR_VIEW_LOADING = R.id.view_loading;
+    public static final int ANIMATOR_VIEW_ERROR = R.id.view_error;
+
+    public static final String SHAREDPREFERENCE = "PREFERENCE";
+    public static final String FAVORITECHANNELS = "favoriteChannels";
+    public static final String OTHERCHANNELS = "otherChannels";
+
 
     public enum RequestType {
         ASK,
@@ -23,6 +33,7 @@ public class Constant {
     }
 
     private static Map<String, Integer> ChannelMap;
+    private static Set<String> DefaultChannels;
 
     static {
         ChannelMap = new HashMap<>();
@@ -52,6 +63,14 @@ public class Constant {
         ChannelMap.put("亚非拉", 60422);
     }
 
+    static {
+        DefaultChannels = new HashSet<>();
+
+        DefaultChannels.add("社会");
+        DefaultChannels.add("财经");
+        DefaultChannels.add("政治");
+    }
+
     public static int getChannelID(String key) {
 
         if (ChannelMap.containsKey(key)) {
@@ -60,8 +79,8 @@ public class Constant {
         return DEFAULTCHANNELID;
     }
 
+    public static Set<String> getDefaultChannels() {
+        return DefaultChannels;
+    }
 
-
-    public static final int ANIMATOR_VIEW_LOADING = R.id.view_loading;
-    public static final int ANIMATOR_VIEW_ERROR = R.id.view_error;
 }

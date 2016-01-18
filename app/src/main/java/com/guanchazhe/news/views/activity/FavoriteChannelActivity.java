@@ -1,5 +1,9 @@
 package com.guanchazhe.news.views.activity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,14 +15,24 @@ import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.views.Fragment.ListFragment;
 import com.guanchazhe.news.views.adapter.FragmentAdapter;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class FavoriteChannelActivity extends AppCompatActivity {
 
+    private final String CLICKEDCHANNEL = "clickedChannel";
+
     @Bind(R.id.toolbar)         Toolbar toolbar;
     @Bind(R.id.tabs)            TabLayout tabs;
     @Bind(R.id.viewPager)       ViewPager viewPager;
+
+    private Set<String> favoriteChannels;
+    private String mClickedChannel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +56,54 @@ public class FavoriteChannelActivity extends AppCompatActivity {
     }
 
     private void initTabLayout() {
-        FragmentAdapter pagerAdapter =
-                new FragmentAdapter(getSupportFragmentManager(), 2);
 
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.HYBRID, 49642, 0, false), "要闻");
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.HYBRID, 49646, 0, false), "花边");
+        int tabIndex = 0;
+
+        loadMyChannels();
+
+        List<String> favoriteChannelsList = new ArrayList<>(favoriteChannels);
+
+        if (mClickedChannel != null && !favoriteChannels.contains(mClickedChannel)) {
+            favoriteChannelsList.add(mClickedChannel);
+            tabIndex = favoriteChannelsList.size() - 1;
+        } else {
+            tabIndex = favoriteChannelsList.indexOf(mClickedChannel);
+        }
+
+        FragmentAdapter pagerAdapter =
+                new FragmentAdapter(getSupportFragmentManager(), favoriteChannelsList.size());
+
+        for (String channel : favoriteChannelsList) {
+
+            pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.HYBRID,
+                    Constant.getChannelID(channel), 0, false), channel);
+        }
 
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager);
+
+        viewPager.setCurrentItem(tabIndex);
+
     }
 
+    private void loadMyChannels() {
+
+        SharedPreferences prefs = getSharedPreferences(Constant.SHAREDPREFERENCE, Context.MODE_PRIVATE);
+        favoriteChannels = prefs.getStringSet(Constant.FAVORITECHANNELS, null);
+
+        if (favoriteChannels == null) {
+            favoriteChannels = Constant.getDefaultChannels();
+        }
+
+        mClickedChannel = getIntent().getStringExtra(CLICKEDCHANNEL);
+    }
+
+    public static void start(Activity activity, String channel) {
+        Intent i = new Intent(activity, FavoriteChannelActivity.class);
+
+        i.putExtra("clickedChannel", channel);
+
+        activity.startActivity(i);
+    }
 
 }

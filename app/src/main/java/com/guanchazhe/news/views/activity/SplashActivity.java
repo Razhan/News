@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
 public class SplashActivity extends AppCompatActivity {
 
     @Bind(R.id.splash_image)    ImageView splashImage;
-    @Bind(R.id.splash_text)     TextView splashText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +38,7 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void onGlobalLayout() {
                         splashImage.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                        AnimatorListenerAdapter listenerAdapter = new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                startTextAnim();
-                            }
-                        };
-
-                        startImageAnim(listenerAdapter);
+                        startImageAnim(toMainActivity());
                     }
                 }
         );
@@ -59,13 +50,6 @@ public class SplashActivity extends AppCompatActivity {
         set.addListener(listenerAdapter);
         set.setTarget(splashImage);
         set.start();
-    }
-
-    private void startTextAnim() {
-        ValueAnimator inAnim = ObjectAnimator.ofFloat(splashText, "alpha", 0f, 1f);
-        inAnim.setDuration(500).setInterpolator(new LinearInterpolator());
-        inAnim.addListener(toMainActivity());
-        inAnim.start();
     }
 
     private AnimatorListenerAdapter toMainActivity() {

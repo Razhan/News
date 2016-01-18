@@ -46,7 +46,11 @@ public class SettingActivity extends AppCompatActivity {
     }
 }
 
-//SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//String strUserName = SP.getString("username", "NA");
-//boolean bAppUpdates = SP.getBoolean("applicationUpdates",false);
-//String downloadType = SP.getString("downloadType","1");
+////Retrieve the values
+//Set<String> set = myScores.getStringSet("key", null);
+//
+////Set the values
+//Set<String> set = new HashSet<String>();
+//set.addAll(listOfExistingScores);
+//        scoreEditor.putStringSet("key", set);
+//        scoreEditor.commit();

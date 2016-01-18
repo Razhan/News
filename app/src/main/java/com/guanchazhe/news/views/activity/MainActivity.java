@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.mvp.Constant;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         drawerRecycleView.addItemDecoration(new RecyclerInsetsDecoration(this));
 
         ChannelListAdapter mChannelListAdapter = new ChannelListAdapter(drawerRecycleView, Arrays.asList(rowListItem), false,
-                (view, data, position) -> Log.d("ColumnList", (String) data));
+                (view, data, position) -> FavoriteChannelActivity.start(this, (String)data));
 
         drawerRecycleView.setAdapter(mChannelListAdapter);
     }
@@ -91,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 Constant.getChannelID(SHIPING), 2, false), SHIPING);
         pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS,
                 Constant.getChannelID(BINFEN), 3, false), BINFEN);
-
 
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager);
@@ -128,6 +128,21 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        final int TIME_INTERVAL = 2000;
+        long mBackPressed = 0;
+
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            super.onBackPressed();
+            return;
+        }
+        else { Toast.makeText(getBaseContext(), "再次点击退出应用", Toast.LENGTH_SHORT).show(); }
+
+        mBackPressed = System.currentTimeMillis();
+    }
 
 
 }
