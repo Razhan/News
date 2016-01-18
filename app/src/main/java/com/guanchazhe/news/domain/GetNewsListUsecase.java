@@ -14,20 +14,27 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ranzh on 12/22/2015.
  */
-public class GetNewsListUsecase implements Usecase<List<News>> {
+public class GetNewsListUseCase implements UseCase<List<News>> {
 
     public final static int NEWS_LIMIT = 20;
+
+    public final int mAttributeId;
+    public final int mChannelId;
+
+
     private final Repository mRepository;
 
     @Inject
-    public GetNewsListUsecase(Repository repository) {
+    public GetNewsListUseCase(Repository repository, int attributrId, int channelId) {
         mRepository = repository;
+        mAttributeId = attributrId;
+        mChannelId = channelId;
     }
 
     @Override
 //    @RxLogObservable
     public Observable<List<News>> execute(String... parameters) {
-        return mRepository.getNews(49646, parameters[0], parameters[1], 20)
+        return mRepository.getNews(mChannelId, mAttributeId, parameters[0], NEWS_LIMIT)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

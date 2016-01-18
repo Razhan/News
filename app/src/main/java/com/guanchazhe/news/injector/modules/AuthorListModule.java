@@ -1,6 +1,6 @@
 package com.guanchazhe.news.injector.modules;
 
-import com.guanchazhe.news.domain.GetAuthorListUsecase;
+import com.guanchazhe.news.domain.GetAuthorListUseCase;
 import com.guanchazhe.news.injector.scopes.Activity;
 import com.guanchazhe.news.mvp.model.repository.Repository;
 
@@ -15,7 +15,7 @@ public class AuthorListModule {
 
     @Provides
     @Activity
-    GetAuthorListUsecase provideGetNewsListUsecase (Repository repository) {
-        return new GetAuthorListUsecase(repository);
+    GetAuthorListUseCase provideGetNewsListUsecase (Repository repository) {
+        return new GetAuthorListUseCase(repository);
     }
 }

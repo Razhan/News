@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.domain.GetAuthorListUsecase;
+import com.guanchazhe.news.domain.GetAuthorListUseCase;
 import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.views.AuthorListView;
 import com.guanchazhe.news.mvp.views.Views;
@@ -20,12 +20,12 @@ import rx.Subscription;
  */
 public class AuthorListPresenter implements Presenter {
 
-    private final GetAuthorListUsecase mAuthorUsecase;
+    private final GetAuthorListUseCase mAuthorUsecase;
     private Subscription mAuthorListSubscription;
     private AuthorListView mAuthorListView;
 
     @Inject
-    public AuthorListPresenter(GetAuthorListUsecase authorListUsecase) {
+    public AuthorListPresenter(GetAuthorListUseCase authorListUsecase) {
         mAuthorUsecase = authorListUsecase;
     }
 

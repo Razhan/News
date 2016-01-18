@@ -11,14 +11,14 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ranzh on 12/29/2015.
  */
-public class GetNewsDetailUsecase implements Usecase<String> {
+public class GetNewsDetailUseCase implements UseCase<String> {
 
     private final Repository mRepository;
-    private String mNewsId;
+    private int mNewsId;
 
 
     @Inject
-    public GetNewsDetailUsecase(String Id, Repository repository) {
+    public GetNewsDetailUseCase(int Id, Repository repository) {
         mNewsId = Id;
         mRepository = repository;
     }

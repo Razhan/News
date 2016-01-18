@@ -1,6 +1,6 @@
 package com.guanchazhe.news.injector.modules;
 
-import com.guanchazhe.news.domain.GetCommentaryListUsecase;
+import com.guanchazhe.news.domain.GetCommentaryListUseCase;
 import com.guanchazhe.news.injector.scopes.Activity;
 import com.guanchazhe.news.mvp.model.repository.Repository;
 
@@ -20,7 +20,7 @@ public class CommentaryListModule {
 
     @Provides
     @Activity
-    GetCommentaryListUsecase provideGetNewsDetailUsecase (Repository repository) {
-        return new GetCommentaryListUsecase(mAuthorName, repository);
+    GetCommentaryListUseCase provideGetNewsDetailUsecase (Repository repository) {
+        return new GetCommentaryListUseCase(mAuthorName, repository);
     }
 }

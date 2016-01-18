@@ -27,6 +27,12 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String YAOWEN = "要闻";
+    private final String SHIPING = "时评";
+    private final String BINFEN = "缤纷";
+
+
+
     @Bind(R.id.toolbar)             Toolbar mToolbar;
     @Bind(R.id.tabs)                TabLayout tabs;
     @Bind(R.id.viewPager)           ViewPager viewPager;
@@ -79,9 +85,13 @@ public class MainActivity extends AppCompatActivity {
         FragmentAdapter pagerAdapter =
                 new FragmentAdapter(getSupportFragmentManager(), 3);
 
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS, 1, true), "要闻");
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS, 3, false), "缤纷");
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.COMMENTARY, 2, false), "时评");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS,
+                Constant.getChannelID(YAOWEN), 1, true), YAOWEN);
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.COMMENTARY,
+                Constant.getChannelID(SHIPING), 2, false), SHIPING);
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS,
+                Constant.getChannelID(BINFEN), 3, false), BINFEN);
+
 
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager);

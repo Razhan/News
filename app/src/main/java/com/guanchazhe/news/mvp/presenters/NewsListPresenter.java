@@ -1,6 +1,6 @@
 package com.guanchazhe.news.mvp.presenters;
 
-import com.guanchazhe.news.domain.GetNewsListUsecase;
+import com.guanchazhe.news.domain.GetNewsListUseCase;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.views.NewsListView;
@@ -17,16 +17,15 @@ import rx.Subscription;
  */
 public class NewsListPresenter implements Presenter {
 
-    private final GetNewsListUsecase mNewsUsecase;
+    private final GetNewsListUseCase mNewsUsecase;
     private boolean mIsRequestRunning;
     private Subscription mNewsSubscription;
 
-    private int mFragmentIndex;
     private NewsListView mNewsView;
     private int mCurrentPage;
 
     @Inject
-    public NewsListPresenter(GetNewsListUsecase newsUsecase) {
+    public NewsListPresenter(GetNewsListUseCase newsUsecase) {
         mNewsUsecase = newsUsecase;
         mCurrentPage = 1;
     }
@@ -54,10 +53,6 @@ public class NewsListPresenter implements Presenter {
         mNewsView = (NewsListView) v;
     }
 
-    public void setFragmentIndex(int index) {
-        mFragmentIndex = index;
-    }
-
     public void onRefresh() {
         mCurrentPage = 1;
         sendRequest(Constant.RequestType.ASK);
@@ -73,7 +68,7 @@ public class NewsListPresenter implements Presenter {
     private void sendRequest(Constant.RequestType requestType) {
         mIsRequestRunning = true;
 
-        mNewsSubscription = mNewsUsecase.execute(String.valueOf(mFragmentIndex), String.valueOf(mCurrentPage))
+        mNewsSubscription = mNewsUsecase.execute(String.valueOf(mCurrentPage))
                 .subscribe(
                         news -> resultArrived(requestType, news)                        ,
                         error -> resultError(error)

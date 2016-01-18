@@ -1,6 +1,6 @@
 package com.guanchazhe.news.injector.components;
 
-import com.guanchazhe.news.domain.GetAuthorListUsecase;
+import com.guanchazhe.news.domain.GetAuthorListUseCase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.AuthorListModule;
 import com.guanchazhe.news.injector.scopes.Activity;
@@ -17,5 +17,5 @@ public interface AuthorListComponent extends ActivityComponent {
 
     void inject (AuthorListActivity activity);
 
-    GetAuthorListUsecase getAuthorListUsecase();
+    GetAuthorListUseCase getAuthorListUsecase();
 }

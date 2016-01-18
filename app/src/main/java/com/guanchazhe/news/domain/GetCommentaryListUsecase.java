@@ -14,13 +14,13 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ranzh on 1/6/2016.
  */
-public class GetCommentaryListUsecase implements Usecase<List<News>> {
+public class GetCommentaryListUseCase implements UseCase<List<News>> {
 
     private final Repository mRepository;
     private final String mAuthorName;
 
     @Inject
-    public GetCommentaryListUsecase(String authorname, Repository repository) {
+    public GetCommentaryListUseCase(String authorname, Repository repository) {
         mRepository = repository;
         mAuthorName = authorname;
     }

@@ -1,6 +1,6 @@
 package com.guanchazhe.news.mvp.presenters;
 
-import com.guanchazhe.news.domain.GetCommentaryListUsecase;
+import com.guanchazhe.news.domain.GetCommentaryListUseCase;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.views.CommentaryListView;
@@ -17,15 +17,15 @@ import rx.Subscription;
  */
 public class CommentaryListPresenter implements Presenter {
 
-    private final GetCommentaryListUsecase mCommentaryCollectionUsecase;
+    private final GetCommentaryListUseCase mCommentaryCollectionUsecase;
     private boolean mIsRequestRunning;
     private Subscription mCommentariesSubscription;
     private int mCurrentPage;
     private CommentaryListView mCommentaryListView;
 
     @Inject
-    public CommentaryListPresenter(GetCommentaryListUsecase getCommentaryListUsecase) {
-        mCommentaryCollectionUsecase = getCommentaryListUsecase;
+    public CommentaryListPresenter(GetCommentaryListUseCase getCommentaryListUseCase) {
+        mCommentaryCollectionUsecase = getCommentaryListUseCase;
         mCurrentPage = 1;
     }
 

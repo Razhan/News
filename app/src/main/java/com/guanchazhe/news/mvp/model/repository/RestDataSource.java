@@ -67,7 +67,7 @@ public class RestDataSource implements Repository {
     }
 
     @Override
-    public Observable<List<News>> getNews(int typeid, String attributeid, String pageindex,int pagesize) {
+    public Observable<List<News>> getNews(int typeid, int attributeid, String pageindex,int pagesize) {
         return listRestfulAPIs.getNews(typeid, attributeid, pageindex, pagesize)
                 .retry(2)
                 .onErrorResumeNext(throwable -> {
@@ -76,7 +76,7 @@ public class RestDataSource implements Repository {
     }
 
     @Override
-    public Observable<String> getNewsDetail(String device, String id) {
+    public Observable<String> getNewsDetail(String device, int id) {
 
         return detailRestfulAPIs.getNewsDetail(device, id)
                 .retry(2)

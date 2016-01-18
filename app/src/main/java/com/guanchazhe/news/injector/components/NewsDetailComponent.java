@@ -1,9 +1,10 @@
 package com.guanchazhe.news.injector.components;
 
-import com.guanchazhe.news.domain.GetNewsDetailUsecase;
+import com.guanchazhe.news.domain.GetNewsDetailUseCase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsDetailModule;
 import com.guanchazhe.news.injector.scopes.Activity;
+import com.guanchazhe.news.views.activity.CommentaryDetailActivity;
 import com.guanchazhe.news.views.activity.NewsDetailActivity;
 
 import dagger.Component;
@@ -16,6 +17,7 @@ import dagger.Component;
 public interface NewsDetailComponent extends ActivityComponent {
 
     void inject (NewsDetailActivity detailActivity);
+    void inject (CommentaryDetailActivity detailActivity);
 
-    GetNewsDetailUsecase getNewsDetailUsecase();
+    GetNewsDetailUseCase getNewsDetailUsecase();
 }

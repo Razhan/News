@@ -11,9 +11,9 @@ import rx.Observable;
  * Created by ranzh on 12/22/2015.
  */
 public interface Repository {
-    Observable<List<News>> getNews(int typeid, String attributeid, String pageindex, int pagesize);
+    Observable<List<News>> getNews(int typeid, int attributeid, String pageindex, int pagesize);
 
-    Observable<String> getNewsDetail(String device, String id);
+    Observable<String> getNewsDetail(String device, int id);
 
     Observable<List<News>> getCommentaries(String authorid, String pageindex, int pagesize);
 

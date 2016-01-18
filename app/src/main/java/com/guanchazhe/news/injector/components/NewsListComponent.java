@@ -1,6 +1,6 @@
 package com.guanchazhe.news.injector.components;
 
-import com.guanchazhe.news.domain.GetNewsListUsecase;
+import com.guanchazhe.news.domain.GetNewsListUseCase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsListModule;
 import com.guanchazhe.news.injector.scopes.Activity;
@@ -17,5 +17,5 @@ public interface NewsListComponent extends ActivityComponent {
 
     void inject (ListFragment fragment);
 
-    GetNewsListUsecase getNewsListUsecase();
+    GetNewsListUseCase getNewsListUsecase();
 }

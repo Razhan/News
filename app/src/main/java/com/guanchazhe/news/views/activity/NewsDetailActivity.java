@@ -47,8 +47,6 @@ import butterknife.OnClick;
  */
 public class NewsDetailActivity extends AppCompatActivity implements NewsDetailView {
 
-    public static final String EXTRA_NEWS_ID = "newsId";
-
     @Bind(R.id.item_movie_cover)                ImageView itemMovieCover;
     @Bind(R.id.activity_detail_title)           TextView mTitle;
     @Bind(R.id.activity_detail_fab)             FloatingActionButton mFabButton;
@@ -63,9 +61,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     @Inject
     NewsDetailPresenter mNewsDetailPresenter;
 
-
     private News mNews;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +128,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
 
     @Override
     public void setImageSource() {
-        Glide.with(itemMovieCover.getContext())
+        Glide.with(this)
                 .load(mNews.getPic())
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -192,9 +188,9 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     }
 
     public static void start(Context context, News news) {
-        Intent characterDetailIntent = new Intent(context, NewsDetailActivity.class);
-        characterDetailIntent.putExtra("news", news);
-        context.startActivity(characterDetailIntent);
+        Intent intent = new Intent(context, NewsDetailActivity.class);
+        intent.putExtra("news", news);
+        context.startActivity(intent);
     }
 
     @OnClick(R.id.activity_detail_fab)

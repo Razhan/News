@@ -1,6 +1,6 @@
 package com.guanchazhe.news.injector.components;
 
-import com.guanchazhe.news.domain.GetCommentaryListUsecase;
+import com.guanchazhe.news.domain.GetCommentaryListUseCase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.CommentaryListModule;
 import com.guanchazhe.news.injector.scopes.Activity;
@@ -17,5 +17,5 @@ public interface CommentaryListComponent extends ActivityComponent {
 
     void inject (CommentaryListActivity collectionActivity);
 
-    GetCommentaryListUsecase getCommentaryCollectionUsecase();
+    GetCommentaryListUseCase getCommentaryCollectionUsecase();
 }

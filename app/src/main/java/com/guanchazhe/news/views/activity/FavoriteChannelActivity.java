@@ -45,8 +45,8 @@ public class FavoriteChannelActivity extends AppCompatActivity {
         FragmentAdapter pagerAdapter =
                 new FragmentAdapter(getSupportFragmentManager(), 2);
 
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS, 1, false), "要闻");
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS, 3, false), "花边");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.HYBRID, 49642, 0, false), "要闻");
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.HYBRID, 49646, 0, false), "花边");
 
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager);

@@ -1,6 +1,6 @@
 package com.guanchazhe.news.injector.modules;
 
-import com.guanchazhe.news.domain.GetNewsDetailUsecase;
+import com.guanchazhe.news.domain.GetNewsDetailUseCase;
 import com.guanchazhe.news.injector.scopes.Activity;
 import com.guanchazhe.news.mvp.model.repository.Repository;
 
@@ -12,15 +12,15 @@ import dagger.Provides;
  */
 @Module
 public class NewsDetailModule {
-    private final String mNewsId;
+    private final int mNewsId;
 
-    public NewsDetailModule(String Id) {
+    public NewsDetailModule(int Id) {
         mNewsId = Id;
     }
 
     @Provides
     @Activity
-    GetNewsDetailUsecase provideGetNewsDetailUsecase (Repository repository) {
-        return new GetNewsDetailUsecase(mNewsId, repository);
+    GetNewsDetailUseCase provideGetNewsDetailUsecase (Repository repository) {
+        return new GetNewsDetailUseCase(mNewsId, repository);
     }
 }

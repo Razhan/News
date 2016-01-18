@@ -14,12 +14,12 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ranzh on 1/14/2016.
  */
-public class GetAuthorListUsecase implements Usecase<List<Author>>  {
+public class GetAuthorListUseCase implements UseCase<List<Author>> {
 
     private final Repository mRepository;
 
     @Inject
-    public GetAuthorListUsecase(Repository repository) {
+    public GetAuthorListUseCase(Repository repository) {
         mRepository = repository;
     }
 

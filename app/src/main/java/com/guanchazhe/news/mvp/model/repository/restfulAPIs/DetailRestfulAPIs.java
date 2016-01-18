@@ -12,7 +12,7 @@ public interface DetailRestfulAPIs {
     @GET("/Appdetail/get/")
     Observable<String> getNewsDetail(
             @Query("devices") String devices,
-            @Query("id") String id
+            @Query("id") int id
     );
 
 

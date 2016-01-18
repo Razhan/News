@@ -1,8 +1,7 @@
 package com.guanchazhe.news.views.listener;
 
-import android.os.Build;
 import android.support.v4.widget.NestedScrollView;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -10,19 +9,19 @@ import android.widget.TextView;
  */
 public class OnScrollChangeListener implements NestedScrollView.OnScrollChangeListener {
 
-    ImageView mCoverImageView;
-    TextView mTitle;
+    View mCoverView;
+    View mTitle;
 
-    public OnScrollChangeListener(ImageView coverImageView, TextView title) {
-        mCoverImageView = coverImageView;
+    public OnScrollChangeListener(View coverImageView, View title) {
+        mCoverView = coverImageView;
         mTitle = title;
     }
 
     @Override
     public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-        if (scrollY > mCoverImageView.getHeight()) {
-            mTitle.setTranslationY(scrollY - mCoverImageView.getHeight());
+        if (scrollY > mCoverView.getHeight()) {
+            mTitle.setTranslationY(scrollY - mCoverView.getHeight());
         } else {
             mTitle.setTranslationY(0);
         }

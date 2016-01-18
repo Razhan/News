@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class News implements Serializable {
 
     private String rowid;
-    private String id;
+    private int id;
     private String title;
     private String summary;
     private String author;
@@ -17,12 +17,17 @@ public class News implements Serializable {
     private String horizontalpic;
     private String creationtime;
     private String content;
+    private String authortitle;
+
+    public String getAuthortitle() {
+        return authortitle;
+    }
 
     public String getRowid() {
         return rowid;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -62,7 +67,7 @@ public class News implements Serializable {
         this.rowid = rowid;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -96,5 +101,9 @@ public class News implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setAuthortitle(String authortitle) {
+        this.authortitle = authortitle;
     }
 }

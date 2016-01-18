@@ -13,10 +13,12 @@ import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.injector.components.DaggerNewsListComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
+import com.guanchazhe.news.injector.modules.NewsListModule;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsListPresenter;
 import com.guanchazhe.news.mvp.views.NewsListView;
+import com.guanchazhe.news.views.activity.CommentaryDetailActivity;
 import com.guanchazhe.news.views.activity.NewsDetailActivity;
 import com.guanchazhe.news.views.adapter.BaseRecyclerAdapter;
 import com.guanchazhe.news.views.adapter.CommentaryListAdapter;
@@ -48,16 +50,17 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private BaseRecyclerAdapter listAdapter;
     private Constant.NewsType mNewsType;
 
-    public static ListFragment newInstance(Constant.NewsType type, int someInt, boolean someBoolean) {
+    public static ListFragment newInstance(Constant.NewsType newsType, int channelId,
+                                           int attributeId, boolean withHeader) {
         ListFragment myFragment = new ListFragment();
 
         Bundle args = new Bundle();
-        args.putInt("someInt", someInt);
-        args.putBoolean("someBoolean", someBoolean);
-        args.putSerializable("type", type);
+        args.putSerializable("type", newsType);
+        args.putInt("channelId", channelId);
+        args.putInt("attributeId", attributeId);
+        args.putBoolean("withHeader", withHeader);
 
         myFragment.setArguments(args);
-
         return myFragment;
     }
 
@@ -74,8 +77,6 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         initializePresenter();
         initSwipeRefreshLayout();
         initRecyclerView();
-
-        mNewsType = (Constant.NewsType) getArguments().get("type");
     }
 
     private void initDependencyInjector() {
@@ -84,12 +85,16 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         DaggerNewsListComponent.builder()
                 .activityModule(new ActivityModule(mContext))
                 .appComponent(avengersApplication.getAppComponent())
+                .newsListModule(new NewsListModule(getArguments().getInt("channelId", 0),
+                        getArguments().getInt("attributeId", 0)))
                 .build().inject(this);
     }
 
     private void initializePresenter() {
+
+        mNewsType = (Constant.NewsType) getArguments().get("type");
+
         mNewsListPresenter.attachView(this);
-        mNewsListPresenter.setFragmentIndex(getArguments().getInt("someInt", 0));
         mNewsListPresenter.onCreate();
     }
 
@@ -110,7 +115,7 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
         });
 
-        setRecycleViewAdapter(getArguments().getBoolean("someBoolean"), mNewsType);
+        setRecycleViewAdapter(getArguments().getBoolean("withHeader"), mNewsType);
     }
 
     protected void setRecycleViewAdapter(boolean header, Constant.NewsType type) {
@@ -124,7 +129,7 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 listAdapter = new CommentaryListAdapter(mRecyclerView, null, header,
                         (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
                 break;
-            case HBRID:
+            case HYBRID:
                 listAdapter = new NewsListAdapter(mRecyclerView, null, header,
                         (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
                 break;
@@ -217,7 +222,7 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         if (mNewsType == Constant.NewsType.NEWS) {
             NewsDetailActivity.start(getActivity(), news);
         } else if (mNewsType == Constant.NewsType.COMMENTARY) {
-            NewsDetailActivity.start(getActivity(), news);
+            CommentaryDetailActivity.start(getActivity(), news);
         } else {
             NewsDetailActivity.start(getActivity(), news);
         }
