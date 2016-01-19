@@ -10,12 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.views.Fragment.ListFragment;
 import com.guanchazhe.news.views.adapter.FragmentAdapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class FavoriteChannelActivity extends AppCompatActivity {
     @Bind(R.id.tabs)            TabLayout tabs;
     @Bind(R.id.viewPager)       ViewPager viewPager;
 
-    private Set<String> favoriteChannels;
+    private List<String> favoriteChannels;
     private String mClickedChannel;
 
     @Override
@@ -59,14 +60,14 @@ public class FavoriteChannelActivity extends AppCompatActivity {
 
         int tabIndex = 0;
 
-        loadMyChannels();
+        loadFavoriteChannels();
 
         List<String> favoriteChannelsList = new ArrayList<>(favoriteChannels);
 
         if (mClickedChannel != null && !favoriteChannels.contains(mClickedChannel)) {
             favoriteChannelsList.add(mClickedChannel);
             tabIndex = favoriteChannelsList.size() - 1;
-        } else {
+        } else if (mClickedChannel != null) {
             tabIndex = favoriteChannelsList.indexOf(mClickedChannel);
         }
 
@@ -86,10 +87,14 @@ public class FavoriteChannelActivity extends AppCompatActivity {
 
     }
 
-    private void loadMyChannels() {
+    private void loadFavoriteChannels() {
 
         SharedPreferences prefs = getSharedPreferences(Constant.SHAREDPREFERENCE, Context.MODE_PRIVATE);
-        favoriteChannels = prefs.getStringSet(Constant.FAVORITECHANNELS, null);
+        String stringChannels = prefs.getString(Constant.FAVORITECHANNELS, null);
+
+        favoriteChannels = new Gson().fromJson(stringChannels,
+                new TypeToken<List<String>>() {
+                }.getType());
 
         if (favoriteChannels == null) {
             favoriteChannels = Constant.getDefaultChannels();

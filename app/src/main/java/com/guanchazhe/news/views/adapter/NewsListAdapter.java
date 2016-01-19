@@ -39,16 +39,16 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
         holder.setText(R.id.news_title, item.getTitle());
         holder.setText(R.id.news_summary, item.getSummary());
 
-        holder.setVisility(R.id.news_image, View.VISIBLE);
-        holder.setVisility(R.id.news_image_author, View.VISIBLE);
+        holder.setVisility(R.id.news_image, View.GONE);
+        holder.setVisility(R.id.news_image_author, View.GONE);
 
         ImageView placeHold;
 
         if (item.getPic().contains("ColumnPic") || item.getPic().contains("authors")) {
-            holder.setVisility(R.id.news_image, View.GONE);
+            holder.setVisility(R.id.news_image_author, View.VISIBLE);
             placeHold = holder.getView(R.id.news_image_author);
         } else {
-            holder.setVisility(R.id.news_image_author, View.GONE);
+            holder.setVisility(R.id.news_image, View.VISIBLE);
             placeHold = holder.getView(R.id.news_image);
         }
 

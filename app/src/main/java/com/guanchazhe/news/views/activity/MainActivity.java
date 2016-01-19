@@ -2,6 +2,7 @@ package com.guanchazhe.news.views.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -31,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private final String YAOWEN = "要闻";
     private final String SHIPING = "时评";
     private final String BINFEN = "缤纷";
-
-
 
     @Bind(R.id.toolbar)             Toolbar mToolbar;
     @Bind(R.id.tabs)                TabLayout tabs;
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDrawerRecycleView() {
-        String[] rowListItem = getResources().getStringArray(R.array.column_name);
+        String[] rowListItem = getResources().getStringArray(R.array.channel_name);
 
         drawerRecycleView.setHasFixedSize(true);
         drawerRecycleView.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
@@ -95,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(pagerAdapter);
         tabs.setupWithViewPager(viewPager);
+        tabs.setTabMode(TabLayout.MODE_FIXED);
     }
 
     @OnClick(R.id.authors)
@@ -128,21 +128,20 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
     }
 
+    boolean doubleBackToExitPressedOnce = false;
     @Override
-    public void onBackPressed()
-    {
-        final int TIME_INTERVAL = 2000;
-        long mBackPressed = 0;
+    public void onBackPressed() {
 
-        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
-        {
-            super.onBackPressed();
+        if (doubleBackToExitPressedOnce) {
+            System.exit(0);
             return;
         }
-        else { Toast.makeText(getBaseContext(), "再次点击退出应用", Toast.LENGTH_SHORT).show(); }
 
-        mBackPressed = System.currentTimeMillis();
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "再次点击退出应用", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(
+                () -> doubleBackToExitPressedOnce=false, 2000);
     }
-
 
 }

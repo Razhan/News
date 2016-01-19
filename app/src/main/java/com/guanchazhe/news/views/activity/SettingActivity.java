@@ -1,7 +1,6 @@
 package com.guanchazhe.news.views.activity;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
@@ -15,7 +14,7 @@ import butterknife.ButterKnife;
 public class SettingActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar)                     Toolbar mToolBar;
-    @Bind(R.id.setting_framelayout)         FrameLayout settingFramelayout;
+    @Bind(R.id.setting_framelayout)         FrameLayout settingFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,12 @@ public class SettingActivity extends AppCompatActivity {
                 .replace(R.id.setting_framelayout, new SettingFragment())
                 .commit();
     }
+
 }
+
+
+
+
 
 ////Retrieve the values
 //Set<String> set = myScores.getStringSet("key", null);

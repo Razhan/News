@@ -2,7 +2,6 @@ package com.guanchazhe.news.views.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -118,6 +117,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         return TYPE_ITEM;
     }
 
+    public List<T> getItems() {
+        return mData;
+    }
+
     @Override
     public void onItemDismiss(int position) {
         mData.remove(position);
@@ -137,7 +140,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         }
         return false;
     }
-
 
     public void setOnItemClickListener(OnItemClickListener l) {
         listener = l;

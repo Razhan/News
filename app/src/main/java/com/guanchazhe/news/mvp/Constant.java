@@ -2,10 +2,10 @@ package com.guanchazhe.news.mvp;
 
 import com.guanchazhe.news.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by ranzh on 1/14/2016.
@@ -18,8 +18,6 @@ public class Constant {
 
     public static final String SHAREDPREFERENCE = "PREFERENCE";
     public static final String FAVORITECHANNELS = "favoriteChannels";
-    public static final String OTHERCHANNELS = "otherChannels";
-
 
     public enum RequestType {
         ASK,
@@ -33,7 +31,7 @@ public class Constant {
     }
 
     private static Map<String, Integer> ChannelMap;
-    private static Set<String> DefaultChannels;
+    private static List<String> DefaultChannels;
 
     static {
         ChannelMap = new HashMap<>();
@@ -64,7 +62,7 @@ public class Constant {
     }
 
     static {
-        DefaultChannels = new HashSet<>();
+        DefaultChannels = new ArrayList<>();
 
         DefaultChannels.add("社会");
         DefaultChannels.add("财经");
@@ -79,7 +77,7 @@ public class Constant {
         return DEFAULTCHANNELID;
     }
 
-    public static Set<String> getDefaultChannels() {
+    public static List<String> getDefaultChannels() {
         return DefaultChannels;
     }
 

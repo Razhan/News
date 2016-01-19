@@ -20,8 +20,8 @@
         android:title="字体大小"
         android:key="textSize"
         android:defaultValue="14"
-        android:entries="@array/news_type"
-        android:entryValues="@array/news_type" />
+        android:entries="@array/channel_name"
+        android:entryValues="@array/channel_name" />
 
     <Preference
         android:title="栏目设置"

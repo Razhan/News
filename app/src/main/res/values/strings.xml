@@ -28,15 +28,10 @@
     <string name="view_empty_message">No matching items</string>
     <string name="view_error_message">This content is not available offline.</string>
 
-    <string-array name="news_type">
-        <item>要闻</item>
-        <item>花边</item>
-        <item>时评</item>
-    </string-array>
     <string name="title_activity_author_list">AuthorListActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-    <string-array name="column_name">
+    <string-array name="channel_name">
         <item>政治</item>
         <item>军事</item>
         <item>财经</item>
@@ -58,15 +53,6 @@
         <item>战略</item>
     </string-array>
 
-    <string-array name="column_name1">
-        <item>政治</item>
-        <item>军事</item>
-        <item>财经</item>
-        <item>文化</item>
-        <item>周边</item>
-        <item>历史</item>
-
-    </string-array>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_channel_manage">ChannelManageActivity</string>
