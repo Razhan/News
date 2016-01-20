@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.webkit.JavascriptInterface;
 
-import com.guanchazhe.news.mvp.model.entities.Author;
-import com.guanchazhe.news.views.activity.CommentaryListActivity;
+import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.views.activity.ImageDetailActivity;
+import com.guanchazhe.news.views.listener.WebViewLoadedListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,10 +16,15 @@ import org.xmlpull.v1.XmlPullParser;
  * Created by ranzh on 1/19/2016.
  */
 public class JsOperation {
-    Activity mActivity;
+    private Activity mActivity;
 
-    public JsOperation(Activity activity) {
+    private News mNews;
+    private WebViewLoadedListener mWebViewLoadedListener;
+
+
+    public JsOperation(Activity activity, WebViewLoadedListener listener) {
         mActivity = activity;
+        mWebViewLoadedListener = listener;
     }
 
     @JavascriptInterface
@@ -27,17 +32,18 @@ public class JsOperation {
         if (value != null || !value.equals(XmlPullParser.NO_NAMESPACE)) {
             try {
                 JSONObject json = new JSONObject(value);
-                Intent intent = new Intent(mActivity, CommentaryListActivity.class);
 
-                Author author = new Author();
+                mNews = new News();
 
-                author.setPic(json.getString("AuthorPic"));
-                author.setName(json.getString("Author"));
-                author.setSpelling(json.getString("AuthorID"));
-                author.setTitle(json.getString("AuthorSummary"));
+                mNews.setPic(json.getString("AuthorPic"));
+                mNews.setAuthor(json.getString("AuthorID"));
+                mNews.setAuthortitle(json.getString("AuthorSummary"));
+                mNews.setTitle(json.getString("Title"));
 
-                intent.putExtra("author_name", author);
-                mActivity.startActivity(intent);
+                if (mWebViewLoadedListener != null) {
+                    mWebViewLoadedListener.afterWebViewLoaded(mNews);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -52,5 +58,4 @@ public class JsOperation {
             mActivity.startActivity(intent);
         }
     }
-
 }

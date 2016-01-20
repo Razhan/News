@@ -3,7 +3,6 @@ package com.guanchazhe.news.views.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.FrameLayout;
 
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.views.Fragment.SettingFragment;
@@ -14,7 +13,6 @@ import butterknife.ButterKnife;
 public class SettingActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar)                     Toolbar mToolBar;
-    @Bind(R.id.setting_framelayout)         FrameLayout settingFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

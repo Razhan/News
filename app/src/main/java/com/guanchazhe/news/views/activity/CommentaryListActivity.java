@@ -39,8 +39,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommentaryListActivity extends AppCompatActivity implements CommentaryListView {
 
-    private final static String EXTRA_AUTHOR_NAME = "author_name";
-
     @Bind(R.id.commentary_list_recycler)        RecyclerView mCollectionRecycler;
     @Bind(R.id.commentary_list_collapsing)      CollapsingToolbarLayout mCollapsingToolbarLayout;
     @Bind(R.id.commentary_list_toolbar)         Toolbar mToolBar;
@@ -96,7 +94,7 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
 
         mCollapsingToolbarLayout.setContentScrimResource(R.color.colorPrimary);
 
-        author = (Author) getIntent().getSerializableExtra(EXTRA_AUTHOR_NAME);
+        author = (Author) getIntent().getSerializableExtra(Constant.AUTHORNAME);
         authorName.setText(author.getName());
         authorTitle.setText(author.getTitle());
 
@@ -185,12 +183,15 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
         Intent intent = new Intent(activity, CommentaryListActivity.class);
 
         Bundle mBundle = new Bundle();
-        mBundle.putSerializable(EXTRA_AUTHOR_NAME, anthor);
+        mBundle.putSerializable(Constant.AUTHORNAME, anthor);
         intent.putExtras(mBundle);
 
-        ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(activity, view, "image_shared");
-
-        activity.startActivity(intent, options.toBundle());
+        if (view != null) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(activity, view, "image_shared");
+            activity.startActivity(intent, options.toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.guanchazhe.news.mvp.presenters;
 import android.graphics.Bitmap;
 
 import com.guanchazhe.news.domain.GetNewsDetailUseCase;
+import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.views.NewsDetailView;
 import com.guanchazhe.news.mvp.views.Views;
@@ -17,12 +18,9 @@ import rx.Subscription;
  */
 public class NewsDetailPresenter implements Presenter {
 
-    private final String DEVICE = "android";
 
     private NewsDetailView mNewsDetailView;
     private final GetNewsDetailUseCase mNewsDetailUsecase;
-    private Subscription mNewsDetailSubscription;
-    private News mNews;
 
     @Inject
     public NewsDetailPresenter(GetNewsDetailUseCase newsDetailUsecase) {
@@ -31,28 +29,16 @@ public class NewsDetailPresenter implements Presenter {
 
     @Override
     public void onCreate() {
-        if (mNews == null)
-            throw new IllegalStateException("initializePresenter was not well initialised");
 
         mNewsDetailView.setImageSource();
-
-        mNewsDetailSubscription = mNewsDetailUsecase.execute(DEVICE)
-                .map(str -> addToObject(str))
-                .subscribe(
-                        news -> resultArrived(news),
-                        error -> resultError(error)
-                );
+        mNewsDetailView.startWebView();
     }
 
     @Override
     public void onStart() {}
 
     @Override
-    public void onStop(){
-        if (!mNewsDetailSubscription.isUnsubscribed()) {
-            mNewsDetailSubscription.unsubscribe();
-        }
-    }
+    public void onStop() {}
 
     @Override
     public void onPause() {}
@@ -62,23 +48,11 @@ public class NewsDetailPresenter implements Presenter {
         mNewsDetailView = (NewsDetailView) v;
     }
 
-    public void initializePresenter(News news) {
-        mNews = news;
-    }
-
-    private News addToObject(String content) {
-
-        mNews.setContent(content);
-
-        return mNews;
-    }
-
     private void resultError(Throwable error) {
         // TODO
     }
 
-    private void resultArrived(News news) {
-        mNewsDetailView.bindNews(news);
+    public void resultArrived(News news) {
         mNewsDetailView.setContent(news);
     }
 

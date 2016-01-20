@@ -8,9 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.Collections;
-import java.util.List;
-
 import butterknife.ButterKnife;
 
 /**

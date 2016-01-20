@@ -2,6 +2,7 @@ package com.guanchazhe.news.mvp.views;
 
 import android.graphics.Bitmap;
 
+import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
 
 /**
@@ -9,7 +10,6 @@ import com.guanchazhe.news.mvp.model.entities.News;
  */
 public interface NewsDetailView extends Views {
 
-    void bindNews(News news);
 
     void initActivityColors(Bitmap resource);
 
@@ -18,5 +18,7 @@ public interface NewsDetailView extends Views {
     void stopWebView();
 
     void setImageSource();
+
+    void startWebView();
 
 }

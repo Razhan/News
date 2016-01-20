@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by ranzh on 12/22/2015.
  */
 public class News implements Serializable {
+    public News() {}
 
     public News(int id) {
         this.id = id;

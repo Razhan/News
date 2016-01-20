@@ -18,6 +18,13 @@ public class Constant {
 
     public static final String SHAREDPREFERENCE = "PREFERENCE";
     public static final String FAVORITECHANNELS = "favoriteChannels";
+    public static final String NEWSURL = "newsURL";
+    public static final String AUTHORNAME = "authorName";
+
+    public static final String NEWSDETAILURLPREFIX = "http://mobileservice.guancha.cn/Appdetail/get/?devices=android&id=";
+    public static final String NEWSDETAILWEBURLPREFIX = "http://mobileservice.guancha.cn/Appdetail/get/?devices=android&webid=";
+
+
 
     public enum RequestType {
         ASK,

@@ -14,13 +14,11 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,16 +30,17 @@ import com.guanchazhe.news.R;
 import com.guanchazhe.news.injector.components.DaggerNewsDetailComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsDetailModule;
+import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsDetailPresenter;
 import com.guanchazhe.news.mvp.views.NewsDetailView;
 import com.guanchazhe.news.views.listener.OnScrollChangeListener;
+import com.guanchazhe.news.views.listener.WebViewLoadedListener;
 import com.guanchazhe.news.views.utils.GUIUtils;
 import com.guanchazhe.news.views.widget.JsOperation;
+import com.guanchazhe.news.views.widget.WebClient;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
 import javax.inject.Inject;
@@ -59,8 +58,8 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     @Bind(R.id.item_movie_cover)                ImageView itemMovieCover;
     @Bind(R.id.activity_detail_title)           TextView mTitle;
     @Bind(R.id.activity_detail_fab)             FloatingActionButton mFabButton;
-    @Bind(R.id.character_biography)             WebView contentWebView;
-    @Bind(R.id.activity_detail_book_info)       CardView activityDetailBookInfo;
+    @Bind(R.id.news_webview_content)             WebView contentWebView;
+    @Bind(R.id.news_webview_wrapper)       CardView activityDetailBookInfo;
     @Bind(R.id.activity_detail_scroll)          NestedScrollView mScrollView;
     @Bind(R.id.item_movie_cover_wrapper)        FrameLayout imageWrapper;
 
@@ -121,7 +120,6 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     private void initPresenter() {
 
         mNewsDetailPresenter.attachView(this);
-        mNewsDetailPresenter.initializePresenter(mNews);
         mNewsDetailPresenter.onCreate();
     }
 
@@ -185,21 +183,23 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     }
 
     @Override
-    public void bindNews(News news) {
-        mNews = news;
+    public void setContent(News news) {
+        mTitle.setText(mNews.getTitle());
+        contentWebView.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void setContent(News news) {
-        mTitle.setText(news.getTitle());
-
+    public void startWebView() {
         WebSettings settings = contentWebView.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);
 
-        contentWebView.addJavascriptInterface(new JsOperation(this), "client");
-        contentWebView.setWebViewClient(new MyWebClient());
-        contentWebView.loadUrl("http://mobileservice.guancha.cn/Appdetail/get/?devices=android&id=" + news.getId());
+        contentWebView.addJavascriptInterface(new JsOperation(this, null), "client");
+
+        contentWebView.setWebViewClient(new WebClient(this, contentWebView,
+                (news) -> mNewsDetailPresenter.resultArrived((News)news))
+        );
+        contentWebView.loadUrl(Constant.NEWSDETAILURLPREFIX + mNews.getId());
     }
 
     @Override
@@ -218,36 +218,4 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         Log.d("activity_detail_fab", "activity_detail_fab");
     }
 
-    private class MyWebClient extends WebViewClient {
-
-        private MyWebClient() {
-        }
-
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-
-            contentWebView.setVisibility(View.VISIBLE);
-            contentWebView.loadUrl("javascript:$.startload();");
-            contentWebView.loadUrl("javascript:$.doZoom(" + 18 + ");");
-        }
-
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-            if (url.indexOf("guancha") == -1) {
-                return false;
-            }
-            String[] urs = url.split("[_]");
-            if (urs.length < 2) {
-                return false;
-            }
-            String id = urs[urs.length - 1].replace(".shtml", XmlPullParser.NO_NAMESPACE);
-
-            Intent intent = new Intent(NewsDetailActivity.this, NewsDetailActivity.class);
-
-            intent.putExtra("news", new News(Integer.parseInt(id)));
-            NewsDetailActivity.this.startActivity(intent);
-
-            return true;
-        }
-    }
 }
