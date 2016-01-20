@@ -7,6 +7,10 @@ import java.io.Serializable;
  */
 public class News implements Serializable {
 
+    public News(int id) {
+        this.id = id;
+    }
+
     private String rowid;
     private int id;
     private String title;
@@ -106,4 +110,6 @@ public class News implements Serializable {
     public void setAuthortitle(String authortitle) {
         this.authortitle = authortitle;
     }
+
+
 }

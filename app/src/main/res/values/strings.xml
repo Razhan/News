@@ -58,5 +58,6 @@
     <string name="title_activity_channel_manage">ChannelManageActivity</string>
     <string name="title_activity_favorite_channel">FavoriteChannelActivity</string>
     <string name="title_activity_commentary_detail">CommentaryDetailActivity</string>
+    <string name="title_activity_image_detail">ImageDetailActivity</string>
 
 </resources>

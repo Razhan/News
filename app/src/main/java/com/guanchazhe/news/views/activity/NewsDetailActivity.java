@@ -14,7 +14,10 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,11 +32,17 @@ import com.guanchazhe.news.R;
 import com.guanchazhe.news.injector.components.DaggerNewsDetailComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsDetailModule;
+import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsDetailPresenter;
 import com.guanchazhe.news.mvp.views.NewsDetailView;
 import com.guanchazhe.news.views.listener.OnScrollChangeListener;
 import com.guanchazhe.news.views.utils.GUIUtils;
+import com.guanchazhe.news.views.widget.JsOperation;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
 
 import javax.inject.Inject;
 
@@ -99,7 +108,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     }
 
     private void initDependencyInjector() {
-        mNews = (News)getIntent().getSerializableExtra("news");
+        mNews = (News) getIntent().getSerializableExtra("news");
 
         NewsApplication avengersApplication = (NewsApplication) getApplication();
         DaggerNewsDetailComponent.builder()
@@ -124,6 +133,12 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     protected void onStop() {
         super.onStop();
         mNewsDetailPresenter.onStop();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        stopWebView();
     }
 
     @Override
@@ -177,10 +192,15 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     @Override
     public void setContent(News news) {
         mTitle.setText(news.getTitle());
-        contentWebView.setVisibility(View.VISIBLE);
-        contentWebView.loadDataWithBaseURL(null, news.getContent(), "text/html", "UTF-8", null);
-    }
 
+        WebSettings settings = contentWebView.getSettings();
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setJavaScriptEnabled(true);
+
+        contentWebView.addJavascriptInterface(new JsOperation(this), "client");
+        contentWebView.setWebViewClient(new MyWebClient());
+        contentWebView.loadUrl("http://mobileservice.guancha.cn/Appdetail/get/?devices=android&id=" + news.getId());
+    }
 
     @Override
     public void stopWebView() {
@@ -198,4 +218,36 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         Log.d("activity_detail_fab", "activity_detail_fab");
     }
 
+    private class MyWebClient extends WebViewClient {
+
+        private MyWebClient() {
+        }
+
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+
+            contentWebView.setVisibility(View.VISIBLE);
+            contentWebView.loadUrl("javascript:$.startload();");
+            contentWebView.loadUrl("javascript:$.doZoom(" + 18 + ");");
+        }
+
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            if (url.indexOf("guancha") == -1) {
+                return false;
+            }
+            String[] urs = url.split("[_]");
+            if (urs.length < 2) {
+                return false;
+            }
+            String id = urs[urs.length - 1].replace(".shtml", XmlPullParser.NO_NAMESPACE);
+
+            Intent intent = new Intent(NewsDetailActivity.this, NewsDetailActivity.class);
+
+            intent.putExtra("news", new News(Integer.parseInt(id)));
+            NewsDetailActivity.this.startActivity(intent);
+
+            return true;
+        }
+    }
 }

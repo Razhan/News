@@ -52,9 +52,6 @@ public class NewsDetailPresenter implements Presenter {
         if (!mNewsDetailSubscription.isUnsubscribed()) {
             mNewsDetailSubscription.unsubscribe();
         }
-
-        mNewsDetailView.stopWebView();
-
     }
 
     @Override

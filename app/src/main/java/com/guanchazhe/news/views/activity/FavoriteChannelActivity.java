@@ -85,6 +85,12 @@ public class FavoriteChannelActivity extends AppCompatActivity {
 
         viewPager.setCurrentItem(tabIndex);
 
+        if (favoriteChannelsList.size() <= 5) {
+            tabs.setTabMode(TabLayout.MODE_FIXED);
+        } else {
+            tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }
+
     }
 
     private void loadFavoriteChannels() {
@@ -92,7 +98,8 @@ public class FavoriteChannelActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(Constant.SHAREDPREFERENCE, Context.MODE_PRIVATE);
         String stringChannels = prefs.getString(Constant.FAVORITECHANNELS, null);
 
-        favoriteChannels = new Gson().fromJson(stringChannels,
+        Gson gson = new Gson();
+        favoriteChannels = gson.fromJson(stringChannels,
                 new TypeToken<List<String>>() {
                 }.getType());
 

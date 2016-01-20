@@ -43,18 +43,4 @@ public class SettingActivity extends AppCompatActivity {
                 .replace(R.id.setting_framelayout, new SettingFragment())
                 .commit();
     }
-
 }
-
-
-
-
-
-////Retrieve the values
-//Set<String> set = myScores.getStringSet("key", null);
-//
-////Set the values
-//Set<String> set = new HashSet<String>();
-//set.addAll(listOfExistingScores);
-//        scoreEditor.putStringSet("key", set);
-//        scoreEditor.commit();
