@@ -2,16 +2,11 @@ package com.guanchazhe.news.mvp.presenters;
 
 import android.graphics.Bitmap;
 
-import com.guanchazhe.news.domain.GetNewsDetailUseCase;
-import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.views.NewsDetailView;
 import com.guanchazhe.news.mvp.views.Views;
 
-
 import javax.inject.Inject;
-
-import rx.Subscription;
 
 /**
  * Created by ranzh on 12/31/2015.
@@ -20,11 +15,9 @@ public class NewsDetailPresenter implements Presenter {
 
 
     private NewsDetailView mNewsDetailView;
-    private final GetNewsDetailUseCase mNewsDetailUsecase;
 
     @Inject
-    public NewsDetailPresenter(GetNewsDetailUseCase newsDetailUsecase) {
-        mNewsDetailUsecase = newsDetailUsecase;
+    public NewsDetailPresenter() {
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.guanchazhe.news.views.listener;
 
 import android.support.v4.widget.NestedScrollView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,4 +27,6 @@ public class OnScrollChangeListener implements NestedScrollView.OnScrollChangeLi
             mTitle.setTranslationY(0);
         }
     }
+
+
 }

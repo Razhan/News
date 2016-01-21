@@ -24,7 +24,6 @@ import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.injector.components.DaggerNewsDetailComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
-import com.guanchazhe.news.injector.modules.NewsDetailModule;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
@@ -88,7 +87,6 @@ public class CommentaryDetailActivity extends AppCompatActivity implements NewsD
         DaggerNewsDetailComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .appComponent(avengersApplication.getAppComponent())
-                .newsDetailModule(new NewsDetailModule(mNews.getId()))
                 .build().inject(this);
     }
 

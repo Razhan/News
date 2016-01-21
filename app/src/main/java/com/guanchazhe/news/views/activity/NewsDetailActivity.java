@@ -29,19 +29,14 @@ import com.guanchazhe.news.NewsApplication;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.injector.components.DaggerNewsDetailComponent;
 import com.guanchazhe.news.injector.modules.ActivityModule;
-import com.guanchazhe.news.injector.modules.NewsDetailModule;
 import com.guanchazhe.news.mvp.Constant;
-import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsDetailPresenter;
 import com.guanchazhe.news.mvp.views.NewsDetailView;
 import com.guanchazhe.news.views.listener.OnScrollChangeListener;
-import com.guanchazhe.news.views.listener.WebViewLoadedListener;
 import com.guanchazhe.news.views.utils.GUIUtils;
 import com.guanchazhe.news.views.widget.JsOperation;
 import com.guanchazhe.news.views.widget.WebClient;
-
-import org.xmlpull.v1.XmlPullParser;
 
 import javax.inject.Inject;
 
@@ -113,7 +108,6 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
         DaggerNewsDetailComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .appComponent(avengersApplication.getAppComponent())
-                .newsDetailModule(new NewsDetailModule(mNews.getId()))
                 .build().inject(this);
     }
 

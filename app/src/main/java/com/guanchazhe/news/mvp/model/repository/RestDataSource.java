@@ -27,7 +27,7 @@ import rx.Observable;
  */
 public class RestDataSource implements Repository {
 
-    private int CONNECTION_TIMEOUT = 10 * 1000;
+    private int CONNECTION_TIMEOUT = 5 * 1000;
     private final ListRestfulAPIs listRestfulAPIs;
     private final DetailRestfulAPIs detailRestfulAPIs;
 
