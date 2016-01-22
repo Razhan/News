@@ -63,7 +63,5 @@ dependencies {
     compile "com.jakewharton:butterknife:${libs.butterknife}"
     compile "de.hdodenhof:circleimageview:${libs.circleimageview}"
     compile "org.jsoup:jsoup:${libs.jsoup}"
-
-
-
+    compile "me.imid.swipebacklayout.lib:library:${libs.swipebacklayout}"
 }

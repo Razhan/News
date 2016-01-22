@@ -238,7 +238,7 @@ public class GUIUtils {
         Animator anim = ViewAnimationUtils.createCircularReveal(
                 v, centerX, centerY, 0, finalRadius);
 
-        anim.setDuration(context.getResources().getInteger(R.integer.duration_long));
+        anim.setDuration(context.getResources().getInteger(R.integer.duration_medium));
         anim.setInterpolator(new LinearInterpolator());
 
         if (lis != null)

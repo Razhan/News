@@ -40,8 +40,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class CommentaryDetailActivity extends AppCompatActivity implements NewsDetailView {
+public class CommentaryDetailActivity extends SwipeBackActivity implements NewsDetailView {
 
     @Bind(R.id.commentary_detail_author_image)          CircleImageView commentaryDetailAuthorImage;
     @Bind(R.id.commentary_detail_author_name)           TextView commentaryDetailAuthorName;
@@ -50,7 +51,6 @@ public class CommentaryDetailActivity extends AppCompatActivity implements NewsD
     @Bind(R.id.commentary_detail_content)               WebView commentaryDetailContent;
     @Bind(R.id.commentary_detail_header)                LinearLayout commentaryDetailHeader;
     @Bind(R.id.commentary_detail_scroll)                NestedScrollView commentaryDetailScroll;
-    @Bind(R.id.commentary_detail_content_wrapper)       CardView commentaryContentWrapper;
 
     @Inject
     NewsDetailPresenter mCommentaryDetailPresenter;
@@ -135,7 +135,7 @@ public class CommentaryDetailActivity extends AppCompatActivity implements NewsD
             public void onAnimationEnd(Animator animation) {
 
                 super.onAnimationEnd(animation);
-                GUIUtils.showViewByScale(commentaryContentWrapper);
+                GUIUtils.showViewByScale(commentaryDetailContent);
             }
         });
     }

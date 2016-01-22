@@ -11,7 +11,8 @@ ext {
             javax_annotation    : "10.0-b28",
             glide               : "3.6.0",
             jsoup               : "1.8.3",
-            circleimageview     : "2.0.0"
+            circleimageview     : "2.0.0",
+            swipebacklayout     : "1.0.0"
     ]
 }
 

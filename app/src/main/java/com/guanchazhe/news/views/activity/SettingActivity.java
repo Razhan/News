@@ -9,10 +9,12 @@ import com.guanchazhe.news.views.Fragment.SettingFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends SwipeBackActivity {
 
-    @Bind(R.id.toolbar)                     Toolbar mToolBar;
+    @Bind(R.id.toolbar)
+    Toolbar mToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,8 @@ public class SettingActivity extends AppCompatActivity {
     private void initToolbar() {
         mToolBar.setTitle("设置");
 
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        setSupportActionBar(mToolBar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 

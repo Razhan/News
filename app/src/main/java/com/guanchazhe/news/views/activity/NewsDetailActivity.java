@@ -9,14 +9,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +30,7 @@ import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
 import com.guanchazhe.news.mvp.presenters.NewsDetailPresenter;
 import com.guanchazhe.news.mvp.views.NewsDetailView;
+import com.guanchazhe.news.utils.Utils;
 import com.guanchazhe.news.views.listener.OnScrollChangeListener;
 import com.guanchazhe.news.views.utils.GUIUtils;
 import com.guanchazhe.news.views.widget.JsOperation;
@@ -44,17 +42,17 @@ import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * Created by ranzh on 1/15/2016.
  */
-public class NewsDetailActivity extends AppCompatActivity implements NewsDetailView {
+public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailView {
 
     @Bind(R.id.item_movie_cover)                ImageView itemMovieCover;
     @Bind(R.id.activity_detail_title)           TextView mTitle;
     @Bind(R.id.activity_detail_fab)             FloatingActionButton mFabButton;
-    @Bind(R.id.news_webview_content)             WebView contentWebView;
-    @Bind(R.id.news_webview_wrapper)       CardView activityDetailBookInfo;
+    @Bind(R.id.news_webview_content)            WebView contentWebView;
     @Bind(R.id.activity_detail_scroll)          NestedScrollView mScrollView;
     @Bind(R.id.item_movie_cover_wrapper)        FrameLayout imageWrapper;
 
@@ -151,15 +149,15 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
 
     @Override
     public void initActivityColors(Bitmap sourceBitmap) {
-        Palette.from(sourceBitmap)
-                .generate(palette -> {
-
-                    int darkVibrant = palette.getDarkVibrantColor(mColorPrimaryDark);
-
-                    getWindow().setStatusBarColor(darkVibrant);
-                    imageWrapper.setBackgroundColor(darkVibrant);
-                    mTitle.setBackgroundColor(darkVibrant);
-                });
+//        Palette.from(sourceBitmap)
+//                .generate(palette -> {
+//
+//                    int darkVibrant = palette.getDarkVibrantColor(mColorPrimaryDark);
+//
+//                    getWindow().setStatusBarColor(darkVibrant);
+//                    imageWrapper.setBackgroundColor(darkVibrant);
+//                    mTitle.setBackgroundColor(darkVibrant);
+//                });
     }
 
     private void animateElementsByScale() {
@@ -171,7 +169,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
             public void onAnimationEnd(Animator animation) {
 
                 super.onAnimationEnd(animation);
-                GUIUtils.showViewByScale(activityDetailBookInfo);
+                GUIUtils.showViewByScale(contentWebView);
             }
         });
     }
@@ -180,6 +178,7 @@ public class NewsDetailActivity extends AppCompatActivity implements NewsDetailV
     public void setContent(News news) {
         mTitle.setText(mNews.getTitle());
         contentWebView.setVisibility(View.VISIBLE);
+        Utils.convertActivityToTranslucent(this);
     }
 
     @Override

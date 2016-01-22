@@ -79,8 +79,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:scaleY="0"
-                android:transformPivotY="0dp"
                 android:layout_marginLeft="@dimen/spacing_small"
                 android:layout_marginRight="@dimen/spacing_small"
                 android:layout_marginTop="@dimen/spacing_tiny"
@@ -92,6 +90,8 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/spacing_normal"
                     android:paddingRight="@dimen/spacing_normal"
+                    android:scaleY="0"
+                    android:transformPivotY="0dp"
                     android:scrollbars="none"
                     android:visibility="gone"/>
 

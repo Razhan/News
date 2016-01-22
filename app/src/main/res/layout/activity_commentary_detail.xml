@@ -117,8 +117,6 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/commentary_detail_title"
                 android:orientation="vertical"
-                android:scaleY="0"
-                android:transformPivotY="0dp"
                 android:layout_marginLeft="@dimen/spacing_small"
                 android:layout_marginRight="@dimen/spacing_small"
                 android:layout_marginTop="@dimen/spacing_tiny"
@@ -131,6 +129,8 @@
                     android:lineSpacingExtra="8dp"
                     android:paddingLeft="@dimen/spacing_normal"
                     android:paddingRight="@dimen/spacing_normal"
+                    android:scaleY="0"
+                    android:transformPivotY="0dp"
                     android:scrollbars="none"
                     android:visibility="gone"/>
 
