@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <com.guanchazhe.news.views.widget.BetterViewAnimator
+        android:id="@+id/bv_list_content_viewanimator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inAnimation="@android:anim/fade_in"
+        android:outAnimation="@android:anim/fade_out">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list_content_listview"
+            style="@style/CollectionView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <include layout="@layout/include_view_loading"/>
+
+        <com.guanchazhe.news.views.widget.AnimatorStateView
+            android:id="@+id/asv_list_content_errorview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:messageImage="@drawable/bg_error"
+            app:messageText="@string/view_error_message"/>
+
+    </com.guanchazhe.news.views.widget.BetterViewAnimator>
+
+</LinearLayout>

@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -49,12 +48,12 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  */
 public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailView {
 
-    @Bind(R.id.item_movie_cover)                ImageView itemMovieCover;
-    @Bind(R.id.activity_detail_title)           TextView mTitle;
-    @Bind(R.id.activity_detail_fab)             FloatingActionButton mFabButton;
-    @Bind(R.id.news_webview_content)            WebView contentWebView;
-    @Bind(R.id.activity_detail_scroll)          NestedScrollView mScrollView;
-    @Bind(R.id.item_movie_cover_wrapper)        FrameLayout imageWrapper;
+    @Bind(R.id.item_movie_cover)                ImageView itemMovieCoverIV;
+    @Bind(R.id.activity_detail_title)           TextView titleTV;
+    @Bind(R.id.activity_detail_fab)             FloatingActionButton fabButton;
+    @Bind(R.id.news_webview_content)            WebView contentWV;
+    @Bind(R.id.activity_detail_scroll)          NestedScrollView ScrollView;
+    @Bind(R.id.item_movie_cover_wrapper)        FrameLayout imageWrapperFL;
 
     @BindColor(R.color.colorPrimary)            int mColorPrimary;
     @BindColor(R.color.colorPrimaryDark)        int mColorPrimaryDark;
@@ -78,11 +77,11 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
         setContentView(R.layout.activity_news_detail);
         ButterKnife.bind(this);
 
-        itemMovieCover.getViewTreeObserver().addOnGlobalLayoutListener(
+        itemMovieCoverIV.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        itemMovieCover.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        itemMovieCoverIV.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                         AnimatorListenerAdapter listenerAdapter = new AnimatorListenerAdapter() {
                             @Override
@@ -92,8 +91,8 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
                             }
                         };
 
-                        GUIUtils.showRevealEffect(NewsDetailActivity.this, itemMovieCover,
-                                itemMovieCover.getWidth(), 0, listenerAdapter);
+                        GUIUtils.showRevealEffect(NewsDetailActivity.this, itemMovieCoverIV,
+                                itemMovieCoverIV.getWidth(), 0, listenerAdapter);
                     }
                 }
         );
@@ -116,7 +115,7 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
     }
 
     private void initScrollView() {
-        mScrollView.setOnScrollChangeListener(new OnScrollChangeListener(itemMovieCover, mTitle));
+        ScrollView.setOnScrollChangeListener(new OnScrollChangeListener(itemMovieCoverIV, titleTV));
     }
 
     @Override
@@ -137,11 +136,11 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
                 .load(mNews.getPic())
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(new BitmapImageViewTarget(itemMovieCover) {
+                .into(new BitmapImageViewTarget(itemMovieCoverIV) {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         super.onResourceReady(resource, glideAnimation);
-//                        itemMovieCover.setImageBitmap(resource);
+//                        itemMovieCoverIV.setImageBitmap(resource);
                         mNewsDetailPresenter.onImageReceived(resource);
                     }
                 });
@@ -155,49 +154,49 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
 //                    int darkVibrant = palette.getDarkVibrantColor(mColorPrimaryDark);
 //
 //                    getWindow().setStatusBarColor(darkVibrant);
-//                    imageWrapper.setBackgroundColor(darkVibrant);
-//                    mTitle.setBackgroundColor(darkVibrant);
+//                    imageWrapperFL.setBackgroundColor(darkVibrant);
+//                    titleTV.setBackgroundColor(darkVibrant);
 //                });
     }
 
     private void animateElementsByScale() {
 
-        GUIUtils.showViewByScale(mFabButton);
-        GUIUtils.showViewByScaleY(mTitle, new AnimatorListenerAdapter() {
+        GUIUtils.showViewByScale(fabButton);
+        GUIUtils.showViewByScaleY(titleTV, new AnimatorListenerAdapter() {
 
             @Override
             public void onAnimationEnd(Animator animation) {
 
                 super.onAnimationEnd(animation);
-                GUIUtils.showViewByScale(contentWebView);
+                GUIUtils.showViewByScale(contentWV);
             }
         });
     }
 
     @Override
     public void setContent(News news) {
-        mTitle.setText(mNews.getTitle());
-        contentWebView.setVisibility(View.VISIBLE);
+        titleTV.setText(mNews.getTitle());
+        contentWV.setVisibility(View.VISIBLE);
         Utils.convertActivityToTranslucent(this);
     }
 
     @Override
     public void startWebView() {
-        WebSettings settings = contentWebView.getSettings();
+        WebSettings settings = contentWV.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);
 
-        contentWebView.addJavascriptInterface(new JsOperation(this, null), "client");
+        contentWV.addJavascriptInterface(new JsOperation(this, null), "client");
 
-        contentWebView.setWebViewClient(new WebClient(this, contentWebView,
-                (news) -> mNewsDetailPresenter.resultArrived((News)news))
+        contentWV.setWebViewClient(new WebClient(this, contentWV,
+                        (news) -> mNewsDetailPresenter.resultArrived((News) news))
         );
-        contentWebView.loadUrl(Constant.NEWSDETAILURLPREFIX + mNews.getId());
+        contentWV.loadUrl(Constant.NEWSDETAILURLPREFIX + mNews.getId());
     }
 
     @Override
     public void stopWebView() {
-        contentWebView.loadUrl("about:blank");
+        contentWV.loadUrl("about:blank");
     }
 
     public static void start(Context context, News news) {

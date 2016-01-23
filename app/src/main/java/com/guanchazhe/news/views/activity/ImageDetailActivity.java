@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.mvp.model.entities.Author;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,8 +16,8 @@ public class ImageDetailActivity extends AppCompatActivity {
 
     private final String EXTRA_URL_NAME = "url";
 
-    @Bind(R.id.toolbar)         Toolbar toolbar;
-    @Bind(R.id.image_detail)    ImageView imageDetail;
+    @Bind(R.id.toolbar)         Toolbar toolBar;
+    @Bind(R.id.image_detail)    ImageView imageDetailIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +34,11 @@ public class ImageDetailActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolbar.setTitle("图片");
+        toolBar.setTitle("图片");
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        toolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     private void loadImage() {
@@ -49,7 +48,7 @@ public class ImageDetailActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.error_placeholder)
-                .into(imageDetail);
+                .error(R.drawable.def_placeholder)
+                .into(imageDetailIV);
     }
 }

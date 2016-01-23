@@ -19,9 +19,9 @@
     <ListPreference
         android:title="字体大小"
         android:key="textSize"
-        android:defaultValue="14"
-        android:entries="@array/channel_name"
-        android:entryValues="@array/channel_name" />
+        android:defaultValue="16"
+        android:entries="@array/text_size"
+        android:entryValues="@array/text_size" />
 
     <Preference
         android:title="栏目设置"

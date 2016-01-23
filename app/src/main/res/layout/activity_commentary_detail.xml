@@ -12,7 +12,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/commentary_detail_header"
@@ -34,7 +34,7 @@
                         android:layout_height="@dimen/profile"
                         android:layout_marginLeft="@dimen/spacing_tiny"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/error_placeholder"
+                        android:src="@drawable/def_placeholder"
                         app:civ_border_width="1dp"
                         app:civ_border_color="@color/gray"/>
 

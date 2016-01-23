@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -13,57 +11,25 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="ViewGroup">
-        <item name="android:paddingLeft">@dimen/spacing_normal</item>
-        <item name="android:paddingRight">@dimen/spacing_normal</item>
-        <item name="android:paddingTop">@dimen/spacing_normal</item>
-        <item name="android:paddingBottom">@dimen/spacing_normal</item>
-    </style>
-
-
-    <style name="Text"/>
-
-    <style name="Text.Header">
-        <item name="android:minHeight">48dp</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
-
-    <style name="Text.CollapsedExpanded">
+    <style name="CollapsedExpanded">
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textColor">@android:color/transparent</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="Text.ComicHeader">
-        <item name="android:minHeight">8dp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">17sp</item>
-        <item name="android:singleLine">true</item>
-    </style>
-
-    <style name="Text.ComicContent">
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLength">75</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:lineSpacingExtra">4dp</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-
-    <style name="Text.StateMessage">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-
-    <!-- Common -->
     <style name="CollectionView">
         <item name="android:padding">@dimen/item_spacing_half</item>
         <item name="android:clipToPadding">false</item>
         <item name="android:scrollbars">none</item>
     </style>
+
+    <style name="CardViewMargin">
+        <item name="android:layout_marginLeft">@dimen/spacing_tiny</item>
+        <item name="android:layout_marginRight">@dimen/spacing_tiny</item>
+        <item name="android:layout_marginTop">@dimen/spacing_none</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_tiny</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
 </resources>

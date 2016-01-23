@@ -1,7 +1,6 @@
 package com.guanchazhe.news.views.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.guanchazhe.news.R;
@@ -13,8 +12,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public class SettingActivity extends SwipeBackActivity {
 
-    @Bind(R.id.toolbar)
-    Toolbar mToolBar;
+    @Bind(R.id.toolbar)         Toolbar toolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +29,11 @@ public class SettingActivity extends SwipeBackActivity {
     }
 
     private void initToolbar() {
-        mToolBar.setTitle("设置");
+        toolBar.setTitle("设置");
 
-//        setSupportActionBar(mToolBar);
+//        setSupportActionBar(toolBar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolBar.setNavigationOnClickListener(v -> onBackPressed());
+        toolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     private void initFragment() {

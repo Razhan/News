@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.guanchazhe.news.NewsApplication;
@@ -29,9 +28,9 @@ import butterknife.ButterKnife;
 
 public class AuthorListActivity extends AppCompatActivity implements AuthorListView {
 
-    @Bind(R.id.toolbar)                 Toolbar mToolBar;
-    @Bind(R.id.author_list_recycler)    RecyclerView authorListRecycler;
-    @Bind(R.id.author_list_animator)    BetterViewAnimator mViewAnimator;
+    @Bind(R.id.toolbar)                             Toolbar toolBar;
+    @Bind(R.id.rv_list_content_listview)            RecyclerView authorListRV;
+    @Bind(R.id.bv_list_content_viewanimator)        BetterViewAnimator viewAnimator;
 
     @Inject
     AuthorListPresenter mAuthorListPresenter;
@@ -55,11 +54,11 @@ public class AuthorListActivity extends AppCompatActivity implements AuthorListV
     }
 
     private void initToolbar() {
-        mToolBar.setTitle("专栏作家");
+        toolBar.setTitle("专栏作家");
 
-        setSupportActionBar(mToolBar);
+        setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolBar.setNavigationOnClickListener(v -> onBackPressed());
+        toolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     private void initDependencyInjector() {
@@ -78,13 +77,13 @@ public class AuthorListActivity extends AppCompatActivity implements AuthorListV
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        authorListRecycler.setLayoutManager(linearLayoutManager);
-        authorListRecycler.addItemDecoration(new RecyclerInsetsDecoration(this));
+        authorListRV.setLayoutManager(linearLayoutManager);
+        authorListRV.addItemDecoration(new RecyclerInsetsDecoration(this));
 
-        mAuthorListAdapter = new AuthorListAdapter(authorListRecycler, null, false,
+        mAuthorListAdapter = new AuthorListAdapter(authorListRV, null, false,
                 (view, data, position) -> mAuthorListPresenter.onElementClick(view, (Author) data));
 
-        authorListRecycler.setAdapter(mAuthorListAdapter);
+        authorListRV.setAdapter(mAuthorListAdapter);
     }
 
     @Override
@@ -112,17 +111,17 @@ public class AuthorListActivity extends AppCompatActivity implements AuthorListV
 
     @Override
     public void showAuthorListView() {
-        mViewAnimator.setDisplayedChildId(R.id.author_list_recycler);
+        viewAnimator.setDisplayedChildId(R.id.rv_list_content_listview);
     }
 
     @Override
     public void showLoadingView() {
-        mViewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_LOADING);
+        viewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_LOADING);
     }
 
     @Override
     public void showErrorView() {
-        mViewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_ERROR);
+        viewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_ERROR);
     }
 
     @Override

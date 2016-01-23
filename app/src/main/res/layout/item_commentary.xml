@@ -6,11 +6,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/spacing_small"
-    android:layout_marginRight="@dimen/spacing_small"
-    android:layout_marginTop="@dimen/spacing_tiny"
-    android:layout_marginBottom="@dimen/spacing_tiny"
-    android:foreground="?attr/selectableItemBackground"
+    style="@style/CardViewMargin"
     tools:cardCornerRadius="@dimen/margin_4dp"
     tools:cardElevation="4dp">
 
@@ -27,7 +23,7 @@
             android:layout_width="@dimen/profile"
             android:layout_height="@dimen/profile"
             android:layout_marginLeft="@dimen/spacing_small"
-            android:src="@drawable/error_placeholder"
+            android:src="@drawable/def_placeholder"
             app:civ_border_width="1dp"
             app:civ_border_color="@android:color/darker_gray"/>
 

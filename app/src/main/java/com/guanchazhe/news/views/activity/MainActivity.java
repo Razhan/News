@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.guanchazhe.news.R;
@@ -33,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private final String SHIPING = "时评";
     private final String BINFEN = "缤纷";
 
-    @Bind(R.id.toolbar)             Toolbar mToolbar;
+    @Bind(R.id.toolbar)             Toolbar toolBar;
     @Bind(R.id.tabs)                TabLayout tabs;
     @Bind(R.id.viewPager)           ViewPager viewPager;
     @Bind(R.id.drawer_layout)       DrawerLayout mDrawerLayout;
-    @Bind(R.id.drawer_recycler)     RecyclerView drawerRecycleView;
+    @Bind(R.id.drawer_recycler)     RecyclerView drawerRV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +55,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initToolbar()   {
-        mToolbar.setTitle("观察者");
-        setSupportActionBar(mToolbar);
+        toolBar.setTitle("观察者");
+        setSupportActionBar(toolBar);
     }
 
     private void initDrawerLayout() {
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbar, R.string.drawer_open,
+                this, mDrawerLayout, toolBar, R.string.drawer_open,
                 R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -71,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
     private void initDrawerRecycleView() {
         String[] rowListItem = getResources().getStringArray(R.array.channel_name);
 
-        drawerRecycleView.setHasFixedSize(true);
-        drawerRecycleView.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
-        drawerRecycleView.addItemDecoration(new RecyclerInsetsDecoration(this));
+        drawerRV.setHasFixedSize(true);
+        drawerRV.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
+        drawerRV.addItemDecoration(new RecyclerInsetsDecoration(this));
 
-        ChannelListAdapter mChannelListAdapter = new ChannelListAdapter(drawerRecycleView, Arrays.asList(rowListItem), false,
+        ChannelListAdapter mChannelListAdapter = new ChannelListAdapter(drawerRV, Arrays.asList(rowListItem), false,
                 (view, data, position) -> FavoriteChannelActivity.start(this, (String)data));
 
-        drawerRecycleView.setAdapter(mChannelListAdapter);
+        drawerRV.setAdapter(mChannelListAdapter);
     }
 
     private void initTabLayout() {

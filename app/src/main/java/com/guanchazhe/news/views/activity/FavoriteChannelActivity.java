@@ -19,7 +19,6 @@ import com.guanchazhe.news.views.adapter.FragmentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,7 +27,7 @@ public class FavoriteChannelActivity extends AppCompatActivity {
 
     private final String CLICKEDCHANNEL = "clickedChannel";
 
-    @Bind(R.id.toolbar)         Toolbar toolbar;
+    @Bind(R.id.toolbar)         Toolbar toolBar;
     @Bind(R.id.tabs)            TabLayout tabs;
     @Bind(R.id.viewPager)       ViewPager viewPager;
 
@@ -49,11 +48,11 @@ public class FavoriteChannelActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolbar.setTitle("我的栏目");
+        toolBar.setTitle("我的栏目");
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        toolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     private void initTabLayout() {

@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_marginLeft="@dimen/spacing_small"
-    android:layout_marginRight="@dimen/spacing_small"
-    android:layout_marginTop="@dimen/spacing_tiny"
-    android:foreground="?attr/selectableItemBackground"
+    style="@style/CardViewMargin"
     tools:cardCornerRadius="@dimen/margin_4dp"
     tools:cardElevation="4dp">
 

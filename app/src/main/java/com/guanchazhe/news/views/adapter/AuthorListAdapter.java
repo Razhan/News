@@ -34,7 +34,7 @@ public class AuthorListAdapter extends BaseRecyclerAdapter<Author>{
         Glide.with(holder.getmContext())
                 .load(item.getPic())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.error_placeholder)
+                .error(R.drawable.def_placeholder)
                 .into((ImageView) holder.getView(R.id.author_image));
 
     }

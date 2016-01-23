@@ -29,7 +29,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
         Glide.with(holder.getmContext())
                 .load(item.getPic())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.error_placeholder)
+                .error(R.drawable.def_placeholder)
                 .into((ImageView)holder.getView(R.id.header_image));
     }
 
@@ -55,7 +55,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
         Glide.with(holder.getmContext())
                 .load(item.getPic())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.error_placeholder)
+                .error(R.drawable.def_placeholder)
                 .into(placeHold);
     }
 

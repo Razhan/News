@@ -39,13 +39,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommentaryListActivity extends AppCompatActivity implements CommentaryListView {
 
-    @Bind(R.id.commentary_list_recycler)        RecyclerView mCollectionRecycler;
-    @Bind(R.id.commentary_list_collapsing)      CollapsingToolbarLayout mCollapsingToolbarLayout;
-    @Bind(R.id.commentary_list_toolbar)         Toolbar mToolBar;
-    @Bind(R.id.commentary_list_animator)        BetterViewAnimator mViewAnimator;
-    @Bind(R.id.news_image)                 CircleImageView characterImage;
-    @Bind(R.id.author_title)                    TextView authorTitle;
-    @Bind(R.id.author_name)                     TextView authorName;
+    @Bind(R.id.rv_list_content_listview)            RecyclerView contentRV;
+    @Bind(R.id.commentary_list_collapsing)          CollapsingToolbarLayout CollapsingToolbarLayout;
+    @Bind(R.id.commentary_list_toolbar)             Toolbar toolBar;
+    @Bind(R.id.bv_list_content_viewanimator)        BetterViewAnimator viewAnimator;
+    @Bind(R.id.news_image)                          CircleImageView characterImageCIV;
+    @Bind(R.id.author_title)                        TextView authorTitleTV;
+    @Bind(R.id.author_name)                         TextView authorNameTV;
 
     @Inject
     CommentaryListPresenter mCommentaryListPresenter;
@@ -84,41 +84,41 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
     }
 
     private void initToolbar() {
-        mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Text_CollapsedExpanded);
+        CollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedExpanded);
 
-        mToolBar.setTitle("专栏");
+        toolBar.setTitle("专栏");
 
-        setSupportActionBar(mToolBar);
+        setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolBar.setNavigationOnClickListener(v -> onBackPressed());
+        toolBar.setNavigationOnClickListener(v -> onBackPressed());
 
-        mCollapsingToolbarLayout.setContentScrimResource(R.color.colorPrimary);
+        CollapsingToolbarLayout.setContentScrimResource(R.color.colorPrimary);
 
         author = (Author) getIntent().getSerializableExtra(Constant.AUTHORNAME);
-        authorName.setText(author.getName());
-        authorTitle.setText(author.getTitle());
+        authorNameTV.setText(author.getName());
+        authorTitleTV.setText(author.getTitle());
 
         Glide.with(this)
                 .load(author.getPic())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.error_placeholder)
-                .into(characterImage);
+                .error(R.drawable.def_placeholder)
+                .into(characterImageCIV);
     }
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mCollectionRecycler.setLayoutManager(linearLayoutManager);
-        mCollectionRecycler.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
+        contentRV.setLayoutManager(linearLayoutManager);
+        contentRV.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
                 mCommentaryListPresenter.onListEndReached(currentPage);
             }
         });
 
-        mCommentaryListAdapter = new CommentaryListAdapter(mCollectionRecycler, null, false,
+        mCommentaryListAdapter = new CommentaryListAdapter(contentRV, null, false,
                 (view, data, position) -> mCommentaryListPresenter.onElementClick((News) data));
 
-        mCollectionRecycler.setAdapter(mCommentaryListAdapter);
+        contentRV.setAdapter(mCommentaryListAdapter);
     }
 
     @Override
@@ -156,22 +156,22 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
 
     @Override
     public void showNewsListView() {
-        mViewAnimator.setDisplayedChildId(R.id.commentary_list_recycler);
+        viewAnimator.setDisplayedChildId(R.id.rv_list_content_listview);
     }
 
     @Override
     public void showLoadingView() {
-        mViewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_LOADING);
+        viewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_LOADING);
     }
 
     @Override
     public void showErrorView() {
-        mViewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_ERROR);
+        viewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_ERROR);
     }
 
     @Override
     public boolean isContentDisplayed() {
-        return mViewAnimator.getDisplayedChildId() == R.id.commentary_list_recycler;
+        return viewAnimator.getDisplayedChildId() == R.id.rv_list_content_listview;
     }
 
     @Override

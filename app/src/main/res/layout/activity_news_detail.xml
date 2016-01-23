@@ -23,7 +23,7 @@
                 <ImageView
                     android:id="@+id/item_movie_cover"
                     android:layout_width="match_parent"
-                    android:layout_height="210dp"
+                    android:layout_height="@dimen/news_detail_image_cover_height"
                     android:visibility="invisible"
                     android:scaleType="centerCrop"/>
 
@@ -34,19 +34,19 @@
                 android:id="@+id/activity_detail_title"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+                android:paddingLeft="@dimen/content_padding_normal"
+                android:paddingRight="@dimen/content_padding_normal"
                 android:scaleY="0"
                 android:transformPivotY="0dp"
                 android:layout_below="@id/item_movie_cover_wrapper"
                 android:gravity="center_vertical"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="17sp"
+                android:textSize="@dimen/text_size_large"
                 android:textColor="#FFF"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:background="@color/colorPrimary"
-                android:elevation="4dp"/>
+                android:elevation="@dimen/elevation_small"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/activity_detail_fab"
@@ -57,7 +57,7 @@
                 android:layout_alignParentRight="true"
                 android:scaleX="0"
                 android:scaleY="0"
-                android:src="@drawable/ic_fab_star"
+                android:src="@drawable/bg_fab_star"
                 android:layout_above="@id/activity_detail_title"
                 android:elevation="4dp"/>
 

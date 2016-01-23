@@ -18,12 +18,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/partial_view_navigation_header" />
+            <include layout="@layout/include_view_navigation_header" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/drawer_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="@dimen/drawer_recycleview_height"
                 android:layout_marginBottom="5dp"
                 style="@style/CollectionView"/>
 
@@ -32,7 +32,7 @@
                 android:layout_marginRight="@dimen/spacing_normal"
                 android:layout_marginLeft="@dimen/spacing_normal"
                 android:layout_width="match_parent"
-                android:layout_height="2px"
+                android:layout_height="@dimen/divier_line_height"
                 android:background="@color/divider"/>
 
             <RelativeLayout
@@ -48,7 +48,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
-                    android:src="@drawable/default_avatar"/>
+                    android:src="@drawable/def_avatar"/>
 
                 <TextView
                     android:id="@+id/authors_text"
@@ -76,7 +76,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
-                    android:src="@drawable/default_avatar"/>
+                    android:src="@drawable/def_avatar"/>
 
                 <TextView
                     android:id="@+id/channels_text"
@@ -104,7 +104,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
-                    android:src="@drawable/default_avatar"/>
+                    android:src="@drawable/def_avatar"/>
 
                 <TextView
                     android:id="@+id/setting_text"
@@ -132,7 +132,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
-                    android:src="@drawable/default_avatar"/>
+                    android:src="@drawable/def_avatar"/>
 
                 <TextView
                     android:id="@+id/nightMode_text"
@@ -160,7 +160,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
-                    android:src="@drawable/default_avatar"/>
+                    android:src="@drawable/def_avatar"/>
 
                 <TextView
                     android:id="@+id/about_text"

@@ -28,9 +28,9 @@ import butterknife.ButterKnife;
 
 public class ChannelManageActivity extends AppCompatActivity implements RecycleViewAdapterListener<String> {
 
-    @Bind(R.id.toolbar)                 Toolbar toolbar;
-    @Bind(R.id.favorite_recycleview)    RecyclerView favoriteRecycleview;
-    @Bind(R.id.other_recycleview)       RecyclerView otherRecycleview;
+    @Bind(R.id.toolbar)                     Toolbar toolBar;
+    @Bind(R.id.favorite_recycleview)        RecyclerView favoriteRV;
+    @Bind(R.id.other_recycleview)           RecyclerView otherRV;
 
     private ItemTouchHelper mItemTouchHelper;
 
@@ -48,8 +48,8 @@ public class ChannelManageActivity extends AppCompatActivity implements RecycleV
         initToolbar();
 
         loadChannels();
-        favoriteAdapter = initRecycleView(favoriteRecycleview, favoriteChannels);
-        otherAdapter = initRecycleView(otherRecycleview, otherChannels);
+        favoriteAdapter = initRecycleView(favoriteRV, favoriteChannels);
+        otherAdapter = initRecycleView(otherRV, otherChannels);
     }
 
     private void initUi() {
@@ -58,11 +58,11 @@ public class ChannelManageActivity extends AppCompatActivity implements RecycleV
     }
 
     private void initToolbar() {
-        toolbar.setTitle("栏目设置");
+        toolBar.setTitle("栏目设置");
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        toolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     private ChannelListAdapter initRecycleView(RecyclerView recyclerView, List<String> dataList) {
@@ -110,12 +110,12 @@ public class ChannelManageActivity extends AppCompatActivity implements RecycleV
         if (favoriteAdapter.getItems().contains(item)) {
             otherAdapter.getItems().add(0, item);
             otherAdapter.notifyItemInserted(0);
-            otherRecycleview.smoothScrollToPosition(0);
+            otherRV.smoothScrollToPosition(0);
 
         } else {
             favoriteAdapter.getItems().add(0, item);
             favoriteAdapter.notifyItemInserted(0);
-            favoriteRecycleview.smoothScrollToPosition(0);
+            favoriteRV.smoothScrollToPosition(0);
         }
     }
 

@@ -36,7 +36,7 @@ public class CommentaryListAdapter extends BaseRecyclerAdapter<News> {
         Glide.with(holder.getmContext())
                 .load(item.getPic())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.default_avatar)
+                .error(R.drawable.def_avatar)
                 .into((ImageView)holder.getView(R.id.commemtary_author_image));
     }
 

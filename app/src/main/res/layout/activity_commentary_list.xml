@@ -79,29 +79,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.guanchazhe.news.views.widget.BetterViewAnimator
-        android:id="@+id/commentary_list_animator"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:inAnimation="@android:anim/fade_in"
-        android:outAnimation="@android:anim/fade_out"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <include layout="@layout/include_view_list_content"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/commentary_list_recycler"
-            style="@style/CollectionView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <include layout="@layout/partial_view_loading"/>
-
-        <com.guanchazhe.news.views.widget.AnimatorStateView
-            android:id="@+id/view_error"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:messageImage="@drawable/egg_error"
-            app:messageText="@string/view_error_message"/>
-
-    </com.guanchazhe.news.views.widget.BetterViewAnimator>
 
 </android.support.design.widget.CoordinatorLayout>

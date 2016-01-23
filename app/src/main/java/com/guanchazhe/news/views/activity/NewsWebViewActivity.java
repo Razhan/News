@@ -2,7 +2,6 @@ package com.guanchazhe.news.views.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -17,8 +16,8 @@ import butterknife.ButterKnife;
 
 public class NewsWebViewActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar)                         Toolbar toolbar;
-    @Bind(R.id.news_webview_content)            WebView newsContentWebview;
+    @Bind(R.id.toolbar)                         Toolbar toolBar;
+    @Bind(R.id.news_webview_content)            WebView newsContentWV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +34,25 @@ public class NewsWebViewActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolbar.setTitle("旧闻");
+        toolBar.setTitle("旧闻");
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        toolBar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     private void initWebView() {
 
         String url = getIntent().getStringExtra(Constant.NEWSURL);
 
-        WebSettings settings = newsContentWebview.getSettings();
+        WebSettings settings = newsContentWV.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);
 
-        newsContentWebview.addJavascriptInterface(new JsOperation(this, null), "client");
-        newsContentWebview.setWebViewClient(new WebClient(this, newsContentWebview, null));
+        newsContentWV.addJavascriptInterface(new JsOperation(this, null), "client");
+        newsContentWV.setWebViewClient(new WebClient(this, newsContentWV, null));
 
-        newsContentWebview.loadUrl(url);
+        newsContentWV.loadUrl(url);
     }
 
 }

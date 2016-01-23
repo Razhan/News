@@ -10,7 +10,7 @@
         android:id="@+id/splash_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/welcome_logo"
+        android:src="@drawable/bg_welcome_logo"
         android:layout_centerInParent="true"
         android:scaleType="centerInside"/>
 

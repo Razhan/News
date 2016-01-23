@@ -8,8 +8,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -44,13 +42,13 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public class CommentaryDetailActivity extends SwipeBackActivity implements NewsDetailView {
 
-    @Bind(R.id.commentary_detail_author_image)          CircleImageView commentaryDetailAuthorImage;
-    @Bind(R.id.commentary_detail_author_name)           TextView commentaryDetailAuthorName;
-    @Bind(R.id.commentary_detail_author_title)          TextView commentaryDetailAuthorTitle;
-    @Bind(R.id.commentary_detail_title)                 TextView commentaryDetailTitle;
-    @Bind(R.id.commentary_detail_content)               WebView commentaryDetailContent;
-    @Bind(R.id.commentary_detail_header)                LinearLayout commentaryDetailHeader;
-    @Bind(R.id.commentary_detail_scroll)                NestedScrollView commentaryDetailScroll;
+    @Bind(R.id.commentary_detail_author_image)          CircleImageView authorImageCIV;
+    @Bind(R.id.commentary_detail_author_name)           TextView authorNameTV;
+    @Bind(R.id.commentary_detail_author_title)          TextView authorTitleTV;
+    @Bind(R.id.commentary_detail_title)                 TextView commentaryDetailTitleTV;
+    @Bind(R.id.commentary_detail_content)               WebView commentaryDetailContentWV;
+    @Bind(R.id.commentary_detail_header)                LinearLayout commentaryDetailHeaderLL;
+    @Bind(R.id.commentary_detail_scroll)                NestedScrollView commentaryDetailNS;
 
     @Inject
     NewsDetailPresenter mCommentaryDetailPresenter;
@@ -96,8 +94,8 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
     }
 
     private void initScrollView() {
-        commentaryDetailScroll.setOnScrollChangeListener(
-                new OnScrollChangeListener(commentaryDetailHeader, commentaryDetailTitle));
+        commentaryDetailNS.setOnScrollChangeListener(
+                new OnScrollChangeListener(commentaryDetailHeaderLL, commentaryDetailTitleTV));
     }
 
     @Override
@@ -112,11 +110,11 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
                 .load(mNews.getPic())
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(new BitmapImageViewTarget(commentaryDetailAuthorImage) {
+                .into(new BitmapImageViewTarget(authorImageCIV) {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         super.onResourceReady(resource, glideAnimation);
-                        commentaryDetailAuthorImage.setImageBitmap(resource);
+                        authorImageCIV.setImageBitmap(resource);
                         mCommentaryDetailPresenter.onImageReceived(resource);
                     }
                 });
@@ -129,13 +127,13 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
 
     private void animateElementsByScale() {
 
-        GUIUtils.showViewByScaleY(commentaryDetailTitle, new AnimatorListenerAdapter() {
+        GUIUtils.showViewByScaleY(commentaryDetailTitleTV, new AnimatorListenerAdapter() {
 
             @Override
             public void onAnimationEnd(Animator animation) {
 
                 super.onAnimationEnd(animation);
-                GUIUtils.showViewByScale(commentaryDetailContent);
+                GUIUtils.showViewByScale(commentaryDetailContentWV);
             }
         });
     }
@@ -144,11 +142,11 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
     public void setContent(News news) {
 
         mHandler.post(() -> {
-            commentaryDetailTitle.setText(news.getTitle());
-            commentaryDetailAuthorName.setText(mNews.getAuthor());
-            commentaryDetailAuthorTitle.setText(news.getAuthortitle());
+            commentaryDetailTitleTV.setText(news.getTitle());
+            authorNameTV.setText(mNews.getAuthor());
+            authorTitleTV.setText(news.getAuthortitle());
 
-            commentaryDetailContent.setVisibility(View.VISIBLE);
+            commentaryDetailContentWV.setVisibility(View.VISIBLE);
         });
 
         mAuthor.setTitle(news.getAuthortitle());
@@ -160,7 +158,7 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
 
     @Override
     public void stopWebView() {
-        commentaryDetailContent.loadUrl("about:blank");
+        commentaryDetailContentWV.loadUrl("about:blank");
     }
 
     public static void start(Context context, News news) {
@@ -171,15 +169,15 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
 
     @Override
     public void startWebView() {
-        WebSettings settings = commentaryDetailContent.getSettings();
+        WebSettings settings = commentaryDetailContentWV.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);
 
-        commentaryDetailContent.addJavascriptInterface(new JsOperation(this,
+        commentaryDetailContentWV.addJavascriptInterface(new JsOperation(this,
                 (news) -> mCommentaryDetailPresenter.resultArrived((News) news)), "client");
 
-        commentaryDetailContent.setWebViewClient(new WebClient(this, commentaryDetailContent, null));
-        commentaryDetailContent.loadUrl(Constant.NEWSDETAILURLPREFIX + mNews.getId());
+        commentaryDetailContentWV.setWebViewClient(new WebClient(this, commentaryDetailContentWV, null));
+        commentaryDetailContentWV.loadUrl(Constant.NEWSDETAILURLPREFIX + mNews.getId());
     }
 
     @OnClick(R.id.commentary_detail_header)

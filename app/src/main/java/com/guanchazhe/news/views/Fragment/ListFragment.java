@@ -40,9 +40,9 @@ import butterknife.Bind;
 public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
         MultiSwipeRefreshLayout.CanChildScrollUpCallback, NewsListView {
 
-    @Bind(R.id.multi_swipe_refresh_layout)      MultiSwipeRefreshLayout mSwipeRefreshLayout;
-    @Bind(R.id.movies_animator)                 BetterViewAnimator mViewAnimator;
-    @Bind(R.id.movies_recycler_view)            RecyclerView mRecyclerView;
+    @Bind(R.id.multi_swipe_refresh_layout)          MultiSwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.bv_list_content_viewanimator)        BetterViewAnimator viewAnimator;
+    @Bind(R.id.rv_list_content_listview)            RecyclerView contentRV;
 
     @Inject
     NewsListPresenter mNewsListPresenter;
@@ -99,16 +99,16 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initSwipeRefreshLayout() {
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getIntArray(R.array.swipe_progress_colors));
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setCanChildScrollUpCallback(this);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getIntArray(R.array.swipe_progress_colors));
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setCanChildScrollUpCallback(this);
     }
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.addItemDecoration(new RecyclerInsetsDecoration(mContext));
-        mRecyclerView.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
+        contentRV.setLayoutManager(linearLayoutManager);
+        contentRV.addItemDecoration(new RecyclerInsetsDecoration(mContext));
+        contentRV.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
                 mNewsListPresenter.onListEndReached(currentPage);
@@ -122,30 +122,30 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
         switch (type) {
             case NEWS:
-                listAdapter = new NewsListAdapter(mRecyclerView, null, header,
+                listAdapter = new NewsListAdapter(contentRV, null, header,
                         (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
                 break;
             case COMMENTARY:
-                listAdapter = new CommentaryListAdapter(mRecyclerView, null, header,
+                listAdapter = new CommentaryListAdapter(contentRV, null, header,
                         (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
                 break;
             case HYBRID:
-                listAdapter = new NewsListAdapter(mRecyclerView, null, header,
+                listAdapter = new NewsListAdapter(contentRV, null, header,
                         (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
                 break;
             default:
-                listAdapter = new NewsListAdapter(mRecyclerView, null, header,
+                listAdapter = new NewsListAdapter(contentRV, null, header,
                         (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
                 break;
         }
 
-        mRecyclerView.setAdapter(listAdapter);
+        contentRV.setAdapter(listAdapter);
     }
 
     @Override
     public boolean canSwipeRefreshChildScrollUp() {
-        return (mRecyclerView != null && ViewCompat.canScrollVertically(mRecyclerView, -1)) ||
-                (mViewAnimator != null && mViewAnimator.getDisplayedChildId() == Constant.ANIMATOR_VIEW_LOADING);
+        return (contentRV != null && ViewCompat.canScrollVertically(contentRV, -1)) ||
+                (viewAnimator != null && viewAnimator.getDisplayedChildId() == Constant.ANIMATOR_VIEW_LOADING);
     }
 
     @Override
@@ -188,32 +188,32 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void showLoadingView() {
-        mViewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_LOADING);
+        viewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_LOADING);
     }
 
     @Override
     public void showNewsListView() {
-        mViewAnimator.setDisplayedChildId(R.id.movies_recycler_view);
+        viewAnimator.setDisplayedChildId(R.id.rv_list_content_listview);
     }
 
     @Override
     public void showErrorView() {
-        mViewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_ERROR);
+        viewAnimator.setDisplayedChildId(Constant.ANIMATOR_VIEW_ERROR);
     }
 
     @Override
     public boolean isContentDisplayed() {
-        return mViewAnimator.getDisplayedChildId() == R.id.movies_recycler_view;
+        return viewAnimator.getDisplayedChildId() == R.id.rv_list_content_listview;
     }
 
     @Override
     public void showRefreshIndicator() {
-        mSwipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideRefreshIndicator() {
-        mSwipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

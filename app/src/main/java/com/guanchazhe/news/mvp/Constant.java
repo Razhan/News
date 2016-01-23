@@ -14,7 +14,7 @@ public class Constant {
     private static final int DEFAULTCHANNELID = 49646;
 
     public static final int ANIMATOR_VIEW_LOADING = R.id.view_loading;
-    public static final int ANIMATOR_VIEW_ERROR = R.id.view_error;
+    public static final int ANIMATOR_VIEW_ERROR = R.id.asv_list_content_errorview;
 
     public static final String SHAREDPREFERENCE = "PREFERENCE";
     public static final String FAVORITECHANNELS = "favoriteChannels";
