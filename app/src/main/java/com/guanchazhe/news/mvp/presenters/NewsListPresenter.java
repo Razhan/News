@@ -1,8 +1,11 @@
 package com.guanchazhe.news.mvp.presenters;
 
+import android.content.Context;
+
 import com.guanchazhe.news.domain.GetNewsListUseCase;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
+import com.guanchazhe.news.mvp.model.repository.dataBase.ObservableRepoDb;
 import com.guanchazhe.news.mvp.views.NewsListView;
 import com.guanchazhe.news.mvp.views.Views;
 
@@ -10,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscription;
 
 /**
@@ -23,11 +27,16 @@ public class NewsListPresenter implements Presenter {
 
     private NewsListView mNewsView;
     private int mCurrentPage;
+    private Context mContext;
+    private ObservableRepoDb mObservableRepoDb;
 
     @Inject
-    public NewsListPresenter(GetNewsListUseCase newsUsecase) {
+    public NewsListPresenter(Context context, GetNewsListUseCase newsUsecase) {
         mNewsUsecase = newsUsecase;
         mCurrentPage = 1;
+        mContext = context;
+
+        mObservableRepoDb = new ObservableRepoDb(mContext);
     }
 
     @Override
@@ -60,7 +69,7 @@ public class NewsListPresenter implements Presenter {
 
     public void onListEndReached(int currentPage) {
         if (!mIsRequestRunning) {
-            mCurrentPage = currentPage;
+            mCurrentPage++;
             sendRequest(Constant.RequestType.ASKMORE);
         }
     }
@@ -68,11 +77,17 @@ public class NewsListPresenter implements Presenter {
     private void sendRequest(Constant.RequestType requestType) {
         mIsRequestRunning = true;
 
-        mNewsSubscription = mNewsUsecase.execute(String.valueOf(mCurrentPage))
+        mNewsSubscription = Observable
+                .concat(
+                        new ObservableRepoDb(mContext).getObservable(mNewsView.getNewsType(), mCurrentPage),
+                        mNewsUsecase.execute(String.valueOf(mCurrentPage))
+                )
+                .first(news -> news != null
+                        && news.size() > 0
+                        && news.get(0).isUpToDate())
                 .subscribe(
-                        news -> resultArrived(requestType, news)                        ,
-                        error -> resultError(error)
-                );
+                        news -> resultArrived(requestType, news),
+                        error -> resultError(error));
     }
 
     private void resultArrived(Constant.RequestType requestType, List<News> news) {
@@ -87,6 +102,10 @@ public class NewsListPresenter implements Presenter {
             mNewsView.setNewsList(news);
         } else {
             mNewsView.addNewsList(news);
+        }
+
+        if (mCurrentPage <= 1 && !mNewsView.getNewsType().equals(Constant.NewsType.HYBRID)) {
+            mObservableRepoDb.insertRepoListWithType(news, mNewsView.getNewsType());
         }
     }
 

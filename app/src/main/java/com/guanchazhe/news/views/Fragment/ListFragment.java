@@ -91,7 +91,6 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initializePresenter() {
-
         mNewsType = (Constant.NewsType) getArguments().get("type");
 
         mNewsListPresenter.attachView(this);
@@ -120,23 +119,13 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     protected void setRecycleViewAdapter(boolean header, Constant.NewsType type) {
 
-        switch (type) {
-            case NEWS:
-                listAdapter = new NewsListAdapter(contentRV, null, header,
-                        (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
-                break;
-            case COMMENTARY:
-                listAdapter = new CommentaryListAdapter(contentRV, null, header,
-                        (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
-                break;
-            case HYBRID:
-                listAdapter = new NewsListAdapter(contentRV, null, header,
-                        (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
-                break;
-            default:
-                listAdapter = new NewsListAdapter(contentRV, null, header,
-                        (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
-                break;
+        if (type.equals(Constant.NewsType.YAOWEN) || type.equals(Constant.NewsType.HUABIAN) ||
+                type.equals(Constant.NewsType.HYBRID)) {
+            listAdapter = new NewsListAdapter(contentRV, null, header,
+                    (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
+        } else {
+            listAdapter = new CommentaryListAdapter(contentRV, null, header,
+                    (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
         }
 
         contentRV.setAdapter(listAdapter);
@@ -219,12 +208,16 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void showDetailScreen(News news) {
 
-        if (mNewsType == Constant.NewsType.NEWS) {
+        if (mNewsType == Constant.NewsType.YAOWEN || mNewsType == Constant.NewsType.HUABIAN ||
+                mNewsType == Constant.NewsType.HYBRID) {
             NewsDetailActivity.start(getActivity(), news);
-        } else if (mNewsType == Constant.NewsType.COMMENTARY) {
-            CommentaryDetailActivity.start(getActivity(), news);
         } else {
-            NewsDetailActivity.start(getActivity(), news);
+            CommentaryDetailActivity.start(getActivity(), news);
         }
+    }
+
+    @Override
+    public Constant.NewsType getNewsType() {
+        return mNewsType;
     }
 }

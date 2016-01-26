@@ -5,15 +5,27 @@ import java.io.Serializable;
 /**
  * Created by ranzh on 12/22/2015.
  */
-public class News implements Serializable {
+public class News implements Serializable  {
     public News() {}
 
-    public News(int id) {
+    public News(int id, String rowid, String title, String summary, String author, String type,
+                String pic, String horizontalpic, String creationtime, String authortitle, String requesttime) {
+
+        this.rowid = rowid;
         this.id = id;
+        this.title = title;
+        this.summary = summary;
+        this.author = author;
+        this.type = type;
+        this.pic = pic;
+        this.horizontalpic = horizontalpic;
+        this.creationtime = creationtime;
+        this.authortitle = authortitle;
+        this.requestTime = requesttime;
     }
 
-    private String rowid;
     private int id;
+    private String rowid;
     private String title;
     private String summary;
     private String author;
@@ -21,8 +33,12 @@ public class News implements Serializable {
     private String pic;
     private String horizontalpic;
     private String creationtime;
-    private String content;
     private String authortitle;
+    private String requestTime;
+
+    public String getRequestTime() {
+        return requestTime;
+    }
 
     public String getAuthortitle() {
         return authortitle;
@@ -64,10 +80,6 @@ public class News implements Serializable {
         return creationtime;
     }
 
-    public String getContent() {
-        return content;
-    }
-
     public void setRowid(String rowid) {
         this.rowid = rowid;
     }
@@ -104,13 +116,23 @@ public class News implements Serializable {
         this.creationtime = creationtime;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public void setAuthortitle(String authortitle) {
         this.authortitle = authortitle;
     }
 
+    public void setRequestTime(String requestTime) {
+        this.requestTime = requestTime;
+    }
+
+
+    private static final long STALE_MS = 30 * 1000; // Data is stale after 5 seconds
+
+    public boolean isUpToDate() {
+        if (requestTime == null) {
+            return true;
+        }
+
+        return System.currentTimeMillis() - Long.parseLong(requestTime) < STALE_MS;
+    }
 
 }

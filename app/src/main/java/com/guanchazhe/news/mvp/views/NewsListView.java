@@ -2,6 +2,7 @@ package com.guanchazhe.news.mvp.views;
 
 import android.app.ActivityOptions;
 
+import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface NewsListView extends Views {
     void hideRefreshIndicator();
 
     void showDetailScreen(News news);
+
+    Constant.NewsType getNewsType();
 }

@@ -84,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentAdapter pagerAdapter =
                 new FragmentAdapter(getSupportFragmentManager(), 3);
 
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS,
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.YAOWEN,
                 Constant.getChannelID(YAOWEN), 1, true), YAOWEN);
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.COMMENTARY,
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.SHIPING,
                 Constant.getChannelID(SHIPING), 2, false), SHIPING);
-        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.NEWS,
+        pagerAdapter.addFragment(ListFragment.newInstance(Constant.NewsType.HUABIAN,
                 Constant.getChannelID(BINFEN), 3, false), BINFEN);
 
         viewPager.setAdapter(pagerAdapter);

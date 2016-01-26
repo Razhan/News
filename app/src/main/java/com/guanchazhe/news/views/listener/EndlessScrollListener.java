@@ -30,6 +30,11 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         totalItemCount = mLinearLayoutManager.getItemCount();
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
+        //for scrollview reset
+        if (!loading && firstVisibleItem == 0) {
+            previousTotal = totalItemCount;
+        }
+
         if (loading) {
             if (totalItemCount > previousTotal) {
                 loading = false;
@@ -38,9 +43,6 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         }
         if (!loading && (totalItemCount - visibleItemCount)
                 <= (firstVisibleItem + visibleThreshold)) {
-            // End has been reached
-
-            // Do something
             current_page++;
             onLoadMore(current_page);
             loading = true;

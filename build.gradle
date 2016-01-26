@@ -3,7 +3,7 @@ ext {
     libraries = [
             supportVersion      : "23.1.1",
             dagger              : "2.0",
-            rxjava              : "1.0.0",
+            rxjava              : "1.1.0",
             rxandroid           : "0.24.0",
             retrofit            : "2.0.0-beta2",
             butterknife         : "7.0.1",

@@ -32,9 +32,20 @@ public class Constant {
     }
 
     public enum NewsType {
-        NEWS,
-        COMMENTARY,
-        HYBRID
+        YAOWEN("yaowen"),
+        HUABIAN("huabian"),
+        SHIPING("shiping"),
+        HYBRID("hybrid");
+
+        private String type;
+        private NewsType(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public String toString() {
+            return this.type;
+        }
     }
 
     private static Map<String, Integer> ChannelMap;
