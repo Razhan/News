@@ -50,16 +50,16 @@
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/activity_detail_fab"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="-10dp"
+                android:layout_marginBottom="-15dp"
                 android:layout_alignParentRight="true"
                 android:scaleX="0"
                 android:scaleY="0"
-                android:src="@drawable/bg_fab_star"
+                android:src="@android:drawable/ic_menu_edit"
                 android:layout_above="@id/activity_detail_title"
-                android:elevation="4dp"/>
+                android:elevation="8dp"/>
 
             <ProgressBar
                 android:id="@+id/activity_detail_progress"

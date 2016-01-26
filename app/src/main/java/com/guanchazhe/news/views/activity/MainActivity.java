@@ -123,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.about)
     public void OnAboutClick() {
-//        Intent intent = new Intent(this, SettingActivity.class);
-//        startActivity(intent);
+        AboutActivity.start(this);
     }
 
     boolean doubleBackToExitPressedOnce = false;

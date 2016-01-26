@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
@@ -191,7 +190,7 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
         contentWV.setWebViewClient(new WebClient(this, contentWV,
                         (news) -> mNewsDetailPresenter.resultArrived((News) news))
         );
-        contentWV.loadUrl(Constant.NEWSDETAILURLPREFIX + mNews.getId());
+        contentWV.loadUrl(Constant.NEWSDETAIL_URL_PREFIX + mNews.getId());
     }
 
     @Override
@@ -207,7 +206,7 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
 
     @OnClick(R.id.activity_detail_fab)
     public void onClick() {
-        Log.d("activity_detail_fab", "activity_detail_fab");
+        UserCommentActivity.start(this, mNews);
     }
 
 }

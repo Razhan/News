@@ -21,9 +21,9 @@ public class Constant {
     public static final String NEWSURL = "newsURL";
     public static final String AUTHORNAME = "authorName";
 
-    public static final String NEWSDETAILURLPREFIX = "http://mobileservice.guancha.cn/Appdetail/get/?devices=android&id=";
-    public static final String NEWSDETAILWEBURLPREFIX = "http://mobileservice.guancha.cn/Appdetail/get/?devices=android&webid=";
-
+    public static final String NEWSDETAIL_URL_PREFIX = "http://mobileservice.guancha.cn/Appdetail/get/?devices=android&id=";
+    public static final String NEWSDETAIL_WEBURL_PREFIX = "http://mobileservice.guancha.cn/Appdetail/get/?devices=android&webid=";
+    public static final String USERCOMMENT_URL = "http://mobileservice.guancha.cn/ds_comment.html";
 
 
     public enum RequestType {

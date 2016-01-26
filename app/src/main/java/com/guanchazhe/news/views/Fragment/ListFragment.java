@@ -208,8 +208,8 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void showDetailScreen(News news) {
 
-        if (mNewsType == Constant.NewsType.YAOWEN || mNewsType == Constant.NewsType.HUABIAN ||
-                mNewsType == Constant.NewsType.HYBRID) {
+        if (news.getType().equals(Constant.NewsType.YAOWEN.toString()) ||
+                news.getType().equals(Constant.NewsType.HUABIAN.toString())) {
             NewsDetailActivity.start(getActivity(), news);
         } else {
             CommentaryDetailActivity.start(getActivity(), news);

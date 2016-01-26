@@ -9,8 +9,6 @@ import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.views.activity.NewsWebViewActivity;
 import com.guanchazhe.news.views.listener.WebViewLoadedListener;
 
-import org.xmlpull.v1.XmlPullParser;
-
 /**
  * Created by ranzh on 1/20/2016.
  */
@@ -47,10 +45,10 @@ public class WebClient extends WebViewClient {
         if (urs.length < 2) {
             return false;
         }
-        String id = urs[urs.length - 1].replace(".shtml", XmlPullParser.NO_NAMESPACE);
+        String id = urs[urs.length - 1].replace(".shtml", "");
 
         Intent intent = new Intent(mActivity, NewsWebViewActivity.class);
-        intent.putExtra(Constant.NEWSURL, Constant.NEWSDETAILWEBURLPREFIX + id);
+        intent.putExtra(Constant.NEWSURL, Constant.NEWSDETAIL_WEBURL_PREFIX + id);
         mActivity.startActivity(intent);
 
         return true;

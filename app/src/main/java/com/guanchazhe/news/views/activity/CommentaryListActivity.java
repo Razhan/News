@@ -176,7 +176,7 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
 
     @Override
     public void showDetailScreen(News commentary) {
-        Log.d("showDetailScreen", "showDetailScreen");
+        CommentaryDetailActivity.start(this, commentary);
     }
 
     public static void start(Activity activity, View view, Author anthor) {

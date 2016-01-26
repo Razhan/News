@@ -177,7 +177,7 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
                 (news) -> mCommentaryDetailPresenter.resultArrived((News) news)), "client");
 
         commentaryDetailContentWV.setWebViewClient(new WebClient(this, commentaryDetailContentWV, null));
-        commentaryDetailContentWV.loadUrl(Constant.NEWSDETAILURLPREFIX + mNews.getId());
+        commentaryDetailContentWV.loadUrl(Constant.NEWSDETAIL_URL_PREFIX + mNews.getId());
     }
 
     @OnClick(R.id.commentary_detail_header)

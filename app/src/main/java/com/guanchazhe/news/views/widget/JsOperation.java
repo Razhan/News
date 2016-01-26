@@ -10,7 +10,6 @@ import com.guanchazhe.news.views.listener.WebViewLoadedListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
 
 /**
  * Created by ranzh on 1/19/2016.
@@ -29,7 +28,7 @@ public class JsOperation {
 
     @JavascriptInterface
     public void showAuthor(String value) {
-        if (value != null || !value.equals(XmlPullParser.NO_NAMESPACE)) {
+        if (value != null || !value.equals("")) {
             try {
                 JSONObject json = new JSONObject(value);
 
@@ -52,7 +51,7 @@ public class JsOperation {
 
     @JavascriptInterface
     public void showImage(String url) {
-        if (url != null || !url.equals(XmlPullParser.NO_NAMESPACE)) {
+        if (url != null || !url.equals("")) {
             Intent intent = new Intent(mActivity, ImageDetailActivity.class);
             intent.putExtra("url", url);
             mActivity.startActivity(intent);
