@@ -99,6 +99,20 @@
                 android:background="@color/colorPrimary"
                 android:elevation="4dp"/>
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/commentary_detail_comment_fab"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="-20dp"
+                android:layout_alignParentRight="true"
+                android:scaleX="0"
+                android:scaleY="0"
+                android:src="@android:drawable/ic_menu_edit"
+                android:layout_above="@id/commentary_detail_title"
+                android:scaleType="center"
+                android:elevation="8dp"/>
+
             <ProgressBar
                 android:id="@+id/commentary_detail_progress"
                 android:layout_width="55dp"

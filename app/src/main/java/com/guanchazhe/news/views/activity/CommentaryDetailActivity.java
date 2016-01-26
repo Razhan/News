@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -49,6 +50,7 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
     @Bind(R.id.commentary_detail_content)               WebView commentaryDetailContentWV;
     @Bind(R.id.commentary_detail_header)                LinearLayout commentaryDetailHeaderLL;
     @Bind(R.id.commentary_detail_scroll)                NestedScrollView commentaryDetailNS;
+    @Bind(R.id.commentary_detail_comment_fab)           FloatingActionButton userCommentFAB;
 
     @Inject
     NewsDetailPresenter mCommentaryDetailPresenter;
@@ -127,6 +129,7 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
 
     private void animateElementsByScale() {
 
+        GUIUtils.showViewByScale(userCommentFAB);
         GUIUtils.showViewByScaleY(commentaryDetailTitleTV, new AnimatorListenerAdapter() {
 
             @Override
@@ -185,5 +188,9 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
         CommentaryListActivity.start(this, null, mAuthor);
     }
 
+    @OnClick(R.id.commentary_detail_comment_fab)
+    public void onFabClick() {
+        UserCommentActivity.start(this, mNews);
+    }
 
 }
