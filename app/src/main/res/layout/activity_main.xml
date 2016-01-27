@@ -23,30 +23,31 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/drawer_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/drawer_recycleview_height"
-                android:layout_marginBottom="5dp"
+                android:layout_height="@dimen/height_drawer_recycleview"
+                android:layout_marginBottom="@dimen/spacing_tiny"
+                android:layout_marginTop="@dimen/spacing_small"
                 style="@style/CollectionView"/>
 
             <View
-                android:layout_marginTop="@dimen/spacing_tiny"
+                android:layout_marginTop="@dimen/spacing_small"
                 android:layout_marginRight="@dimen/spacing_normal"
                 android:layout_marginLeft="@dimen/spacing_normal"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/divier_line_height"
+                android:layout_height="@dimen/height_divier_line"
                 android:background="@color/divider"/>
 
             <RelativeLayout
                 android:id="@+id/authors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:paddingLeft="20dp"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_normal"
                 android:background="@drawable/item_background">
 
                 <ImageView
                     android:id="@+id/authors_image"
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/height_setting_icon"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:scaleType="centerInside"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
@@ -55,11 +56,11 @@
                 <TextView
                     android:id="@+id/authors_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:layout_toRightOf="@+id/authors_image"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="@dimen/spacing_huge"
                     android:gravity="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
                     android:text="专栏作家"/>
 
@@ -69,14 +70,14 @@
                 android:id="@+id/channels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:paddingLeft="20dp"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_normal"
                 android:background="@drawable/item_background">
 
                 <ImageView
                     android:id="@+id/channels_image"
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/height_setting_icon"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:scaleType="centerInside"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
@@ -85,11 +86,11 @@
                 <TextView
                     android:id="@+id/channels_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:layout_toRightOf="@+id/channels_image"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="@dimen/spacing_huge"
                     android:gravity="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
                     android:text="我的栏目"/>
 
@@ -99,14 +100,14 @@
                 android:id="@+id/setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:paddingLeft="20dp"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_normal"
                 android:background="@drawable/item_background">
 
                 <ImageView
                     android:id="@+id/setting_image"
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/height_setting_icon"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:scaleType="centerInside"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
@@ -115,11 +116,11 @@
                 <TextView
                     android:id="@+id/setting_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:layout_toRightOf="@+id/setting_image"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="@dimen/spacing_huge"
                     android:gravity="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
                     android:text="设置"/>
 
@@ -129,14 +130,14 @@
                 android:id="@+id/nightMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:paddingLeft="20dp"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_normal"
                 android:background="@drawable/item_background">
 
                 <ImageView
                     android:id="@+id/nightMode_image"
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/height_setting_icon"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:scaleType="centerInside"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
@@ -145,11 +146,11 @@
                 <TextView
                     android:id="@+id/nightMode_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:layout_toRightOf="@+id/nightMode_image"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="@dimen/spacing_huge"
                     android:gravity="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
                     android:text="夜间模式"/>
 
@@ -159,14 +160,14 @@
                 android:id="@+id/about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:paddingLeft="20dp"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_normal"
                 android:background="@drawable/item_background">
                 
                 <ImageView
                     android:id="@+id/about_image"
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/height_setting_icon"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:scaleType="centerInside"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
@@ -175,11 +176,11 @@
                 <TextView
                     android:id="@+id/about_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="@dimen/height_setting_icon"
                     android:layout_toRightOf="@+id/about_image"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="@dimen/spacing_huge"
                     android:gravity="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
                     android:text="关于"/>
 

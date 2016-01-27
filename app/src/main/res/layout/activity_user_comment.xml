@@ -30,7 +30,7 @@
         android:layout_marginLeft="@dimen/spacing_small"
         android:layout_marginRight="@dimen/spacing_small"
         android:layout_marginTop="@dimen/spacing_tiny"
-        tools:cardElevation="4dp"
+        tools:cardElevation="@dimen/elevation_small"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <WebView

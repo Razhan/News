@@ -39,7 +39,7 @@ public class GUIUtils {
     int drawableRes, int color, TextView textview) {
 
         Resources res = context.getResources();
-        int padding = (int) res.getDimension(R.dimen.activity_horizontal_margin_half);
+        int padding = (int) res.getDimension(R.dimen.spacing_small);
 
         Drawable drawable = res.getDrawable(drawableRes, context.getTheme());
         drawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY);

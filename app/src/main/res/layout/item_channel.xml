@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    xmlns:tools="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    tools:cardElevation="1dp"
+    android:layout_height="@dimen/height_item_channel"
+    tools:cardElevation="@dimen/elevation_none"
     tools:cardUseCompatPadding="true"
-    tools:cardCornerRadius="2dp">
+    tools:cardCornerRadius="@dimen/margin_4dp">
 
     <TextView
         android:id="@+id/column_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:text="123"
+        android:textSize="@dimen/text_size_small"
         android:textColor="@color/black"
         android:background="@color/white"
         android:gravity="center"
         android:layout_below="@+id/country_photo"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
+        android:paddingBottom="@dimen/spacing_small"
+        android:paddingTop="@dimen/spacing_small"
         android:layout_alignParentBottom="true"/>
 
 </android.support.v7.widget.CardView>

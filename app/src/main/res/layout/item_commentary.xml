@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     style="@style/CardViewMargin"
     tools:cardCornerRadius="@dimen/margin_4dp"
-    tools:cardElevation="4dp">
+    tools:cardElevation="@dimen/elevation_small">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/commemtary_author_image"
-            android:layout_width="@dimen/profile"
-            android:layout_height="@dimen/profile"
+            android:layout_width="@dimen/height_author_avator_normal"
+            android:layout_height="@dimen/height_author_avator_normal"
             android:layout_marginLeft="@dimen/spacing_small"
             android:src="@drawable/def_placeholder"
             app:civ_border_width="1dp"
@@ -36,8 +36,8 @@
             android:paddingRight="@dimen/spacing_small"
             android:singleLine="true"
             android:textColor="@color/primary_text"
-            android:textSize="16sp"
-            />
+            android:textSize="@dimen/text_size_medium"/>
+
         <TextView
             android:id="@+id/commentary_author"
             android:layout_below="@+id/commentary_title"
@@ -45,24 +45,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_tiny"
             android:textColor="@color/secondary_text"
-            android:textSize="14sp"
-            />
+            android:textSize="@dimen/text_size_medium"/>
+
         <TextView
             android:id="@+id/commentary_createtime"
             android:layout_below="@+id/commentary_title"
             android:layout_toRightOf="@+id/commentary_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_tiny"
             android:textColor="@color/secondary_text"
-            android:textSize="14sp"
-            />
+            android:textSize="@dimen/text_size_medium"/>
+
         <View
             android:id="@+id/divier_line"
             android:layout_marginTop="@dimen/spacing_small"
             android:layout_below="@+id/commemtary_author_image"
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/height_divier_line"
             android:background="@color/divider"/>
 
         <TextView
@@ -72,7 +75,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/spacing_small"
             android:textColor="@color/secondary_text"
-            android:textSize="14sp"
-            />
+            android:textSize="@dimen/text_size_small"/>
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

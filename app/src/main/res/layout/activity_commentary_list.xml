@@ -16,7 +16,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/commentary_list_collapsing"
             android:layout_width="match_parent"
-            android:layout_height="155dp"
+            android:layout_height="@dimen/height_commentary_list_header"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
@@ -29,9 +29,9 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/news_image"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="35dp"
+                    android:layout_width="@dimen/height_author_avator_larger"
+                    android:layout_height="@dimen/height_author_avator_larger"
+                    android:layout_marginTop="@dimen/spacing_huge"
                     android:layout_centerHorizontal="true"
                     android:scaleType="centerCrop"
                     android:transitionName="image_shared"
@@ -42,9 +42,9 @@
                     android:id="@+id/author_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:layout_marginLeft="@dimen/spacing_huge"
+                    android:layout_marginRight="@dimen/spacing_huge"
                     android:layout_below="@+id/news_image"
                     android:layout_centerHorizontal="true"
                     android:singleLine="true"
@@ -55,9 +55,9 @@
                     android:id="@+id/author_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="@dimen/spacing_tiny"
+                    android:layout_marginLeft="@dimen/spacing_huge"
+                    android:layout_marginRight="@dimen/spacing_huge"
                     android:layout_below="@+id/author_name"
                     android:layout_centerHorizontal="true"
                     android:singleLine="true"

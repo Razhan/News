@@ -5,6 +5,4 @@
     <integer name="duration.long">750</integer>
     <integer name="duration.huge">1000</integer>
 
-    <integer name="drawable_callback_tag">1</integer>
-
 </resources>

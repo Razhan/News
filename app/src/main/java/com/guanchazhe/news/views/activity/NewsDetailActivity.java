@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +36,6 @@ import com.guanchazhe.news.views.widget.WebClient;
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import butterknife.BindColor;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
@@ -52,10 +50,6 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
     @Bind(R.id.activity_detail_fab)             FloatingActionButton fabButton;
     @Bind(R.id.news_webview_content)            WebView contentWV;
     @Bind(R.id.activity_detail_scroll)          NestedScrollView ScrollView;
-    @Bind(R.id.item_movie_cover_wrapper)        FrameLayout imageWrapperFL;
-
-    @BindColor(R.color.colorPrimary)            int mColorPrimary;
-    @BindColor(R.color.colorPrimaryDark)        int mColorPrimaryDark;
 
     @Inject
     NewsDetailPresenter mNewsDetailPresenter;

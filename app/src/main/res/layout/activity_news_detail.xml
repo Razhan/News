@@ -23,26 +23,25 @@
                 <ImageView
                     android:id="@+id/item_movie_cover"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/news_detail_image_cover_height"
+                    android:layout_height="@dimen/height_news_detail_image_cover"
                     android:visibility="invisible"
                     android:scaleType="centerCrop"/>
 
             </FrameLayout>
 
-
             <TextView
                 android:id="@+id/activity_detail_title"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:paddingLeft="@dimen/content_padding_normal"
-                android:paddingRight="@dimen/content_padding_normal"
+                android:layout_height="@dimen/height_textview_title"
+                android:paddingLeft="@dimen/spacing_normal"
+                android:paddingRight="@dimen/spacing_normal"
                 android:scaleY="0"
                 android:transformPivotY="0dp"
                 android:layout_below="@id/item_movie_cover_wrapper"
                 android:gravity="center_vertical"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="@dimen/text_size_large"
-                android:textColor="#FFF"
+                android:textColor="@color/white"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:background="@color/colorPrimary"
@@ -50,23 +49,23 @@
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/activity_detail_fab"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="-15dp"
+                android:layout_width="@dimen/height_fab"
+                android:layout_height="@dimen/height_fab"
+                android:layout_marginRight="@dimen/spacing_normal"
+                android:layout_marginBottom="-10dp"
                 android:layout_alignParentRight="true"
                 android:scaleX="0"
                 android:scaleY="0"
                 android:src="@android:drawable/ic_menu_edit"
                 android:layout_above="@id/activity_detail_title"
                 android:scaleType="center"
-                android:elevation="8dp"/>
+                android:elevation="@dimen/elevation_normal"/>
 
             <ProgressBar
                 android:id="@+id/activity_detail_progress"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_width="@dimen/height_progressbar"
+                android:layout_height="@dimen/height_progressbar"
+                android:layout_marginTop="@dimen/spacing_normal"
                 android:layout_below="@id/activity_detail_title"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
@@ -83,7 +82,7 @@
                 android:layout_marginLeft="@dimen/spacing_small"
                 android:layout_marginRight="@dimen/spacing_small"
                 android:layout_marginTop="@dimen/spacing_tiny"
-                tools:cardElevation="4dp">
+                tools:cardElevation="@dimen/elevation_small">
 
                 <WebView
                     android:id="@+id/news_webview_content"
