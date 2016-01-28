@@ -1,6 +1,7 @@
 package com.guanchazhe.news.mvp.views;
 
 import android.app.ActivityOptions;
+import android.view.View;
 
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.News;
@@ -30,6 +31,8 @@ public interface NewsListView extends Views {
     void hideRefreshIndicator();
 
     void showDetailScreen(News news);
+
+    void hideStatusIndicator(View view);
 
     Constant.NewsType getNewsType();
 }

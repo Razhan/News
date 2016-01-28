@@ -128,10 +128,10 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         if (type.equals(Constant.NewsType.YAOWEN) || type.equals(Constant.NewsType.HUABIAN) ||
                 type.equals(Constant.NewsType.HYBRID)) {
             listAdapter = new NewsListAdapter(contentRV, null, header,
-                    (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
+                    (view, data, position) -> mNewsListPresenter.onElementClick(view, (News)data));
         } else {
             listAdapter = new CommentaryListAdapter(contentRV, null, header,
-                    (view, data, position) -> mNewsListPresenter.onElementClick((News)data));
+                    (view, data, position) -> mNewsListPresenter.onElementClick(view, (News)data));
         }
 
         contentRV.setAdapter(listAdapter);
@@ -220,6 +220,12 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         } else {
             CommentaryDetailActivity.start(getActivity(), news);
         }
+    }
+
+    @Override
+    public void hideStatusIndicator(View view) {
+        View indicator = view.findViewById(R.id.news_status_indicator);
+        indicator.setVisibility(View.INVISIBLE);
     }
 
     @Override

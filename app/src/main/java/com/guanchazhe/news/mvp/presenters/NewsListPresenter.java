@@ -1,6 +1,7 @@
 package com.guanchazhe.news.mvp.presenters;
 
 import android.content.Context;
+import android.view.View;
 
 import com.guanchazhe.news.domain.GetNewsListUseCase;
 import com.guanchazhe.news.mvp.Constant;
@@ -115,7 +116,8 @@ public class NewsListPresenter implements Presenter {
         mNewsView.showErrorView();
     }
 
-    public void onElementClick(News news) {
+    public void onElementClick(View view, News news) {
+        mNewsView.hideStatusIndicator(view);
         mNewsView.showDetailScreen(news);
     }
 

@@ -184,7 +184,6 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
     public void setContent(News news) {
         titleTV.setText(mNews.getTitle());
         contentWV.setVisibility(View.VISIBLE);
-        Utils.convertActivityToTranslucent(this);
     }
 
     @Override
@@ -200,8 +199,7 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
 
         contentWV.addJavascriptInterface(new JsOperation(this, null), "client");
         contentWV.setWebViewClient(new WebClient(this, contentWV,
-                        (news) -> mNewsDetailPresenter.resultArrived((News) news))
-        );
+                        (news) -> mNewsDetailPresenter.resultArrived((News) news)));
         contentWV.loadUrl(Constant.NEWSDETAIL_URL_PREFIX + mNews.getId());
     }
 

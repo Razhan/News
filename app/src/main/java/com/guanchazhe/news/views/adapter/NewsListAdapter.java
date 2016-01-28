@@ -12,6 +12,7 @@ import com.guanchazhe.news.R;
 import com.guanchazhe.news.mvp.model.entities.News;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by ranzh on 1/13/2016.
@@ -38,7 +39,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
                 .load(item.getPic())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.def_placeholder)
-                .into((ImageView)holder.getView(R.id.header_image));
+                .into((ImageView) holder.getView(R.id.header_image));
     }
 
     @Override
@@ -49,6 +50,12 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
 
         holder.setVisility(R.id.news_image, View.GONE);
         holder.setVisility(R.id.news_image_author, View.GONE);
+
+        if (containID(clickedItems, item.getId())) {
+            holder.setVisility(R.id.news_status_indicator, View.INVISIBLE);
+        } else {
+            holder.setVisility(R.id.news_status_indicator, View.VISIBLE);
+        }
 
         ImageView placeHold;
 
@@ -71,5 +78,21 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
                 .error(R.drawable.def_placeholder)
                 .into(placeHold);
     }
+
+    private boolean containID(List<News> newsList, int id) {
+
+        if (newsList == null || newsList.size() < 0) {
+            return false;
+        }
+
+        for (News news : newsList) {
+            if (news.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
 }

@@ -33,8 +33,9 @@
     <dimen name="height_item_channel">35dp</dimen>
     <dimen name="height_setting_icon">30dp</dimen>
     <dimen name="height_channel_tips">100dp</dimen>
-    <dimen name="height_textview_title">60dp</dimen>
+    <dimen name="height_status_indicate">2dp</dimen>
     <dimen name="height_item_headlines">45dp</dimen>
+    <dimen name="height_textview_title">60dp</dimen>
     <dimen name="height_item_news_image">80dp</dimen>
     <dimen name="height_errorstate_image">200dp</dimen>
     <dimen name="height_navigation_header">170dp</dimen>
@@ -51,6 +52,5 @@
 
     <!--other-->
     <dimen name="insets">2dp</dimen>
-
-
+    
 </resources>

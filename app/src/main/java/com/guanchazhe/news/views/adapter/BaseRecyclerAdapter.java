@@ -31,16 +31,14 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     protected boolean isScrolling;
     protected Context mContext;
+    protected List<T> clickedItems;
     private OnItemClickListener listener;
     private final OnStartDragListener mDragStartListener;
-
 
     public interface OnItemClickListener {
         void onItemClick(View view, Object data, int position);
     }
 
-
-    //创建者模式
     public BaseRecyclerAdapter(RecyclerView v, Collection<T> data, int itemLayoutId,
                                int headerLayoutId, boolean withHeader,
                                OnStartDragListener startDragListener) {
@@ -55,10 +53,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         mItemLayoutId = itemLayoutId;
         mHeaderLayoutId = headerLayoutId;
         mWithHeader = withHeader;
+        mDragStartListener = startDragListener;
 
         mContext = v.getContext();
-
-        mDragStartListener = startDragListener;
+        clickedItems = new ArrayList<>();
     }
 
     public abstract void headerConvert(RecyclerHolder holder, T item, int position, boolean isScrolling);
@@ -147,6 +145,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     public View.OnClickListener getOnClickListener(final int position) {
         return v -> {
+            clickedItems.add(mData.get(position));
+
             if (listener != null && v != null) {
                     listener.onItemClick(v, mData.get(position), position);
                 }
