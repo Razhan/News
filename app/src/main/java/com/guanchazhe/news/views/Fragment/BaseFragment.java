@@ -1,4 +1,4 @@
-package com.guanchazhe.news.views.Fragment;
+package com.guanchazhe.news.views.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

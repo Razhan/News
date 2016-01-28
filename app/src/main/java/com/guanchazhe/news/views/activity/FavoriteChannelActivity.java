@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.mvp.Constant;
-import com.guanchazhe.news.views.Fragment.ListFragment;
+import com.guanchazhe.news.views.fragment.ListFragment;
 import com.guanchazhe.news.views.adapter.FragmentAdapter;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class FavoriteChannelActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolBar.setTitle("我的栏目");
+        toolBar.setTitle(R.string.favorite_channels);
 
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

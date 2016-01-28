@@ -34,7 +34,7 @@ public class NewsWebViewActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolBar.setTitle("旧闻");
+        toolBar.setTitle(R.string.old_news);
 
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

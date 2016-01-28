@@ -4,7 +4,7 @@ import com.guanchazhe.news.domain.GetNewsListUseCase;
 import com.guanchazhe.news.injector.modules.ActivityModule;
 import com.guanchazhe.news.injector.modules.NewsListModule;
 import com.guanchazhe.news.injector.scopes.Activity;
-import com.guanchazhe.news.views.Fragment.ListFragment;
+import com.guanchazhe.news.views.fragment.ListFragment;
 
 import dagger.Component;
 

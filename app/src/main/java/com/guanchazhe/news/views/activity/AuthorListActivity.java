@@ -1,7 +1,6 @@
 package com.guanchazhe.news.views.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +25,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class AuthorListActivity extends AppCompatActivity implements AuthorListView {
+public class AuthorListActivity extends BaseActivity implements AuthorListView {
 
     @Bind(R.id.toolbar)                             Toolbar toolBar;
     @Bind(R.id.rv_list_content_listview)            RecyclerView authorListRV;
@@ -48,13 +47,15 @@ public class AuthorListActivity extends AppCompatActivity implements AuthorListV
         initRecyclerView();
     }
 
-    private void initUi() {
+    @Override
+    protected void initUi() {
         setContentView(R.layout.activity_author_list);
         ButterKnife.bind(this);
     }
 
-    private void initToolbar() {
-        toolBar.setTitle("专栏作家");
+    @Override
+    protected void initToolbar() {
+        toolBar.setTitle(R.string.all_authors);
 
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

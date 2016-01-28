@@ -8,4 +8,5 @@
         <attr name="messageText" format="string" />
         <attr name="messageImage" format="reference" />
     </declare-styleable>
+
 </resources>

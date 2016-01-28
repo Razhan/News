@@ -58,7 +58,7 @@ public class ChannelManageActivity extends AppCompatActivity implements RecycleV
     }
 
     private void initToolbar() {
-        toolBar.setTitle("栏目设置");
+        toolBar.setTitle(R.string.channel_manage);
 
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

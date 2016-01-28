@@ -1,5 +1,7 @@
 package com.guanchazhe.news.views.adapter;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +28,12 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
 
         holder.setText(R.id.header_title, item.getTitle());
         holder.getView(R.id.header_title).getBackground().setAlpha(100);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (prefs.getBoolean("noPicMode", false)) {
+            return;
+        }
+
         Glide.with(holder.getmContext())
                 .load(item.getPic())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -50,6 +58,11 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News> {
         } else {
             holder.setVisility(R.id.news_image, View.VISIBLE);
             placeHold = holder.getView(R.id.news_image);
+        }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (prefs.getBoolean("noPicMode", false)) {
+            return;
         }
 
         Glide.with(holder.getmContext())

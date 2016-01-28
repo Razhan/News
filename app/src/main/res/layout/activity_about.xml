@@ -22,8 +22,8 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
+            android:layout_height="@dimen/height_item_headlines"
+            android:layout_margin="@dimen/spacing_small"
             android:scaleType="centerInside"
             android:src="@drawable/ic_about_logo"/>
 
@@ -38,8 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingLeft="@dimen/spacing_normal"
+            android:paddingRight="@dimen/spacing_normal">
 
             <TextView
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/about_introduce"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_large"
                 android:textColor="@color/colorAccent"/>
 
             <TextView
@@ -55,17 +55,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
+                android:background="@color/grey50"
                 android:text="@string/introduce"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/black"
                 android:textIsSelectable="true"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/text_size_medium"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_large"
                 android:text="@string/contact_to_me"
                 android:textColor="@color/colorAccent"/>
 
@@ -75,9 +76,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
+                android:background="@color/grey50"
                 android:text="@string/email"
-                android:textColor="@color/secondary_text"
-                android:textSize="16sp"/>
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,16 +87,17 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/notices"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_large"
                 android:textColor="@color/colorAccent"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:background="@color/grey50"
                 android:text="@string/open_source"
-                android:textColor="@color/secondary_text"
-                android:textSize="16sp"/>
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium"/>
 
         </LinearLayout>
 

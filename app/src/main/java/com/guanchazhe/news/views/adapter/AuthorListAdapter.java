@@ -1,5 +1,7 @@
 package com.guanchazhe.news.views.adapter;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
@@ -30,6 +32,11 @@ public class AuthorListAdapter extends BaseRecyclerAdapter<Author>{
 
         holder.setText(R.id.author_name, item.getName());
         holder.setText(R.id.author_title, item.getTitle());
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (prefs.getBoolean("noPicMode", false)) {
+            return;
+        }
 
         Glide.with(holder.getmContext())
                 .load(item.getPic())

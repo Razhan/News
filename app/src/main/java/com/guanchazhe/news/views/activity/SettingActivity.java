@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.guanchazhe.news.R;
-import com.guanchazhe.news.views.Fragment.SettingFragment;
+import com.guanchazhe.news.views.fragment.SettingFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,7 +29,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolBar.setTitle("设置");
+        toolBar.setTitle(R.string.setting);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.setNavigationOnClickListener(v -> onBackPressed());

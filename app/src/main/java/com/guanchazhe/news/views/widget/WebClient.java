@@ -2,6 +2,8 @@ package com.guanchazhe.news.views.widget;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -27,9 +29,12 @@ public class WebClient extends WebViewClient {
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mActivity);
+        String textSize = prefs.getString("textSize", "16");
+
         mWebView.loadUrl("javascript:showAuthor();");
         mWebView.loadUrl("javascript:$.startload();");
-        mWebView.loadUrl("javascript:$.doZoom(" + 16 + ");");
+        mWebView.loadUrl("javascript:$.doZoom(" + textSize + ");");
 
         if (mWebViewLoadedListener != null) {
             mWebViewLoadedListener.afterWebViewLoaded(null);

@@ -1,21 +1,23 @@
 package com.guanchazhe.news.views.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.mvp.Constant;
-import com.guanchazhe.news.views.Fragment.ListFragment;
+import com.guanchazhe.news.views.fragment.ListFragment;
 import com.guanchazhe.news.views.adapter.ChannelListAdapter;
 import com.guanchazhe.news.views.adapter.FragmentAdapter;
 import com.guanchazhe.news.views.widget.RecyclerInsetsDecoration;
@@ -26,7 +28,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private final String YAOWEN = "要闻";
     private final String SHIPING = "时评";
@@ -42,27 +44,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUi();
-        initToolbar();
         initDrawerLayout();
         initDrawerRecycleView();
         initTabLayout();
     }
 
-    private void initUi() {
+    @Override
+    protected void initUi() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
     }
 
-    private void initToolbar()   {
-        toolBar.setTitle("观察者");
+    @Override
+    protected void initToolbar()   {
+        toolBar.setTitle(R.string.app_name);
         setSupportActionBar(toolBar);
     }
 
     private void initDrawerLayout() {
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolBar, R.string.drawer_open,
-                R.string.drawer_close);
+                this, mDrawerLayout, toolBar, R.string.drawer_open, R.string.drawer_close) {
+            @Override
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+        };
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
@@ -117,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.nightMode)
     public void OnContactClick() {
-//        Intent intent = new Intent(this, SettingActivity.class);
-//        startActivity(intent);
     }
 
     @OnClick(R.id.about)
@@ -130,16 +134,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!prefs.getBoolean("confirmExit", true)) {
+            finish();
+            return;
+        }
+
         if (doubleBackToExitPressedOnce) {
             System.exit(0);
             return;
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "再次点击退出应用", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.confirm_exit, Toast.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(
-                () -> doubleBackToExitPressedOnce=false, 2000);
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
 
 }

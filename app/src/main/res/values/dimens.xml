@@ -27,7 +27,7 @@
     <!--height-->
 
     <dimen name="height_fab">40dp</dimen>
-    <dimen name="height_item_news">106dp</dimen>
+    <dimen name="height_item_news">110dp</dimen>
     <dimen name="height_divier_line">2px</dimen>
     <dimen name="height_progressbar">55dp</dimen>
     <dimen name="height_item_channel">35dp</dimen>

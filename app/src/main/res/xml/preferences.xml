@@ -37,7 +37,7 @@
             android:title="无图模式"
             android:defaultValue="false"
             android:key="noPicMode"
-            android:summary="仅在WIFI下加载图片"/>
+            android:summary="加载网络图片"/>
 
         <Preference
             android:title="清除缓存"

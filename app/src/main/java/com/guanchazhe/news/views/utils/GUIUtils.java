@@ -235,15 +235,20 @@ public class GUIUtils {
 
         int finalRadius = Math.max(v.getWidth(), v.getHeight());
 
-        Animator anim = ViewAnimationUtils.createCircularReveal(
-                v, centerX, centerY, 0, finalRadius);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-        anim.setDuration(context.getResources().getInteger(R.integer.duration_medium));
-        anim.setInterpolator(new LinearInterpolator());
+            Animator anim = ViewAnimationUtils.createCircularReveal(
+                    v, centerX, centerY, 0, finalRadius);
 
-        if (lis != null)
-            anim.addListener(lis);
+            anim.setDuration(context.getResources().getInteger(R.integer.duration_medium));
+            anim.setInterpolator(new LinearInterpolator());
 
-        anim.start();
+            if (lis != null)
+                anim.addListener(lis);
+
+            anim.start();
+        } else {
+            return;
+        }
     }
 }

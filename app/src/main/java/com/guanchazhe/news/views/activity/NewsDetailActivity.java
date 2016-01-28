@@ -4,8 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
@@ -125,6 +128,17 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
 
     @Override
     public void setImageSource() {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("noPicMode", false)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                itemMovieCoverIV.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark, getTheme()));
+            } else {
+                itemMovieCoverIV.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+            return;
+        }
+
         Glide.with(this)
                 .load(mNews.getPic())
                 .asBitmap()
@@ -133,7 +147,7 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         super.onResourceReady(resource, glideAnimation);
-//                        itemMovieCoverIV.setImageBitmap(resource);
+                        itemMovieCoverIV.setImageBitmap(resource);
                         mNewsDetailPresenter.onImageReceived(resource);
                     }
                 });
@@ -179,8 +193,12 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);
 
-        contentWV.addJavascriptInterface(new JsOperation(this, null), "client");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("noPicMode", false)) {
+            settings.setLoadsImagesAutomatically(false);
+        }
 
+        contentWV.addJavascriptInterface(new JsOperation(this, null), "client");
         contentWV.setWebViewClient(new WebClient(this, contentWV,
                         (news) -> mNewsDetailPresenter.resultArrived((News) news))
         );

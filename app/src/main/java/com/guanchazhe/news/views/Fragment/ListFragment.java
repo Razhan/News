@@ -1,5 +1,6 @@
-package com.guanchazhe.news.views.Fragment;
+package com.guanchazhe.news.views.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -98,7 +99,12 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initSwipeRefreshLayout() {
-        swipeRefreshLayout.setColorSchemeColors(getResources().getIntArray(R.array.swipe_progress_colors));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
+        } else {
+            swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        }
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setCanChildScrollUpCallback(this);
     }

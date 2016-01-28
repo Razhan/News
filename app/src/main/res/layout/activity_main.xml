@@ -62,7 +62,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
-                    android:text="专栏作家"/>
+                    android:text="@string/all_authors"/>
 
             </RelativeLayout>
 
@@ -92,7 +92,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
-                    android:text="我的栏目"/>
+                    android:text="@string/favorite_channels"/>
 
             </RelativeLayout>
 
@@ -122,7 +122,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
-                    android:text="设置"/>
+                    android:text="@string/setting"/>
 
             </RelativeLayout>
 
@@ -152,7 +152,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
-                    android:text="夜间模式"/>
+                    android:text="@string/night_mode"/>
 
                 </RelativeLayout>
 
@@ -182,7 +182,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="@color/black"
-                    android:text="关于"/>
+                    android:text="@string/about"/>
 
             </RelativeLayout>
 

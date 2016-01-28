@@ -2,6 +2,7 @@ package com.guanchazhe.news.views.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -86,7 +87,7 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
     private void initToolbar() {
         CollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedExpanded);
 
-        toolBar.setTitle("专栏");
+        toolBar.setTitle(R.string.author_column);
 
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -186,7 +187,7 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
         mBundle.putSerializable(Constant.AUTHORNAME, anthor);
         intent.putExtras(mBundle);
 
-        if (view != null) {
+        if (view != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptionsCompat options = ActivityOptionsCompat.
                     makeSceneTransitionAnimation(activity, view, "image_shared");
             activity.startActivity(intent, options.toBundle());

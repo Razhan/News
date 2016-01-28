@@ -34,7 +34,7 @@ public class ImageDetailActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolBar.setTitle("图片");
+        toolBar.setTitle(R.string.image_detail);
 
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

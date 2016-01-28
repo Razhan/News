@@ -4,9 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
@@ -108,6 +111,13 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
 
     @Override
     public void setImageSource() {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("noPicMode", false)) {
+            mCommentaryDetailPresenter.onImageReceived(null);
+            return;
+        }
+
         Glide.with(this)
                 .load(mNews.getPic())
                 .asBitmap()
@@ -175,6 +185,11 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
         WebSettings settings = commentaryDetailContentWV.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("noPicMode", false)) {
+            settings.setLoadsImagesAutomatically(false);
+        }
 
         commentaryDetailContentWV.addJavascriptInterface(new JsOperation(this,
                 (news) -> mCommentaryDetailPresenter.resultArrived((News) news)), "client");

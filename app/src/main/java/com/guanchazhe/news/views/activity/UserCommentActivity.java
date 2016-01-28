@@ -38,7 +38,7 @@ public class UserCommentActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolBar.setTitle("网友评论");
+        toolBar.setTitle(R.string.user_comment);
 
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,8 +46,6 @@ public class UserCommentActivity extends AppCompatActivity {
     }
 
     private void initWebView() {
-
-
         WebSettings settings = userCommentContentWV.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);

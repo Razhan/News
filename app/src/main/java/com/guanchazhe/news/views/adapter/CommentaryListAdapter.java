@@ -1,5 +1,7 @@
 package com.guanchazhe.news.views.adapter;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
@@ -32,6 +34,11 @@ public class CommentaryListAdapter extends BaseRecyclerAdapter<News> {
         holder.setText(R.id.commentary_summary, item.getSummary());
         holder.setText(R.id.commentary_author, item.getAuthor());
         holder.setText(R.id.commentary_createtime, item.getCreationtime());
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (prefs.getBoolean("noPicMode", false)) {
+            return;
+        }
 
         Glide.with(holder.getmContext())
                 .load(item.getPic())
