@@ -14,7 +14,7 @@ import com.guanchazhe.news.views.widget.WebClient;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NewsWebViewActivity extends AppCompatActivity {
+public class NewsWebViewActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)                         Toolbar toolBar;
     @Bind(R.id.news_webview_content)            WebView newsContentWV;
@@ -23,17 +23,17 @@ public class NewsWebViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUI();
-        initToolbar();
         initWebView();
     }
 
-    private void initUI() {
+    @Override
+    protected void initUI() {
         setContentView(R.layout.activity_news_webview);
         ButterKnife.bind(this);
     }
 
-    private void initToolbar() {
+    @Override
+    protected void initToolbar() {
         toolBar.setTitle(R.string.old_news);
 
         setSupportActionBar(toolBar);

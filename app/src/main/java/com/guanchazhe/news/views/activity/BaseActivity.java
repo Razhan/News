@@ -1,6 +1,5 @@
 package com.guanchazhe.news.views.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.v7.app.AppCompatActivity;
@@ -10,18 +9,14 @@ import android.support.v7.app.AppCompatActivity;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected SharedPreferences mSharedPreferences;
-
     @CallSuper
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        initUi();
+        initUI();
         initToolbar();
     }
 
-
-    protected abstract void  initUi();
+    protected abstract void initUI();
     protected abstract void  initToolbar();
 }

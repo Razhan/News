@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initUi() {
+    protected void initUI() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
     }
@@ -121,9 +121,12 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.nightMode)
-    public void OnContactClick() {
-    }
+//    @OnClick(R.id.nightMode)
+//    public void OnContactClick() {
+//        boolean nightMode = mSharedPreferences.getBoolean("nightMode", false);
+//        nightMode = !nightMode;
+//        mSharedPreferences.edit().putBoolean("nightMode", nightMode).commit();
+//    }
 
     @OnClick(R.id.about)
     public void OnAboutClick() {

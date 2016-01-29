@@ -42,15 +42,11 @@
     <!--about-->
     <string name="about_app_name_with_introduce">NBAPlus - 最专注的NBA信息平台</string>
     <string name="about_introduce">观察者网介绍</string>
-    <string name="introduce">观察者网（www.guancha.cn）携手上海春秋发展战略研究院，
-        旨在为全球华人读者提供集新鲜、热点、深度、趣味于一体的时政资讯。\n\n
-        中国关怀全球视野\n\n
-        从这里读懂世界\n\n
-        独立而负责任</string>
+    <string name="introduce">观察者网（www.guancha.cn）携手上海春秋发展战略研究院，旨在为全球华人读者提供集新鲜、热点、深度、趣味于一体的时政资讯。\n\n中国关怀全球视野\n从这里读懂世界\n独立而负责任</string>
     <string name="contact_to_me">联系作者</string>
-    <string name="email">ranzhang.su@outlook.com
-        \n\n此应用为个人作品，所有版权属于观察者网及原作者，如有侵权，请速联系
-        \n\n反馈应用或提出建议，也欢迎联系</string>
+    <string name="email">ranzhang.su@outlook.com\n\n此应用为个人作品，所有版权属于观察者网或原作者，如有侵权，请速联系作者，反馈或提出建议，也欢迎联系</string>
+    <string name="current_version">当前版本</string>
+    <string name="version">1.0.0</string>
     <string name="notices">开源协议</string>
     <string name="open_source">Apache Licence 2.0</string>
 

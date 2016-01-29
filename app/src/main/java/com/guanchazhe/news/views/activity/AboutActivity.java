@@ -8,21 +8,20 @@ import android.support.v7.widget.Toolbar;
 
 import com.guanchazhe.news.R;
 
-public class AboutActivity extends AppCompatActivity {
+import butterknife.ButterKnife;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
+public class AboutActivity extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        initToolBar();
+        initUI();
     }
 
-    private void initToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.about);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+    protected void initUI() {
+        setContentView(R.layout.activity_about);
+        ButterKnife.bind(this);
     }
 
     public static void start(Activity activity) {

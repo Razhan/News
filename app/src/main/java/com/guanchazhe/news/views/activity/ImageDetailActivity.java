@@ -12,7 +12,7 @@ import com.guanchazhe.news.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ImageDetailActivity extends AppCompatActivity {
+public class ImageDetailActivity extends BaseActivity {
 
     private final String EXTRA_URL_NAME = "url";
 
@@ -22,18 +22,18 @@ public class ImageDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initUI();
-        initToolbar();
 
         loadImage();
     }
 
-    private void initUI() {
+    @Override
+    protected void initUI() {
         setContentView(R.layout.activity_image_detail);
         ButterKnife.bind(this);
     }
 
-    private void initToolbar() {
+    @Override
+    protected void initToolbar() {
         toolBar.setTitle(R.string.image_detail);
 
         setSupportActionBar(toolBar);

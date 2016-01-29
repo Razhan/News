@@ -17,7 +17,7 @@ import com.guanchazhe.news.mvp.model.entities.News;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class UserCommentActivity extends AppCompatActivity {
+public class UserCommentActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)                 Toolbar toolBar;
     @Bind(R.id.user_comment_content)    WebView userCommentContentWV;
@@ -27,17 +27,17 @@ public class UserCommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUI();
-        initToolbar();
         initWebView();
     }
 
-    private void initUI() {
+    @Override
+    protected void initUI() {
         setContentView(R.layout.activity_user_comment);
         ButterKnife.bind(this);
     }
 
-    private void initToolbar() {
+    @Override
+    protected void initToolbar() {
         toolBar.setTitle(R.string.user_comment);
 
         setSupportActionBar(toolBar);

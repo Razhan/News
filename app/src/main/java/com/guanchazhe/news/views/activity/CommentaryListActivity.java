@@ -38,7 +38,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CommentaryListActivity extends AppCompatActivity implements CommentaryListView {
+public class CommentaryListActivity extends BaseActivity implements CommentaryListView {
 
     @Bind(R.id.rv_list_content_listview)            RecyclerView contentRV;
     @Bind(R.id.commentary_list_collapsing)          CollapsingToolbarLayout CollapsingToolbarLayout;
@@ -58,33 +58,19 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUi();
-        initToolbar();
         initDependencyInjector();
         initPresenter();
         initRecyclerView();
     }
 
-    private void initUi() {
+    @Override
+    protected void initUI() {
         setContentView(R.layout.activity_commentary_list);
         ButterKnife.bind(this);
     }
 
-    private void initDependencyInjector() {
-
-        DaggerCommentaryListComponent.builder()
-                .activityModule(new ActivityModule(this))
-                .appComponent(((NewsApplication) getApplication()).getAppComponent())
-                .commentaryListModule(new CommentaryListModule(author.getSpelling()))
-                .build().inject(this);
-    }
-
-    private void initPresenter() {
-        mCommentaryListPresenter.attachView(this);
-        mCommentaryListPresenter.onCreate();
-    }
-
-    private void initToolbar() {
+    @Override
+    protected void initToolbar() {
         CollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedExpanded);
 
         toolBar.setTitle(R.string.author_column);
@@ -104,6 +90,20 @@ public class CommentaryListActivity extends AppCompatActivity implements Comment
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.def_placeholder)
                 .into(characterImageCIV);
+    }
+
+    private void initDependencyInjector() {
+
+        DaggerCommentaryListComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .appComponent(((NewsApplication) getApplication()).getAppComponent())
+                .commentaryListModule(new CommentaryListModule(author.getSpelling()))
+                .build().inject(this);
+    }
+
+    private void initPresenter() {
+        mCommentaryListPresenter.attachView(this);
+        mCommentaryListPresenter.onCreate();
     }
 
     private void initRecyclerView() {

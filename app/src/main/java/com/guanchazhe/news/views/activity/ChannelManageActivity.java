@@ -26,7 +26,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ChannelManageActivity extends AppCompatActivity implements RecycleViewAdapterListener<String> {
+public class ChannelManageActivity extends BaseActivity implements RecycleViewAdapterListener<String> {
 
     @Bind(R.id.toolbar)                     Toolbar toolBar;
     @Bind(R.id.favorite_recycleview)        RecyclerView favoriteRV;
@@ -44,20 +44,19 @@ public class ChannelManageActivity extends AppCompatActivity implements RecycleV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUi();
-        initToolbar();
-
         loadChannels();
         favoriteAdapter = initRecycleView(favoriteRV, favoriteChannels);
         otherAdapter = initRecycleView(otherRV, otherChannels);
     }
 
-    private void initUi() {
+    @Override
+    protected void initUI() {
         setContentView(R.layout.activity_channel_manage);
         ButterKnife.bind(this);
     }
 
-    private void initToolbar() {
+    @Override
+    protected void initToolbar() {
         toolBar.setTitle(R.string.channel_manage);
 
         setSupportActionBar(toolBar);

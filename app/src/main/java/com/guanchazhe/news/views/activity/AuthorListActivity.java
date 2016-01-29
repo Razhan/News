@@ -40,7 +40,7 @@ public class AuthorListActivity extends BaseActivity implements AuthorListView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUi();
+        initUI();
         initToolbar();
         initDependencyInjector();
         initPresenter();
@@ -48,7 +48,7 @@ public class AuthorListActivity extends BaseActivity implements AuthorListView {
     }
 
     @Override
-    protected void initUi() {
+    protected void initUI() {
         setContentView(R.layout.activity_author_list);
         ButterKnife.bind(this);
     }

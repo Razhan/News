@@ -10,7 +10,7 @@ import com.guanchazhe.news.views.fragment.SettingFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)         Toolbar toolBar;
 
@@ -18,17 +18,17 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUI();
-        initToolbar();
         initFragment();
     }
 
-    private void initUI() {
+    @Override
+    protected void initUI() {
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
     }
 
-    private void initToolbar() {
+    @Override
+    protected void initToolbar() {
         toolBar.setTitle(R.string.setting);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

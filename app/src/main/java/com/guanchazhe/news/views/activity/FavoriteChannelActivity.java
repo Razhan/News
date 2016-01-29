@@ -23,7 +23,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class FavoriteChannelActivity extends AppCompatActivity {
+public class FavoriteChannelActivity extends BaseActivity {
 
     private final String CLICKEDCHANNEL = "clickedChannel";
 
@@ -37,17 +37,18 @@ public class FavoriteChannelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initUi();
-        initToolbar();
+
         initTabLayout();
     }
 
-    private void initUi() {
+    @Override
+    protected void initUI() {
         setContentView(R.layout.activity_main_content);
         ButterKnife.bind(this);
     }
 
-    private void initToolbar() {
+    @Override
+    protected void initToolbar() {
         toolBar.setTitle(R.string.favorite_channels);
 
         setSupportActionBar(toolBar);
