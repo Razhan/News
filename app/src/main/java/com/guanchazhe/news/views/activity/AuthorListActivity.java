@@ -40,8 +40,6 @@ public class AuthorListActivity extends BaseActivity implements AuthorListView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUI();
-        initToolbar();
         initDependencyInjector();
         initPresenter();
         initRecyclerView();
