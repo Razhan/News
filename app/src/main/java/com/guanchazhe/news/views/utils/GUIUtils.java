@@ -11,6 +11,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -250,5 +254,40 @@ public class GUIUtils {
         } else {
             return;
         }
+    }
+
+    public static Transition buildExplodeTransition (Integer... exlcudeIds) {
+        Explode explodeTransition = new Explode();
+        excludeTransitionIds(explodeTransition, exlcudeIds);
+        return  explodeTransition;
+    }
+
+    public static Transition buildSlideTransition (int gravity, Integer... excludeIds) {
+        Slide explodeTransition = new Slide();
+        excludeTransitionIds(explodeTransition, excludeIds);
+        return  explodeTransition;
+    }
+
+    private static void excludeTransitionIds(Transition transition, Integer[] exlcudeIds) {
+        transition.excludeTarget(android.R.id.statusBarBackground, true);
+        transition.excludeTarget(android.R.id.navigationBarBackground, true);
+
+        for (Integer exlcudeId : exlcudeIds) {
+            transition.excludeTarget(exlcudeId, true);
+        }
+    }
+
+    public static void clear(View v) {
+        v.setAlpha(1);
+        v.setScaleY(1);
+        v.setScaleX(1);
+        v.setTranslationY(0);
+        v.setTranslationX(0);
+        v.setRotation(0);
+        v.setRotationY(0);
+        v.setRotationX(0);
+        v.setPivotY(v.getMeasuredHeight() / 2);
+        v.setPivotX(v.getMeasuredWidth() / 2);
+        v.animate().setInterpolator(null);
     }
 }

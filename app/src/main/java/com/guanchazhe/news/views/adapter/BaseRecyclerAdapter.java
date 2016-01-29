@@ -1,5 +1,7 @@
 package com.guanchazhe.news.views.adapter;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
@@ -8,10 +10,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 
 import com.guanchazhe.news.views.listener.OnStartDragListener;
+import com.guanchazhe.news.views.utils.GUIUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +34,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     protected final int mItemLayoutId;
     protected final int mHeaderLayoutId;
     protected final boolean mWithHeader;
+
+    private int mLastPosition = -1;
+    private int mDuration = 300;
+    private Interpolator mInterpolator;
 
     protected boolean isScrolling;
     protected Context mContext;
@@ -57,6 +67,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
         mContext = v.getContext();
         clickedItems = new ArrayList<>();
+        mInterpolator = new LinearInterpolator();
     }
 
     public abstract void headerConvert(RecyclerHolder holder, T item, int position, boolean isScrolling);
@@ -87,6 +98,17 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             headerConvert(holder, mData.get(position), position, isScrolling);
         } else {
             itemConvert(holder, mData.get(position), position, isScrolling);
+        }
+
+        List<Animator> animators = getAnimators(holder.itemView);
+        if (animators != null && animators.size() > 0) {
+            for (Animator anim : animators) {
+                anim.setDuration(mDuration).start();
+                anim.setInterpolator(mInterpolator);
+            }
+            mLastPosition = position;
+        } else {
+            GUIUtils.clear(holder.itemView);
         }
 
         holder.itemView.setOnClickListener(getOnClickListener(position));
@@ -130,6 +152,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         Collections.swap(mData, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
         return true;
+    }
+
+    public void setStartPosition(int start) {
+        mLastPosition = start;
     }
 
     private boolean isPositionHeader(int position) {
@@ -186,4 +212,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             notifyDataSetChanged();
         }
     }
+
+    protected abstract List<Animator> getAnimators(View view);
 }

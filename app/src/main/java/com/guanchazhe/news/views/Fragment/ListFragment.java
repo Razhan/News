@@ -225,7 +225,9 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void hideStatusIndicator(View view) {
         View indicator = view.findViewById(R.id.news_status_indicator);
-        indicator.setVisibility(View.INVISIBLE);
+        if (indicator != null) {
+            indicator.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

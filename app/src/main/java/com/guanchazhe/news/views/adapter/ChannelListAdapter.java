@@ -1,11 +1,14 @@
 package com.guanchazhe.news.views.adapter;
 
+import android.animation.Animator;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.guanchazhe.news.R;
 import com.guanchazhe.news.views.listener.RecycleViewAdapterListener;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by ran.zhang on 1/16/16.
@@ -37,5 +40,10 @@ public class ChannelListAdapter extends BaseRecyclerAdapter<String>{
     public void onItemDismiss(int position) {
         mListener.afterItemRemoved(mData.get(position));
         super.onItemDismiss(position);
+    }
+
+    @Override
+    protected List<Animator> getAnimators(View view) {
+        return null;
     }
 }
