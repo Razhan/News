@@ -2,6 +2,7 @@ package com.guanchazhe.news.mvp.model.repository;
 
 import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
+import com.guanchazhe.news.mvp.model.entities.UpdateInfo;
 
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface Repository {
     Observable<List<News>> getCommentaries(String authorid, String pageindex, int pagesize);
 
     Observable<List<Author>> getAuthors();
+
+    Observable<UpdateInfo> checkUpdate(String appid, String apptoken);
 
 }

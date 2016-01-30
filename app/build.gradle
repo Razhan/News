@@ -62,4 +62,6 @@ dependencies {
     compile "com.jakewharton:butterknife:${libs.butterknife}"
     compile "de.hdodenhof:circleimageview:${libs.circleimageview}"
     compile "me.imid.swipebacklayout.lib:library:${libs.swipebacklayout}"
+    compile 'im.fir:fir-sdk:latest.integration@aar'
+
 }

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.guanchazhe.news.mvp.model.entities.Author;
+import com.guanchazhe.news.mvp.model.entities.UpdateInfo;
+import com.guanchazhe.news.mvp.model.repository.restfulAPIs.CheckUpdateFromFIRAPIs;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.DetailRestfulAPIs;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.ListRestfulAPIs;
 import com.guanchazhe.news.mvp.model.repository.utils.deserializers.ToStringConverterFactory;
@@ -30,6 +32,8 @@ public class RestDataSource implements Repository {
     private int CONNECTION_TIMEOUT = 5 * 1000;
     private final ListRestfulAPIs listRestfulAPIs;
     private final DetailRestfulAPIs detailRestfulAPIs;
+    private final CheckUpdateFromFIRAPIs checkUpdateFromFIRAPIs;
+
 
     @Inject
     public RestDataSource() {
@@ -62,8 +66,17 @@ public class RestDataSource implements Repository {
                 .client(client)
                 .build();
 
+        Retrofit checkUpdateAdapter = new Retrofit.Builder()
+                .baseUrl(CheckUpdateFromFIRAPIs.END_POINT)
+                .addConverterFactory(GsonConverterFactory.create(customGsonInstance))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(client)
+                .build();
+
+
         listRestfulAPIs =  listApiAdapter.create(ListRestfulAPIs.class);
         detailRestfulAPIs = detailApiAdapter.create(DetailRestfulAPIs.class);
+        checkUpdateFromFIRAPIs = checkUpdateAdapter.create(CheckUpdateFromFIRAPIs.class);
     }
 
     @Override
@@ -97,6 +110,15 @@ public class RestDataSource implements Repository {
     @Override
     public Observable<List<Author>> getAuthors() {
         return listRestfulAPIs.getAuthors()
+                .retry(2)
+                .onErrorResumeNext(throwable -> {
+                    return Observable.error(throwable);
+                });
+    }
+
+    @Override
+    public Observable<UpdateInfo> checkUpdate(String appid, String apptoken) {
+        return checkUpdateFromFIRAPIs.checkUpdate(appid, apptoken)
                 .retry(2)
                 .onErrorResumeNext(throwable -> {
                     return Observable.error(throwable);

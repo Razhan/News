@@ -156,6 +156,8 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
 
         mHandler.post(() -> {
             commentaryDetailTitleTV.setText(news.getTitle());
+            commentaryDetailTitleTV.bringToFront();
+            userCommentFAB.bringToFront();
             authorNameTV.setText(mNews.getAuthor());
             authorTitleTV.setText(news.getAuthortitle());
 
@@ -206,6 +208,17 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
     @OnClick(R.id.commentary_detail_comment_fab)
     public void onFabClick() {
         UserCommentActivity.start(this, mNews);
+    }
+
+    @OnClick(R.id.commentary_detail_title)
+    public void onTitleClick() {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_news) +
+                Constant.NEWSDETAIL_URL_PREFIX + String.valueOf(mNews.getId()));
+        shareIntent.setType("text/plain");
+
+        startActivity(Intent.createChooser(shareIntent, getResources().getString(R.string.action_share)));
     }
 
 }

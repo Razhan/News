@@ -32,7 +32,7 @@
     <dimen name="height_progressbar">55dp</dimen>
     <dimen name="height_item_channel">35dp</dimen>
     <dimen name="height_setting_icon">30dp</dimen>
-    <dimen name="height_channel_tips">100dp</dimen>
+    <dimen name="height_channel_tips">150dp</dimen>
     <dimen name="height_status_indicate">2dp</dimen>
     <dimen name="height_item_headlines">45dp</dimen>
     <dimen name="height_textview_title">60dp</dimen>

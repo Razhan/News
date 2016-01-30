@@ -4,7 +4,11 @@
     android:versionCode="1"
     android:versionName="@string/version" >
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+
 
     <application
         android:name=".NewsApplication"
@@ -83,6 +87,8 @@
             android:label="@string/title_activity_user_comment"
             android:theme="@style/AppTheme" >
         </activity>
+
+        <meta-data android:value="88a487886ec7b0692c35d3b17bf130df" android:name="BUG_HD_SDK_GENERAL_KEY" />
     </application>
 
 </manifest>

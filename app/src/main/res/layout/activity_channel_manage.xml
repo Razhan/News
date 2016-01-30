@@ -29,6 +29,23 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_channel_tips"
         android:layout_alignParentBottom="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:scrollbars="none">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/channels_tips"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_small"
+                android:lineSpacingExtra="@dimen/spacing_small"/>
+
+        </ScrollView>
+
     </LinearLayout>
 
     <LinearLayout

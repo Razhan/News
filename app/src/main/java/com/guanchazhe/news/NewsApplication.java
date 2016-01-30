@@ -6,6 +6,8 @@ import com.guanchazhe.news.injector.components.AppComponent;
 import com.guanchazhe.news.injector.components.DaggerAppComponent;
 import com.guanchazhe.news.injector.modules.AppModule;
 
+import im.fir.sdk.FIR;
+
 /**
  * Created by ranzh on 12/22/2015.
  */
@@ -16,6 +18,7 @@ public class NewsApplication extends Application {
     public void onCreate() {
 
         super.onCreate();
+        FIR.init(this);
         initializeInjector();
     }
 

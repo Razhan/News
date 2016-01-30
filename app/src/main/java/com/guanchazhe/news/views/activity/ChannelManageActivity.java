@@ -91,7 +91,7 @@ public class ChannelManageActivity extends BaseActivity implements RecycleViewAd
         SharedPreferences prefs = getSharedPreferences(Constant.SHAREDPREFERENCE, Context.MODE_PRIVATE);
         String myChannels = prefs.getString(Constant.FAVORITECHANNELS, null);
 
-        if (myChannels == null) {
+        if (myChannels == null || myChannels == "[]") {
             favoriteChannels = Constant.getDefaultChannels();
         } else {
             favoriteChannels = new Gson().fromJson(myChannels,

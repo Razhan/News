@@ -2,10 +2,12 @@ package com.guanchazhe.news.mvp.model.repository.restfulAPIs;
 
 import com.guanchazhe.news.mvp.model.entities.Author;
 import com.guanchazhe.news.mvp.model.entities.News;
+import com.guanchazhe.news.mvp.model.entities.UpdateInfo;
 
 import java.util.List;
 
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
 

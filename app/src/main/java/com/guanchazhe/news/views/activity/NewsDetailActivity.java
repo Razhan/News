@@ -183,6 +183,7 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
     @Override
     public void setContent(News news) {
         titleTV.setText(mNews.getTitle());
+        titleTV.bringToFront();
         contentWV.setVisibility(View.VISIBLE);
     }
 
@@ -199,7 +200,7 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
 
         contentWV.addJavascriptInterface(new JsOperation(this, null), "client");
         contentWV.setWebViewClient(new WebClient(this, contentWV,
-                        (news) -> mNewsDetailPresenter.resultArrived((News) news)));
+                (news) -> mNewsDetailPresenter.resultArrived((News) news)));
         contentWV.loadUrl(Constant.NEWSDETAIL_URL_PREFIX + mNews.getId());
     }
 
@@ -215,8 +216,19 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
     }
 
     @OnClick(R.id.activity_detail_fab)
-    public void onClick() {
+    public void onFabClick() {
         UserCommentActivity.start(this, mNews);
+    }
+
+    @OnClick(R.id.activity_detail_title)
+    public void onTitleClick() {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_news) +
+                Constant.NEWSDETAIL_URL_PREFIX + String.valueOf(mNews.getId()));
+        shareIntent.setType("text/plain");
+
+        startActivity(Intent.createChooser(shareIntent, getResources().getString(R.string.action_share)));
     }
 
 }

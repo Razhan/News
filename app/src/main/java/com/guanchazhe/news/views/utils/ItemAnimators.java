@@ -35,15 +35,13 @@ public class ItemAnimators {
 
     public static List<ObjectAnimator> getSlideInLeftAnimation(View view) {
         List<ObjectAnimator> animators = new ArrayList<>();
-        animators.add(ObjectAnimator.ofFloat(view, "translationX", -view.getRootView().getWidth(), 0)
-        );
+        animators.add(ObjectAnimator.ofFloat(view, "translationX", -view.getRootView().getWidth(), 0));
         return animators;
     }
 
     public static List<ObjectAnimator> getSlideInRightAnimation(View view) {
         List<ObjectAnimator> animators = new ArrayList<>();
-        animators.add(ObjectAnimator.ofFloat(view, "translationX", view.getRootView().getWidth(), 0)
-        );
+        animators.add(ObjectAnimator.ofFloat(view, "translationX", view.getRootView().getWidth(), 0));
         return animators;
     }
 }

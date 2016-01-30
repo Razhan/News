@@ -4,11 +4,13 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_share">分享</string>
-    <string name="share_content">分享-观察者</string>
+    <string name="share_app">欢迎体验新的观察者网\nhttp://fir.im/guanchazhe</string>
+    <string name="share_news">分享-来自观察者网\n</string>
 
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+
 
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
@@ -23,6 +25,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_user_comment">UserCommentActivity</string>
+
 
     <string name="view_error_message">This content is not available offline.</string>
     <string name="my_channels">我的频道</string>
@@ -39,6 +42,7 @@
     <string name="user_comment">网友评论</string>
     <string name="confirm_exit">再次点击退出应用</string>
     <string name="clear_cache">缓存已清除</string>
+    <string name="channels_tips">Tips:\n1. 左右两边频道均可上下滑动以查看更多\n2. 长按频道按钮后上下拖动可对频道进行排序\n3. 对频道按钮左右滑动可管理频道\n4. 部分机型可能崩溃,请谅解</string>
 
 
     <!--about-->

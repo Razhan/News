@@ -1,5 +1,6 @@
 package com.guanchazhe.news.mvp.presenters;
 
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -71,7 +72,10 @@ public class AuthorListPresenter implements Presenter {
     public void onElementClick(View view, Author author) {
 
         ImageView imageView = (ImageView)view.findViewById(R.id.author_image);
-        imageView.setTransitionName("image_shared");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            imageView.setTransitionName("image_shared");
+        }
 
         mAuthorListView.showDetailScreen(imageView, author);
     }

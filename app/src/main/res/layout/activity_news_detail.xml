@@ -59,7 +59,7 @@
                 android:src="@android:drawable/ic_menu_edit"
                 android:layout_above="@id/activity_detail_title"
                 android:scaleType="center"
-                android:elevation="@dimen/elevation_normal"/>
+                android:elevation="@dimen/elevation_tiny"/>
 
             <ProgressBar
                 android:id="@+id/activity_detail_progress"
