@@ -81,8 +81,7 @@ public class NewsListPresenter implements Presenter {
         mNewsSubscription = Observable
                 .concat(
                         new ObservableRepoDb(mContext).getObservable(mNewsView.getNewsType(), mCurrentPage),
-                        mNewsUsecase.execute(String.valueOf(mCurrentPage))
-                )
+                        mNewsUsecase.execute(String.valueOf(mCurrentPage)))
                 .first(news -> news != null
                         && news.size() > 0
                         && news.get(0).isUpToDate())
