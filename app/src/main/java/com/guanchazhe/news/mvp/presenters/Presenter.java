@@ -1,7 +1,5 @@
 package com.guanchazhe.news.mvp.presenters;
 
-import android.view.View;
-
 import com.guanchazhe.news.mvp.views.Views;
 
 /**

@@ -31,6 +31,11 @@ public class Constant {
         ASKMORE
     }
 
+    public enum CheckUpdateType {
+        AUTO,
+        MANUAL
+    }
+
     public enum NewsType {
         YAOWEN("yaowen"),
         HUABIAN("huabian"),

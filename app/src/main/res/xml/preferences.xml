@@ -16,6 +16,12 @@
         android:key="confirmExit"
         android:summary="双击返回键退出应用"/>
 
+    <CheckBoxPreference
+        android:title="自动更新"
+        android:defaultValue="true"
+        android:key="autoUpdate"
+        android:summary="自动检测更新"/>
+
     <ListPreference
         android:title="字体大小"
         android:key="textSize"

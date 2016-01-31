@@ -35,6 +35,18 @@
     <string name="setting">设置</string>
     <string name="night_mode">夜间模式</string>
     <string name="about">关于</string>
+    <string name="update">检查更新</string>
+
+    <string name="new_version_name">新版本号</string>
+    <string name="update_info">更新内容</string>
+    <string name="not_remind">不再提示</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="download_title">观察者新版本下载</string>
+    <string name="need_permission">请确认权限</string>
+
+
+
     <string name="channel_manage">栏目设置</string>
     <string name="author_column">专栏</string>
     <string name="image_detail">图片详情</string>

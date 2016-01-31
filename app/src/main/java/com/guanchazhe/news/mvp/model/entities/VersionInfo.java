@@ -3,7 +3,7 @@ package com.guanchazhe.news.mvp.model.entities;
 /**
  * Created by ran.zhang on 1/30/16.
  */
-public class UpdateInfo {
+public class VersionInfo {
 
     /**
      * name : 观察者
@@ -20,7 +20,7 @@ public class UpdateInfo {
      */
 
     private String name;
-    private String version;
+    private int version;
     private String changelog;
     private int updated_at;
     private String versionShort;
@@ -39,7 +39,7 @@ public class UpdateInfo {
         this.name = name;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(int version) {
         this.version = version;
     }
 
@@ -83,7 +83,7 @@ public class UpdateInfo {
         return name;
     }
 
-    public String getVersion() {
+    public int getVersion() {
         return version;
     }
 

@@ -1,6 +1,6 @@
 package com.guanchazhe.news.mvp.model.repository.restfulAPIs;
 
-import com.guanchazhe.news.mvp.model.entities.UpdateInfo;
+import com.guanchazhe.news.mvp.model.entities.VersionInfo;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -15,9 +15,8 @@ public interface CheckUpdateFromFIRAPIs {
     String END_POINT = "http://api.fir.im/";
 
     @GET("apps/latest/{appid}")
-    Observable<UpdateInfo> checkUpdate(
+    Observable<VersionInfo> checkUpdate(
             @Path("appid") String appid,
-            @Query("apptoken") String apptoken
+            @Query("api_token") String apptoken
     );
-
 }

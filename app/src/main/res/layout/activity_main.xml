@@ -186,6 +186,36 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_normal"
+                android:background="@drawable/item_background">
+
+                <ImageView
+                    android:id="@+id/update_image"
+                    android:layout_width="@dimen/height_setting_icon"
+                    android:layout_height="@dimen/height_setting_icon"
+                    android:scaleType="centerInside"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:src="@drawable/def_avatar"/>
+
+                <TextView
+                    android:id="@+id/update_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height_setting_icon"
+                    android:layout_toRightOf="@+id/update_image"
+                    android:layout_marginLeft="@dimen/spacing_huge"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/black"
+                    android:text="@string/update"/>
+
+            </RelativeLayout>
+
         </LinearLayout>
 
     </android.support.design.widget.NavigationView>

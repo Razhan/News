@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.guanchazhe.news.mvp.model.entities.Author;
-import com.guanchazhe.news.mvp.model.entities.UpdateInfo;
+import com.guanchazhe.news.mvp.model.entities.VersionInfo;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.CheckUpdateFromFIRAPIs;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.DetailRestfulAPIs;
 import com.guanchazhe.news.mvp.model.repository.restfulAPIs.ListRestfulAPIs;
@@ -29,7 +29,7 @@ import rx.Observable;
  */
 public class RestDataSource implements Repository {
 
-    private int CONNECTION_TIMEOUT = 5 * 1000;
+    private int CONNECTION_TIMEOUT = 10 * 1000;
     private final ListRestfulAPIs listRestfulAPIs;
     private final DetailRestfulAPIs detailRestfulAPIs;
     private final CheckUpdateFromFIRAPIs checkUpdateFromFIRAPIs;
@@ -117,7 +117,7 @@ public class RestDataSource implements Repository {
     }
 
     @Override
-    public Observable<UpdateInfo> checkUpdate(String appid, String apptoken) {
+    public Observable<VersionInfo> getVersionInfo(String appid, String apptoken) {
         return checkUpdateFromFIRAPIs.checkUpdate(appid, apptoken)
                 .retry(2)
                 .onErrorResumeNext(throwable -> {

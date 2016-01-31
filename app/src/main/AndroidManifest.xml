@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:name=".NewsApplication"
@@ -89,6 +89,9 @@
         </activity>
 
         <meta-data android:value="88a487886ec7b0692c35d3b17bf130df" android:name="BUG_HD_SDK_GENERAL_KEY" />
+        <meta-data android:value="56ac5d0800fc7425c6000003" android:name="appID" />
+        <meta-data android:value="2ee24dfc05c745b75fc1f35afff38ae4" android:name="appToken" />
+
     </application>
 
 </manifest>
