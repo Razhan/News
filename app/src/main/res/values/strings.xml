@@ -42,6 +42,9 @@
     <string name="not_remind">不再提示</string>
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
+    <string name="update_success">已是最新版本</string>
+    <string name="update_fail">检查失败,请确认网络</string>
+
     <string name="download_title">观察者新版本下载</string>
     <string name="need_permission">请确认权限</string>
 

@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.guanchazhe.news.R;
 import com.guanchazhe.news.domain.GetVersionInfoUseCase;
 import com.guanchazhe.news.mvp.Constant;
 import com.guanchazhe.news.mvp.model.entities.VersionInfo;
@@ -79,12 +80,12 @@ public class MainPresenter implements Presenter{
         if (info.getVersion() > VersionCode) {
             mMainView.showUpdateDialog(info);
         } else if (type == Constant.CheckUpdateType.MANUAL) {
-            mMainView.showUpdateToast("succeeded");
+            mMainView.showUpdateToast(mContext.getResources().getString(R.string.update_success));
         }
     }
 
     private void resultError(Throwable error) {
-        mMainView.showUpdateToast("failed");
+        mMainView.showUpdateToast(mContext.getResources().getString(R.string.update_fail));
     }
 
     private void getAppInfo() {

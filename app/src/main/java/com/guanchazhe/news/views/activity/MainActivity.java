@@ -198,9 +198,7 @@ public class MainActivity extends BaseActivity implements MainView {
         request.allowScanningByMediaScanner();
         request.setVisibleInDownloadsUi(true);
 
-        Long reference = downloadmanager.enqueue(request);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit().putLong("downloadID", reference).commit();
+        downloadmanager.enqueue(request);
     }
 
     private void isStoragePermissionGranted() {
