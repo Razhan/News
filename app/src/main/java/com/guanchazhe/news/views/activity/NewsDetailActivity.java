@@ -97,10 +97,10 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
     private void initDependencyInjector() {
         mNews = (News) getIntent().getSerializableExtra("news");
 
-        NewsApplication avengersApplication = (NewsApplication) getApplication();
+        NewsApplication application = (NewsApplication) getApplication();
         DaggerNewsDetailComponent.builder()
                 .activityModule(new ActivityModule(this))
-                .appComponent(avengersApplication.getAppComponent())
+                .appComponent(application.getAppComponent())
                 .build().inject(this);
     }
 

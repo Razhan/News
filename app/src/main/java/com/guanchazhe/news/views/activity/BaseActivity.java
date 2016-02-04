@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.guanchazhe.news.R;
 
@@ -44,13 +42,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_share:
-//                Intent shareIntent = new Intent();
-//                shareIntent.setAction(Intent.ACTION_SEND);
-//                shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_app));
-//                shareIntent.setType("text/plain");
-//
-//                startActivity(Intent.createChooser(shareIntent, getResources().getString(R.string.action_share)));
-                onShareClick();
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_app));
+                shareIntent.setType("text/plain");
+
+                startActivity(Intent.createChooser(shareIntent, getResources().getString(R.string.action_share)));
                 return true;
             default:
                 break;

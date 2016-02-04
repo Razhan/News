@@ -86,10 +86,10 @@ public class CommentaryDetailActivity extends SwipeBackActivity implements NewsD
 
     private void initDependencyInjector() {
 
-        NewsApplication avengersApplication = (NewsApplication) getApplication();
+        NewsApplication application = (NewsApplication) getApplication();
         DaggerNewsDetailComponent.builder()
                 .activityModule(new ActivityModule(this))
-                .appComponent(avengersApplication.getAppComponent())
+                .appComponent(application.getAppComponent())
                 .build().inject(this);
     }
 
