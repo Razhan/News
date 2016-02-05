@@ -79,15 +79,14 @@ public class NewsListPresenter implements Presenter {
         mIsRequestRunning = true;
 
         mNewsSubscription = Observable
-                .concat(
-                        new ObservableRepoDb(mContext).getObservable(mNewsView.getNewsType(), mCurrentPage),
+                .concat(mObservableRepoDb.getCachedNews(String.valueOf(mCurrentPage)),
                         mNewsUsecase.execute(String.valueOf(mCurrentPage)))
                 .first(news -> news != null
                         && news.size() > 0
                         && news.get(0).isUpToDate())
                 .subscribe(
                         news -> resultArrived(requestType, news),
-                        error -> resultError(error));
+                        error -> resultError (error));
     }
 
     private void resultArrived(Constant.RequestType requestType, List<News> news) {
@@ -104,8 +103,8 @@ public class NewsListPresenter implements Presenter {
             mNewsView.addNewsList(news);
         }
 
-        if (mCurrentPage <= 1 && !mNewsView.getNewsType().equals(Constant.NewsType.HYBRID)) {
-            mObservableRepoDb.insertRepoListWithType(news, mNewsView.getNewsType());
+        if (mCurrentPage <= 10 && !mNewsView.getNewsType().equals(Constant.NewsType.HYBRID)) {
+            mObservableRepoDb.insertRepoListWithType(news, mNewsView.getNewsType(), mCurrentPage);
         }
     }
 
