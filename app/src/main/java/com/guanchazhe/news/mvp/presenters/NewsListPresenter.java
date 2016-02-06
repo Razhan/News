@@ -22,6 +22,8 @@ import rx.Subscription;
  */
 public class NewsListPresenter implements Presenter {
 
+    private final int CACHED_PAGE_SIZE = 10;
+
     private final GetNewsListUseCase mNewsUsecase;
     private boolean mIsRequestRunning;
     private Subscription mNewsSubscription;
@@ -104,8 +106,8 @@ public class NewsListPresenter implements Presenter {
             mNewsView.addNewsList(news);
         }
 
-        if (mCurrentPage <= 1 && !mNewsView.getNewsType().equals(Constant.NewsType.HYBRID)) {
-            mObservableRepoDb.insertRepoListWithType(news, mNewsView.getNewsType());
+        if (mCurrentPage <= CACHED_PAGE_SIZE && !mNewsView.getNewsType().equals(Constant.NewsType.HYBRID)) {
+            mObservableRepoDb.insertRepoList(news, mNewsView.getNewsType(), mCurrentPage);
         }
     }
 

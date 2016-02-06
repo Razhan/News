@@ -28,23 +28,17 @@ public class ObservableRepoDb {
     public Observable<List<News>> getObservable(Constant.NewsType type, int index) {
         mNewsType = type;
         mPageIndex = index;
-        Observable<List<News>> firstTimeObservable =
-                Observable.fromCallable(() -> getAllReposFromDbWithType())
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread());
 
-        return firstTimeObservable;
+        return Observable.fromCallable(() -> getAllReposFromDbWithType())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     private List<News> getAllReposFromDbWithType() {
         mDbHelper.openForRead();
         List<News> repos = new ArrayList<>();
 
-        if (mPageIndex > 1) {
-            return repos;
-        }
-
-        Cursor c = mDbHelper.getAllRepoWithType(mNewsType);
+        Cursor c = mDbHelper.getAllRepo(mNewsType, mPageIndex);
 
         if (!c.moveToFirst()) {
             return repos;
@@ -61,19 +55,17 @@ public class ObservableRepoDb {
                     c.getString(RepoDbHelper.REPO_HORIZONTALPIC_COLUMN_POSITION),
                     c.getString(RepoDbHelper.REPO_CREATIONTIME_COLUMN_POSITION),
                     c.getString(RepoDbHelper.REPO_AUTHORTITLE_COLUMN_POSITION),
-                    c.getString(RepoDbHelper.REPO_REQUESTTIME_COLUMN_POSITION)
-                    ));
+                    c.getString(RepoDbHelper.REPO_REQUESTTIME_COLUMN_POSITION),
+                    Integer.valueOf(c.getString(RepoDbHelper.REPO_PAGEINDEX_COLUMN_POSITION))));
         } while (c.moveToNext());
         c.close();
         mDbHelper.close();
         return repos;
     }
 
-    public void insertRepoListWithType(List<News> repos, Constant.NewsType type) {
-        // This could have been done inside a transaction + yieldIfContendedSafely
-        mNewsType = type;
+    public void insertRepoList(List<News> repos, Constant.NewsType type, int pageindex) {
         mDbHelper.open();
-        mDbHelper.removeAllRepoWithType(mNewsType);
+        mDbHelper.removeAllRepo(type, pageindex);
 
         String requestTime = Long.toString(System.currentTimeMillis());
         for (News r : repos) {
@@ -88,29 +80,9 @@ public class ObservableRepoDb {
                     r.getHorizontalpic(),
                     r.getCreationtime(),
                     r.getAuthortitle(),
-                    requestTime);
+                    requestTime,
+                    pageindex);
         }
-        mDbHelper.close();
-    }
-
-    public void insertRepo(News r) {
-        mDbHelper.open();
-
-        String requestTime = Long.toString(System.currentTimeMillis());
-        mDbHelper.addRepo(
-                r.getId(),
-                r.getRowid(),
-                r.getTitle(),
-                r.getSummary(),
-                r.getAuthor(),
-                r.getType(),
-                r.getPic(),
-                r.getHorizontalpic(),
-                r.getCreationtime(),
-                r.getAuthortitle(),
-                requestTime
-        );
-
         mDbHelper.close();
     }
 }

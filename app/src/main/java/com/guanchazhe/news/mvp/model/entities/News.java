@@ -9,7 +9,8 @@ public class News implements Serializable  {
     public News() {}
 
     public News(int id, String rowid, String title, String summary, String author, String type,
-                String pic, String horizontalpic, String creationtime, String authortitle, String requesttime) {
+                String pic, String horizontalpic, String creationtime, String authortitle, String requesttime,
+                int pageindex) {
 
         this.rowid = rowid;
         this.id = id;
@@ -21,7 +22,8 @@ public class News implements Serializable  {
         this.horizontalpic = horizontalpic;
         this.creationtime = creationtime;
         this.authortitle = authortitle;
-        this.requestTime = requesttime;
+        this.requesttime = requesttime;
+        this.pageindex = pageindex;
     }
 
     private int id;
@@ -34,10 +36,11 @@ public class News implements Serializable  {
     private String horizontalpic;
     private String creationtime;
     private String authortitle;
-    private String requestTime;
+    private String requesttime;
+    private int pageindex;
 
-    public String getRequestTime() {
-        return requestTime;
+    public String getRequesttime() {
+        return requesttime;
     }
 
     public String getAuthortitle() {
@@ -80,6 +83,10 @@ public class News implements Serializable  {
         return creationtime;
     }
 
+    public int getPageindex() {
+        return pageindex;
+    }
+
     public void setRowid(String rowid) {
         this.rowid = rowid;
     }
@@ -120,19 +127,22 @@ public class News implements Serializable  {
         this.authortitle = authortitle;
     }
 
-    public void setRequestTime(String requestTime) {
-        this.requestTime = requestTime;
+    public void setRequesttime(String requesttime) {
+        this.requesttime = requesttime;
     }
 
+    public void setPageindex(int pageindex) {
+        this.pageindex = pageindex;
+    }
 
-    private static final long STALE_MS = 30 * 1000; // Data is stale after 5 seconds
+    private static final long STALE_MS = 30 * 1000;
 
     public boolean isUpToDate() {
-        if (requestTime == null) {
+        if (requesttime == null) {
             return true;
         }
 
-        return System.currentTimeMillis() - Long.parseLong(requestTime) < STALE_MS;
+        return System.currentTimeMillis() - Long.parseLong(requesttime) < STALE_MS;
     }
 
 }

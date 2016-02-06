@@ -44,13 +44,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_share:
-//                Intent shareIntent = new Intent();
-//                shareIntent.setAction(Intent.ACTION_SEND);
-//                shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_app));
-//                shareIntent.setType("text/plain");
-//
-//                startActivity(Intent.createChooser(shareIntent, getResources().getString(R.string.action_share)));
-                onShareClick();
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_app));
+                shareIntent.setType("text/plain");
+
+                startActivity(Intent.createChooser(shareIntent, getResources().getString(R.string.action_share)));
+//                onShareClick();
                 return true;
             default:
                 break;
@@ -111,8 +111,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
         startActivity(openInChooser);
     }
-
-
 
     protected abstract void initUI();
     protected abstract void  initToolbar();

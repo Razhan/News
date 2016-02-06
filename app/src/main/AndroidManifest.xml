@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.guanchazhe.news"
-    android:versionCode="1"
+    android:versionCode="2"
     android:versionName="@string/version" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
@@ -88,9 +88,9 @@
             android:theme="@style/AppTheme" >
         </activity>
 
-        <meta-data android:value="88a487886ec7b0692c35d3b17bf130df" android:name="BUG_HD_SDK_GENERAL_KEY" />
-        <meta-data android:value="56ac5d0800fc7425c6000003" android:name="appID" />
-        <meta-data android:value="2ee24dfc05c745b75fc1f35afff38ae4" android:name="appToken" />
+        <meta-data android:value="cc5945982354d53e591e18ac0079c3d1" android:name="BUG_HD_SDK_GENERAL_KEY" />
+        <meta-data android:value="56b5852300fc744950000018" android:name="appID" />
+        <meta-data android:value="46d2b178e8986ea362f44b590e1ecd0b" android:name="appToken" />
 
     </application>
 

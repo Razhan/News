@@ -40,7 +40,7 @@ public class RestDataSource implements Repository {
         OkHttpClient client = new OkHttpClient();
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
 
         client.interceptors().add(loggingInterceptor);
         client.setConnectTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS);

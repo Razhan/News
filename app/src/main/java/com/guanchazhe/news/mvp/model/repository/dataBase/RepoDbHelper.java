@@ -86,7 +86,8 @@ public class RepoDbHelper {
     public static final String REPO_REQUESTTIME_COLUMN = "requestTime";
     public static final int REPO_REQUESTTIME_COLUMN_POSITION = 11;
 
-
+    public static final String REPO_PAGEINDEX_COLUMN = "pageindex";
+    public static final int REPO_PAGEINDEX_COLUMN_POSITION = 12;
 
     // -------- TABLES CREATION ----------
 
@@ -104,13 +105,15 @@ public class RepoDbHelper {
             REPO_HORIZONTALPIC_COLUMN + " text, " +
             REPO_CREATIONTIME_COLUMN + " text, " +
             REPO_AUTHORTITLE_COLUMN + " text, " +
-            REPO_REQUESTTIME_COLUMN + " text" +
+            REPO_REQUESTTIME_COLUMN + " text, " +
+            REPO_PAGEINDEX_COLUMN + " integer" +
             ")";
 
 
     // ----------------Repo HELPERS --------------------
     public long addRepo (int id, String rowid, String title, String summary, String author, String type,
-                         String pic, String horizontalpic, String creationtime, String authortitle, String requesttime) {
+                         String pic, String horizontalpic, String creationtime, String authortitle,
+                         String requesttime, int pageindex) {
 
         ContentValues contentValues = new ContentValues();
 
@@ -125,50 +128,28 @@ public class RepoDbHelper {
         contentValues.put(REPO_CREATIONTIME_COLUMN, creationtime);
         contentValues.put(REPO_AUTHORTITLE_COLUMN, authortitle);
         contentValues.put(REPO_REQUESTTIME_COLUMN, requesttime);
+        contentValues.put(REPO_PAGEINDEX_COLUMN, pageindex);
 
         return mDb.insert(REPO_TABLE, null, contentValues);
     }
 
-    public long updateRepo (long rowIndex, int id, String rowid, String title, String summary, String author, String type,
-                            String pic, String horizontalpic, String creationtime, String authortitle) {
+    public boolean removeAllRepo(Constant.NewsType type, int pageindex){
 
-        String where = ROW_ID + " = " + rowIndex;
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(REPO_ID_COLUMN, String.valueOf(id));
-        contentValues.put(REPO_ROWID_COLUMN, rowid);
-        contentValues.put(REPO_TITLE_COLUMN, title);
-        contentValues.put(REPO_SUMMARY_COLUMN, summary);
-        contentValues.put(REPO_AUTHOR_COLUMN, author);
-        contentValues.put(REPO_TYPE_COLUMN, type);
-        contentValues.put(REPO_PIC_COLUMN, pic);
-        contentValues.put(REPO_HORIZONTALPIC_COLUMN, horizontalpic);
-        contentValues.put(REPO_CREATIONTIME_COLUMN, creationtime);
-        contentValues.put(REPO_AUTHORTITLE_COLUMN, authortitle);
-        contentValues.put(REPO_REQUESTTIME_COLUMN, Long.toString(System.currentTimeMillis()));
-
-        return mDb.update(REPO_TABLE, contentValues, where, null);
-    }
-
-    public boolean removeRepo(long rowIndex){
-        return mDb.delete(REPO_TABLE, ROW_ID + " = " + rowIndex, null) > 0;
-    }
-
-    public boolean removeAllRepoWithType(Constant.NewsType type){
-//        mDb.execSQL("UPDATE sqlite_sequence SET seq = 0 WHERE name='" + REPO_TABLE + "'");
-        String whereClause = ROW_TYPE + " = ?";
+        String whereClause = ROW_TYPE + " = ? AND " + REPO_PAGEINDEX_COLUMN + " = ?";
         String[] whereArgs = new String[] {
-                type.toString()
+                type.toString(),
+                String.valueOf(pageindex)
         };
 
         return mDb.delete(REPO_TABLE, whereClause, whereArgs) > 0;
     }
 
-    public Cursor getAllRepoWithType(Constant.NewsType type){
+    public Cursor getAllRepo(Constant.NewsType type, int pageindex){
 
-        String whereClause = ROW_TYPE + " = ?";
+        String whereClause = ROW_TYPE + " = ? AND " + REPO_PAGEINDEX_COLUMN + " = ?";
         String[] whereArgs = new String[] {
-                type.toString()
+                type.toString(),
+                String.valueOf(pageindex)
         };
 
         return mDb.query(REPO_TABLE, new String[] {
@@ -183,32 +164,10 @@ public class RepoDbHelper {
                 REPO_HORIZONTALPIC_COLUMN,
                 REPO_CREATIONTIME_COLUMN,
                 REPO_AUTHORTITLE_COLUMN,
-                REPO_REQUESTTIME_COLUMN
+                REPO_REQUESTTIME_COLUMN,
+                REPO_PAGEINDEX_COLUMN
         }, whereClause, whereArgs, null, null, null);
     }
-
-    public Cursor getRepo(long rowIndex) {
-        Cursor res = mDb.query(REPO_TABLE, new String[] {
-                ROW_ID,
-                REPO_ID_COLUMN,
-                REPO_ROWID_COLUMN,
-                REPO_TITLE_COLUMN,
-                REPO_SUMMARY_COLUMN,
-                REPO_AUTHOR_COLUMN,
-                REPO_TYPE_COLUMN,
-                REPO_PIC_COLUMN,
-                REPO_HORIZONTALPIC_COLUMN,
-                REPO_CREATIONTIME_COLUMN,
-                REPO_AUTHORTITLE_COLUMN,
-                REPO_REQUESTTIME_COLUMN
-        }, ROW_ID + " = " + rowIndex, null, null, null, null);
-
-        if(res != null){
-            res.moveToFirst();
-        }
-        return res;
-    }
-
 
     private static class DbHelper extends SQLiteOpenHelper {
         public DbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
