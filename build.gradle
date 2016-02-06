@@ -12,8 +12,7 @@ ext {
             glide               : "3.6.0",
             jsoup               : "1.8.3",
             circleimageview     : "2.0.0",
-            swipebacklayout     : "1.0.0",
-            sqlbrite            : "0.5.1"
+            swipebacklayout     : "1.0.0"
     ]
 }
 

@@ -52,7 +52,6 @@ dependencies {
     compile "com.squareup.retrofit:retrofit:${libs.retrofit}"
     compile "com.squareup.retrofit:converter-gson:${libs.retrofit}"
     compile "com.squareup.retrofit:adapter-rxjava:${libs.retrofit}"
-    compile "com.squareup.sqlbrite:sqlbrite:${libs.sqlbrite}"
 
     // ReactiveX
     compile "io.reactivex:rxjava:${libs.rxjava}"

@@ -81,11 +81,11 @@ public class ListFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initDependencyInjector() {
-        NewsApplication application = (NewsApplication) getActivity().getApplication();
+        NewsApplication avengersApplication = (NewsApplication) getActivity().getApplication();
 
         DaggerNewsListComponent.builder()
                 .activityModule(new ActivityModule(mContext))
-                .appComponent(application.getAppComponent())
+                .appComponent(avengersApplication.getAppComponent())
                 .newsListModule(new NewsListModule(getArguments().getInt("channelId", 0),
                         getArguments().getInt("attributeId", 0)))
                 .build().inject(this);

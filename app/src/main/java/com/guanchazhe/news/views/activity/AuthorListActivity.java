@@ -61,11 +61,11 @@ public class AuthorListActivity extends BaseActivity implements AuthorListView {
     }
 
     private void initDependencyInjector() {
-        NewsApplication application = (NewsApplication) getApplication();
+        NewsApplication avengersApplication = (NewsApplication) getApplication();
 
         DaggerAuthorListComponent.builder()
                 .activityModule(new ActivityModule(this))
-                .appComponent(application.getAppComponent())
+                .appComponent(avengersApplication.getAppComponent())
                 .build().inject(this);
     }
 
